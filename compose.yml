@@ -1,0 +1,72 @@
+services:
+
+  frontend:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - 3000:3000
+    command: sh -c "npm install && npm run dev"
+    environment:
+      NEXT_TELEMETRY_DISABLED: 1
+      NEXT_PUBLIC_BACKEND_URL: http://localhost:1337
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile-dev
+    volumes:
+      - ./backend/config:/opt/app/config
+      - ./backend/src:/opt/app/src
+      - ./backend/package.json:/opt/package.json
+      - ./backend/package-lock.json:/opt/package-lock.json
+      - ./backend/public/uploads:/opt/app/public/uploads
+    ports:
+      - 1337:1337
+      - 5173:5173
+    depends_on:
+      - db
+    environment:
+      APP_KEYS: xoepq5p7pYf54fxUesNd4A==,zaUBGQI7BQGu8d0G/4IfRQ==
+      API_TOKEN_SALT: XQvydTKMC+YhcIbJXNAucA==
+      ADMIN_JWT_SECRET: buuVA4Gr5AB+A5qrfWqOfQ==
+      TRANSFER_TOKEN_SALT: MTosG3VYXGtCE5HXKA1S1Q==
+      JWT_SECRET: jGwqq1jhadk+aAtoKKe9ng==
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: water_footprint
+      DATABASE_USERNAME: akvo
+      DATABASE_PASSWORD: password
+      DATABASE_SSL: false
+
+  db:
+    image: postgres:16-alpine
+    restart: always
+    volumes:
+      - ./db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - pg-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: password
+
+  pgadmin:
+    image: dpage/pgadmin4:8
+    restart: always
+    volumes:
+      - ./pgadmin4/servers.json:/pgadmin4/servers.json
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - 5050:5050
+    depends_on:
+      - db
+    environment:
+      - PGADMIN_LISTEN_PORT=5050
+      - PGADMIN_DEFAULT_EMAIL=dev@akvo.org
+      - PGADMIN_DEFAULT_PASSWORD=password
+
+volumes:
+  pg-data:
+  pgadmin-data:
