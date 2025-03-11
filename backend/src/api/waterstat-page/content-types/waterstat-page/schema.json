@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "waterstat_pages",
+  "info": {
+    "singularName": "waterstat-page",
+    "pluralName": "waterstat-pages",
+    "displayName": "WaterStat Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "waterStatDescription": {
+      "type": "richtext"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "methodology_pages",
+  "info": {
+    "singularName": "methodology-page",
+    "pluralName": "methodology-pages",
+    "displayName": "Methodology Pages",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}

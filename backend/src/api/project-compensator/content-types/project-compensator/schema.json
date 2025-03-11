@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "project_compensators",
+  "info": {
+    "singularName": "project-compensator",
+    "pluralName": "project-compensators",
+    "displayName": "Project Compensator",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "amountFunded": {
+      "type": "biginteger"
+    },
+    "year": {
+      "type": "integer"
+    },
+    "compensator": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::compensator.compensator",
+      "inversedBy": "projectCompensations"
+    },
+    "project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "projectCompensators"
+    }
+  }
+}

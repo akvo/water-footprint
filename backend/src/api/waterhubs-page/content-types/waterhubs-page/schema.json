@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "waterhubs_pages",
+  "info": {
+    "singularName": "waterhubs-page",
+    "pluralName": "waterhubs-pages",
+    "displayName": "WaterHubs Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "waterHubsDescription": {
+      "type": "richtext"
+    }
+  }
+}
