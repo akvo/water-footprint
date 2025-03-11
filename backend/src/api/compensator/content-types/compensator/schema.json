@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "compensators",
+  "info": {
+    "singularName": "compensator",
+    "pluralName": "compensators",
+    "displayName": "Compensators",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "targetPledge": {
+      "type": "biginteger"
+    },
+    "sdgs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sdg.sdg"
+    },
+    "projectCompensations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::project-compensator.project-compensator",
+      "mappedBy": "compensator"
+    },
+    "initialFootprint": {
+      "type": "biginteger"
+    },
+    "avoidedFootprint": {
+      "type": "biginteger"
+    },
+    "updates": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::update.update"
+    }
+  }
+}

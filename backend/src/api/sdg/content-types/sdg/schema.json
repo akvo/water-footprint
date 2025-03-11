@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sdgs",
+  "info": {
+    "singularName": "sdg",
+    "pluralName": "sdgs",
+    "displayName": "SDGs",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "colour": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "icon": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    }
+  }
+}

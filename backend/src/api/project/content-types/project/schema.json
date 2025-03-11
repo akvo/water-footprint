@@ -1,0 +1,87 @@
+{
+  "kind": "collectionType",
+  "collectionName": "projects",
+  "info": {
+    "singularName": "project",
+    "pluralName": "projects",
+    "displayName": "Projects",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "validatingPartner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::partner.partner"
+    },
+    "monitoringReports": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::monitoring-report.monitoring-report"
+    },
+    "implementingPartners": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::partner.partner"
+    },
+    "sdgs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sdg.sdg"
+    },
+    "targetCompensation": {
+      "type": "biginteger",
+      "required": true
+    },
+    "actual_compensation": {
+      "type": "biginteger",
+      "required": true
+    },
+    "startDate": {
+      "type": "date"
+    },
+    "endDate": {
+      "type": "date"
+    },
+    "budget": {
+      "type": "biginteger"
+    },
+    "projectCompensators": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::project-compensator.project-compensator",
+      "mappedBy": "project"
+    },
+    "location": {
+      "type": "string"
+    },
+    "coordinates": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Household & Community"
+      ]
+    },
+    "updates": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::update.update"
+    }
+  }
+}

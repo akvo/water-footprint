@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "monitoring_reports",
+  "info": {
+    "singularName": "monitoring-report",
+    "pluralName": "monitoring-reports",
+    "displayName": "Monitoring Reports",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}
