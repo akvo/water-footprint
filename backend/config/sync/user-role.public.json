@@ -1,0 +1,44 @@
+{
+  "documentId": "rrrsz0to00b8s3h3fkdfi0lz",
+  "name": "Public",
+  "description": "Default role given to unauthenticated user.",
+  "type": "public",
+  "locale": null,
+  "permissions": [
+    {
+      "documentId": "x45ev9yvviaybohk8qqgc0s3",
+      "action": "plugin::users-permissions.auth.callback",
+      "locale": null
+    },
+    {
+      "documentId": "ty6kx9uxqyarb9cpftuxlwqn",
+      "action": "plugin::users-permissions.auth.connect",
+      "locale": null
+    },
+    {
+      "documentId": "ks5i2s1nkkt14961gqns2rvn",
+      "action": "plugin::users-permissions.auth.emailConfirmation",
+      "locale": null
+    },
+    {
+      "documentId": "rpta48skr9820un59ea00alo",
+      "action": "plugin::users-permissions.auth.forgotPassword",
+      "locale": null
+    },
+    {
+      "documentId": "dcr7etpsinbon2s5fk6ggylr",
+      "action": "plugin::users-permissions.auth.register",
+      "locale": null
+    },
+    {
+      "documentId": "pwc2pdbuna5w705cb9ac4j9b",
+      "action": "plugin::users-permissions.auth.resetPassword",
+      "locale": null
+    },
+    {
+      "documentId": "sq6hmk77ur00pqw8b7zzn6bq",
+      "action": "plugin::users-permissions.auth.sendEmailConfirmation",
+      "locale": null
+    }
+  ]
+}
