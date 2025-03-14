@@ -1,12 +1,12 @@
 {
-  "documentId": "dsl0bw6r1rnmurlp49xisrmg",
+  "documentId": "x89t1qywdwmkdbl9756wyqd1",
   "name": "Editor",
   "code": "strapi-editor",
   "description": "Editors can manage and publish contents including those of other users.",
   "locale": null,
   "permissions": [
     {
-      "documentId": "w6tl8ko83xnxsvxbq58h75dd",
+      "documentId": "q6qnwkbq1k8rh4kjh69tpt37",
       "action": "plugin::upload.assets.copy-link",
       "actionParameters": {},
       "subject": null,
@@ -15,7 +15,7 @@
       "locale": null
     },
     {
-      "documentId": "vv6qofrgjzb7bi6sp1mxw3a6",
+      "documentId": "t9i23qupafg0vecrktsy3dz4",
       "action": "plugin::upload.assets.create",
       "actionParameters": {},
       "subject": null,
@@ -24,7 +24,7 @@
       "locale": null
     },
     {
-      "documentId": "hal86imccdn8520f1ormxbmh",
+      "documentId": "jkl1c0vnu146hso8n28b5yc7",
       "action": "plugin::upload.assets.download",
       "actionParameters": {},
       "subject": null,
@@ -33,7 +33,7 @@
       "locale": null
     },
     {
-      "documentId": "lovt8oa3kfy4yz9hmgn0i7tw",
+      "documentId": "j9gjw4y4ocqmd9ak9yydhvgr",
       "action": "plugin::upload.assets.update",
       "actionParameters": {},
       "subject": null,
@@ -42,7 +42,7 @@
       "locale": null
     },
     {
-      "documentId": "shflqx30sr2psht5ivz6gi0r",
+      "documentId": "wch0xvozi63z0daz13wogq79",
       "action": "plugin::upload.configure-view",
       "actionParameters": {},
       "subject": null,
@@ -51,7 +51,7 @@
       "locale": null
     },
     {
-      "documentId": "bt334iv7bfpqj29vfqr9ytet",
+      "documentId": "qh1e7uey6oa061zwcwlu5o91",
       "action": "plugin::upload.read",
       "actionParameters": {},
       "subject": null,

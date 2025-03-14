@@ -1,0 +1,252 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::compensator.compensator",
+  "value": {
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "name",
+      "defaultSortBy": "name",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "name": {
+        "edit": {
+          "label": "name",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "name",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "targetPledge": {
+        "edit": {
+          "label": "targetPledge",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "targetPledge",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "sdgs": {
+        "edit": {
+          "label": "sdgs",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "sdgs",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "projectCompensations": {
+        "edit": {
+          "label": "projectCompensations",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "id"
+        },
+        "list": {
+          "label": "projectCompensations",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "initialFootprint": {
+        "edit": {
+          "label": "initialFootprint",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "initialFootprint",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "avoidedFootprint": {
+        "edit": {
+          "label": "avoidedFootprint",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "avoidedFootprint",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updates": {
+        "edit": {
+          "label": "updates",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "updates",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "description": {
+        "edit": {
+          "label": "description",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "description",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "createdAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "createdAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "updatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "updatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdBy": {
+        "edit": {
+          "label": "createdBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "createdBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedBy": {
+        "edit": {
+          "label": "updatedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "updatedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "name",
+        "targetPledge"
+      ],
+      "edit": [
+        [
+          {
+            "name": "name",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "targetPledge",
+            "size": 4
+          },
+          {
+            "name": "sdgs",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "projectCompensations",
+            "size": 6
+          },
+          {
+            "name": "initialFootprint",
+            "size": 4
+          }
+        ],
+        [
+          {
+            "name": "avoidedFootprint",
+            "size": 4
+          },
+          {
+            "name": "updates",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "description",
+            "size": 12
+          }
+        ]
+      ]
+    },
+    "uid": "api::compensator.compensator"
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

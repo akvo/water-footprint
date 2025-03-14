@@ -1,0 +1,425 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::project.project",
+  "value": {
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "name",
+      "defaultSortBy": "name",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "name": {
+        "edit": {
+          "label": "name",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "name",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "validatingPartner": {
+        "edit": {
+          "label": "validatingPartner",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "validatingPartner",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "monitoringReports": {
+        "edit": {
+          "label": "monitoringReports",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "monitoringReports",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "implementingPartners": {
+        "edit": {
+          "label": "implementingPartners",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "implementingPartners",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "sdgs": {
+        "edit": {
+          "label": "sdgs",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "sdgs",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "targetCompensation": {
+        "edit": {
+          "label": "targetCompensation",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "targetCompensation",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "actual_compensation": {
+        "edit": {
+          "label": "actual_compensation",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "actual_compensation",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "startDate": {
+        "edit": {
+          "label": "startDate",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "startDate",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "endDate": {
+        "edit": {
+          "label": "endDate",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "endDate",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "budget": {
+        "edit": {
+          "label": "budget",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "budget",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "projectCompensators": {
+        "edit": {
+          "label": "projectCompensators",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "id"
+        },
+        "list": {
+          "label": "projectCompensators",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "location": {
+        "edit": {
+          "label": "location",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "location",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "coordinates": {
+        "edit": {
+          "label": "coordinates",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "coordinates",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "country": {
+        "edit": {
+          "label": "country",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "country",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "type": {
+        "edit": {
+          "label": "type",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "type",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updates": {
+        "edit": {
+          "label": "updates",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "updates",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "description": {
+        "edit": {
+          "label": "description",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "description",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "createdAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "createdAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "updatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "updatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdBy": {
+        "edit": {
+          "label": "createdBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "createdBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedBy": {
+        "edit": {
+          "label": "updatedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "updatedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "name",
+        "validatingPartner"
+      ],
+      "edit": [
+        [
+          {
+            "name": "name",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "validatingPartner",
+            "size": 6
+          },
+          {
+            "name": "monitoringReports",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "implementingPartners",
+            "size": 6
+          },
+          {
+            "name": "sdgs",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "targetCompensation",
+            "size": 4
+          },
+          {
+            "name": "actual_compensation",
+            "size": 4
+          },
+          {
+            "name": "startDate",
+            "size": 4
+          }
+        ],
+        [
+          {
+            "name": "endDate",
+            "size": 4
+          },
+          {
+            "name": "budget",
+            "size": 4
+          }
+        ],
+        [
+          {
+            "name": "projectCompensators",
+            "size": 6
+          },
+          {
+            "name": "location",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "coordinates",
+            "size": 6
+          },
+          {
+            "name": "country",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "type",
+            "size": 6
+          },
+          {
+            "name": "updates",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "description",
+            "size": 12
+          }
+        ]
+      ]
+    },
+    "uid": "api::project.project"
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}
