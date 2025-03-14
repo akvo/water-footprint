@@ -137,9 +137,9 @@
     "layouts": {
       "list": [
         "id",
-        "createdAt",
-        "updatedAt",
-        "title"
+        "title",
+        "image",
+        "featured"
       ],
       "edit": [
         [

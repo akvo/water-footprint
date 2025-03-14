@@ -19,21 +19,6 @@
           "sortable": true
         }
       },
-      "project": {
-        "edit": {
-          "label": "project",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "project",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "amountFunded": {
         "edit": {
           "label": "amountFunded",
@@ -73,6 +58,21 @@
         },
         "list": {
           "label": "compensator",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "project": {
+        "edit": {
+          "label": "project",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "project",
           "searchable": true,
           "sortable": true
         }
@@ -139,21 +139,11 @@
     "layouts": {
       "list": [
         "id",
-        "compensator",
-        "createdAt",
-        "updatedAt"
+        "amountFunded",
+        "year",
+        "compensator"
       ],
       "edit": [
-        [
-          {
-            "name": "compensator",
-            "size": 6
-          },
-          {
-            "name": "project",
-            "size": 6
-          }
-        ],
         [
           {
             "name": "amountFunded",
@@ -162,6 +152,16 @@
           {
             "name": "year",
             "size": 4
+          }
+        ],
+        [
+          {
+            "name": "compensator",
+            "size": 6
+          },
+          {
+            "name": "project",
+            "size": 6
           }
         ]
       ]

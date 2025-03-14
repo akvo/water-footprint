@@ -22,7 +22,7 @@
     "link": {
       "type": "string"
     },
-    "projectPartner": {
+    "platformPartner": {
       "type": "boolean",
       "default": false
     }

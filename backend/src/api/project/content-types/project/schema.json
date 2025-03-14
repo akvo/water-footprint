@@ -16,10 +16,6 @@
       "unique": true,
       "required": true
     },
-    "description": {
-      "type": "text",
-      "required": true
-    },
     "validatingPartner": {
       "type": "relation",
       "relation": "oneToOne",
@@ -82,6 +78,10 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::update.update"
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
     }
   }
 }

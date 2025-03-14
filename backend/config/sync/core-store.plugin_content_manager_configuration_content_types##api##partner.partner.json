@@ -61,16 +61,16 @@
           "sortable": true
         }
       },
-      "projectPartner": {
+      "platformPartner": {
         "edit": {
-          "label": "projectPartner",
+          "label": "platformPartner",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "projectPartner",
+          "label": "platformPartner",
           "searchable": true,
           "sortable": true
         }
@@ -158,7 +158,7 @@
             "size": 6
           },
           {
-            "name": "projectPartner",
+            "name": "platformPartner",
             "size": 4
           }
         ]

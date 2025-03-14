@@ -33,20 +33,6 @@
           "sortable": true
         }
       },
-      "description": {
-        "edit": {
-          "label": "description",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "description",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "validatingPartner": {
         "edit": {
           "label": "validatingPartner",
@@ -263,6 +249,20 @@
           "sortable": false
         }
       },
+      "description": {
+        "edit": {
+          "label": "description",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "description",
+          "searchable": false,
+          "sortable": false
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -325,52 +325,13 @@
     "layouts": {
       "list": [
         "id",
-        "createdAt",
         "name",
-        "description"
+        "validatingPartner"
       ],
       "edit": [
         [
           {
-            "name": "sdgs",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "actual_compensation",
-            "size": 4
-          }
-        ],
-        [
-          {
-            "name": "budget",
-            "size": 4
-          }
-        ],
-        [
-          {
-            "name": "country",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "type",
-            "size": 6
-          },
-          {
-            "name": "updates",
-            "size": 6
-          }
-        ],
-        [
-          {
             "name": "name",
-            "size": 6
-          },
-          {
-            "name": "description",
             "size": 6
           }
         ],
@@ -390,17 +351,31 @@
             "size": 6
           },
           {
+            "name": "sdgs",
+            "size": 6
+          }
+        ],
+        [
+          {
             "name": "targetCompensation",
+            "size": 4
+          },
+          {
+            "name": "actual_compensation",
+            "size": 4
+          },
+          {
+            "name": "startDate",
             "size": 4
           }
         ],
         [
           {
-            "name": "startDate",
+            "name": "endDate",
             "size": 4
           },
           {
-            "name": "endDate",
+            "name": "budget",
             "size": 4
           }
         ],
@@ -418,6 +393,26 @@
           {
             "name": "coordinates",
             "size": 6
+          },
+          {
+            "name": "country",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "type",
+            "size": 6
+          },
+          {
+            "name": "updates",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "description",
+            "size": 12
           }
         ]
       ]

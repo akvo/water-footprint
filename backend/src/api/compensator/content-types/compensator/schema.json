@@ -16,10 +16,6 @@
       "unique": true,
       "required": true
     },
-    "description": {
-      "type": "text",
-      "required": true
-    },
     "targetPledge": {
       "type": "biginteger"
     },
@@ -44,6 +40,10 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::update.update"
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
     }
   }
 }
