@@ -39,6 +39,7 @@ services:
     restart: unless-stopped
     ports:
       - 80:80
+      - 443:443
     environment:
       - TRAEFIK_PROVIDERS_FILE_FILENAME=/traefik-config/dynamic.yml
       - TRAEFIK_PROVIDERS_FILE_WATCH=true

@@ -27,6 +27,7 @@ http:
       entrypoints: web
       middlewares:
         - redirect-to-https
+        - cms-stripprefix
 
     backend-service-router-443:
       entrypoints:
@@ -35,6 +36,8 @@ http:
       service: backend-service
       tls:
         certResolver: myresolver
+      middlewares:
+        - cms-stripprefix
 
 
   middlewares:
@@ -42,6 +45,10 @@ http:
       redirectScheme:
         scheme: "https"
         permanent: true
+    cms-stripprefix:
+      stripPrefix:
+        prefixes:
+          - "/cms"
 
 
   services:
