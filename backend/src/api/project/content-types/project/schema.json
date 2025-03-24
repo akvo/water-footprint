@@ -40,7 +40,7 @@
       "type": "biginteger",
       "required": true
     },
-    "actual_compensation": {
+    "actualCompensation": {
       "type": "biginteger",
       "required": true
     },
@@ -81,6 +81,17 @@
     },
     "description": {
       "type": "richtext",
+      "required": true
+    },
+    "projectImage": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false,
       "required": true
     }
   }

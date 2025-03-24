@@ -77,6 +77,20 @@
           "sortable": true
         }
       },
+      "capsFunded": {
+        "edit": {
+          "label": "capsFunded",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "capsFunded",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -162,6 +176,12 @@
           {
             "name": "project",
             "size": 6
+          }
+        ],
+        [
+          {
+            "name": "capsFunded",
+            "size": 4
           }
         ]
       ]

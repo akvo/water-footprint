@@ -6,7 +6,7 @@
   "locale": null,
   "permissions": [
     {
-      "documentId": "f0p43spnu7jlexfisl5xatpb",
+      "documentId": "ev4h6lavd2foc8wrasu9kjrw",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::compensator.compensator",
@@ -26,7 +26,7 @@
       "locale": null
     },
     {
-      "documentId": "rbrwe3ma69opz8b6c2kb2ai2",
+      "documentId": "hmjfcw5bywb9r304jwqcwbiw",
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
       "subject": "api::compensator.compensator",
@@ -35,7 +35,7 @@
       "locale": null
     },
     {
-      "documentId": "j32d9xwb3p90lh94ft8o5rfl",
+      "documentId": "cqfxf4h4ycz95tdvxzh7pr5i",
       "action": "plugin::content-manager.explorer.publish",
       "actionParameters": {},
       "subject": "api::compensator.compensator",
@@ -44,28 +44,8 @@
       "locale": null
     },
     {
-      "documentId": "epejjh4su4twu806z5utx1r6",
+      "documentId": "dbritr380iaw3330rzort3k8",
       "action": "plugin::content-manager.explorer.read",
-      "actionParameters": {},
-      "subject": "api::compensator.compensator",
-      "properties": {
-        "fields": [
-          "name",
-          "targetPledge",
-          "sdgs",
-          "projectCompensations",
-          "initialFootprint",
-          "avoidedFootprint",
-          "updates",
-          "description"
-        ]
-      },
-      "conditions": [],
-      "locale": null
-    },
-    {
-      "documentId": "r74a8fojrafrr4jaiigw77i0",
-      "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::compensator.compensator",
       "properties": {
@@ -84,7 +64,27 @@
       "locale": null
     },
     {
-      "documentId": "zi5lkznpv57huqykeeu9sfzy",
+      "documentId": "u4vn4vbnanfwktqlixmljcxe",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::compensator.compensator",
+      "properties": {
+        "fields": [
+          "name",
+          "targetPledge",
+          "sdgs",
+          "projectCompensations",
+          "initialFootprint",
+          "avoidedFootprint",
+          "updates",
+          "description"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "v13b5jqupv20sdgc2ubw01k8",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::homepage.homepage",
@@ -98,7 +98,7 @@
       "locale": null
     },
     {
-      "documentId": "nf7ftwsdzm8t2xcvscue6dj6",
+      "documentId": "s5p675osnbz5o7w8igyuucwm",
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
       "subject": "api::homepage.homepage",
@@ -107,7 +107,7 @@
       "locale": null
     },
     {
-      "documentId": "za196sas5rdbnb6pweko882s",
+      "documentId": "vfxxau7aphgy1xeaiqmscj0z",
       "action": "plugin::content-manager.explorer.publish",
       "actionParameters": {},
       "subject": "api::homepage.homepage",
@@ -116,7 +116,7 @@
       "locale": null
     },
     {
-      "documentId": "tl0sxke19gqpcowc9dqttknw",
+      "documentId": "cwnlokngicejwulwise9hd7z",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::homepage.homepage",
@@ -130,7 +130,7 @@
       "locale": null
     },
     {
-      "documentId": "hamaki0jhbqu98q44si50b9d",
+      "documentId": "asmu4ajf4002lq9b2mdmbljg",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::homepage.homepage",
@@ -144,7 +144,7 @@
       "locale": null
     },
     {
-      "documentId": "rwtlvsxdr43dgghstnewqwsa",
+      "documentId": "y0dirgkw33u3y6pui707ce96",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::interactive-tours-page.interactive-tours-page",
@@ -158,7 +158,7 @@
       "locale": null
     },
     {
-      "documentId": "n4wtunypcd4fioa4oz4yrphj",
+      "documentId": "d8ygk5xhn0a84xbn2r929fug",
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
       "subject": "api::interactive-tours-page.interactive-tours-page",
@@ -167,7 +167,7 @@
       "locale": null
     },
     {
-      "documentId": "h7x47lxnvnsaqco8fmp6f7le",
+      "documentId": "wun6jtig7965c1vjvikmpxxh",
       "action": "plugin::content-manager.explorer.publish",
       "actionParameters": {},
       "subject": "api::interactive-tours-page.interactive-tours-page",
@@ -176,7 +176,7 @@
       "locale": null
     },
     {
-      "documentId": "u5xczwvx0dppylb6k2afvuwr",
+      "documentId": "quozjgnkakhi75fdhbxyw8f4",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::interactive-tours-page.interactive-tours-page",
@@ -190,7 +190,7 @@
       "locale": null
     },
     {
-      "documentId": "mls9atnxydmdfamqhhhgfs5j",
+      "documentId": "najhhecjgm78hf6cba568rdo",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::interactive-tours-page.interactive-tours-page",
@@ -204,7 +204,7 @@
       "locale": null
     },
     {
-      "documentId": "i7xnwvkm82d19ctm90aop10a",
+      "documentId": "xowh9fiy1ql4slupwxeq7prb",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::methodology-page.methodology-page",
@@ -218,7 +218,7 @@
       "locale": null
     },
     {
-      "documentId": "w1ja71g658aip8f99a76iwu9",
+      "documentId": "d5bkv2ggrtwf00971ibz7kzb",
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
       "subject": "api::methodology-page.methodology-page",
@@ -227,7 +227,7 @@
       "locale": null
     },
     {
-      "documentId": "tsn3rp4ndpgemalvejpd0dki",
+      "documentId": "f85uxtdqopdmd3jkboyqlj93",
       "action": "plugin::content-manager.explorer.publish",
       "actionParameters": {},
       "subject": "api::methodology-page.methodology-page",
@@ -236,7 +236,7 @@
       "locale": null
     },
     {
-      "documentId": "m4tkg686nhtfylp67ohsnha4",
+      "documentId": "m06d637ibyk919wczu2scm65",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::methodology-page.methodology-page",
@@ -250,7 +250,7 @@
       "locale": null
     },
     {
-      "documentId": "suazna7pbf9ut9vsuc33p0gv",
+      "documentId": "uwp5r1kq6at61z9teiwvqtfz",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::methodology-page.methodology-page",
@@ -264,7 +264,7 @@
       "locale": null
     },
     {
-      "documentId": "cyw57b7adu3jrzac69x3ygbu",
+      "documentId": "emwb02n8e4vseui1o04cp23w",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::monitoring-report.monitoring-report",
@@ -278,7 +278,7 @@
       "locale": null
     },
     {
-      "documentId": "cevq8zkb1hem0apngk7uvzh6",
+      "documentId": "j2kahk7ivzvkx40yyf9ypef2",
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
       "subject": "api::monitoring-report.monitoring-report",
@@ -287,7 +287,7 @@
       "locale": null
     },
     {
-      "documentId": "ig7i3hva3dxlfbo2bdtpb8ln",
+      "documentId": "xoh024t5iwmzhvh00vpbk79r",
       "action": "plugin::content-manager.explorer.publish",
       "actionParameters": {},
       "subject": "api::monitoring-report.monitoring-report",
@@ -296,7 +296,7 @@
       "locale": null
     },
     {
-      "documentId": "ai9dpv4j6pyar3spbiwboyyp",
+      "documentId": "i5uq7gkasn9hjnc56n3wvhkw",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::monitoring-report.monitoring-report",
@@ -310,7 +310,7 @@
       "locale": null
     },
     {
-      "documentId": "wio6x7nkxzqwe777uh1pmu82",
+      "documentId": "kbiouew5nodfeief3fsq9kcd",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::monitoring-report.monitoring-report",
@@ -324,7 +324,7 @@
       "locale": null
     },
     {
-      "documentId": "k9zkwxfo6mxz4hdybl4echu1",
+      "documentId": "giz2ks8aj7n8gskfbs9obhtk",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::partner.partner",
@@ -340,7 +340,7 @@
       "locale": null
     },
     {
-      "documentId": "tj976p03hxjmgy7uz31wzemi",
+      "documentId": "zh9wt1rz8c5xtvhk5jcoi96h",
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
       "subject": "api::partner.partner",
@@ -349,7 +349,7 @@
       "locale": null
     },
     {
-      "documentId": "e97q63yzlq4jwspslytnc97s",
+      "documentId": "giyach35ve5teo8un4jdbmb7",
       "action": "plugin::content-manager.explorer.publish",
       "actionParameters": {},
       "subject": "api::partner.partner",
@@ -358,24 +358,8 @@
       "locale": null
     },
     {
-      "documentId": "becdgmkpvkugale3yjeieyn3",
+      "documentId": "jgu5nblor2w34tpnxyigsp28",
       "action": "plugin::content-manager.explorer.read",
-      "actionParameters": {},
-      "subject": "api::partner.partner",
-      "properties": {
-        "fields": [
-          "name",
-          "description",
-          "link",
-          "platformPartner"
-        ]
-      },
-      "conditions": [],
-      "locale": null
-    },
-    {
-      "documentId": "u44q810t17rxw5u50oaye1oe",
-      "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::partner.partner",
       "properties": {
@@ -390,7 +374,23 @@
       "locale": null
     },
     {
-      "documentId": "rqk08mr90endpcl71zm12vws",
+      "documentId": "utcei7smfphcuv6yx9f06fcn",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::partner.partner",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "link",
+          "platformPartner"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "qby2cqje47cbeyznuop3s156",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::project-compensator.project-compensator",
@@ -399,14 +399,15 @@
           "amountFunded",
           "year",
           "compensator",
-          "project"
+          "project",
+          "capsFunded"
         ]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "k3vhvihoc3yjthaeo7bbmbxg",
+      "documentId": "iaun09ct7tt5q6rq2hyc9pf3",
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
       "subject": "api::project-compensator.project-compensator",
@@ -415,7 +416,7 @@
       "locale": null
     },
     {
-      "documentId": "ng9adhsnjnft9w71jmix2a3f",
+      "documentId": "w395jhmfdys6onvwkvgfohf9",
       "action": "plugin::content-manager.explorer.publish",
       "actionParameters": {},
       "subject": "api::project-compensator.project-compensator",
@@ -424,7 +425,7 @@
       "locale": null
     },
     {
-      "documentId": "aj4ksxmvk3csuafl748ko1f6",
+      "documentId": "l49z4tg0eurvfs2wvna9qg26",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::project-compensator.project-compensator",
@@ -433,14 +434,15 @@
           "amountFunded",
           "year",
           "compensator",
-          "project"
+          "project",
+          "capsFunded"
         ]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "jelnl67ki21pkfxi0h8u7t0a",
+      "documentId": "jkqvryn4i2zx5ifaj28wk33c",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::project-compensator.project-compensator",
@@ -449,14 +451,15 @@
           "amountFunded",
           "year",
           "compensator",
-          "project"
+          "project",
+          "capsFunded"
         ]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "n0tokynt8rvcakrg9vl4p8o2",
+      "documentId": "iwfftxz1o4ggv3boeytzpjco",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -468,7 +471,7 @@
           "implementingPartners",
           "sdgs",
           "targetCompensation",
-          "actual_compensation",
+          "actualCompensation",
           "startDate",
           "endDate",
           "budget",
@@ -478,14 +481,15 @@
           "country",
           "type",
           "updates",
-          "description"
+          "description",
+          "projectImage"
         ]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "adz5g4p7tsilh71da870qnfc",
+      "documentId": "bh8w95z7oipzfwgfpu7pm4w4",
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -494,7 +498,7 @@
       "locale": null
     },
     {
-      "documentId": "w7epzw1mls5096bvi2n514uh",
+      "documentId": "nea5lyathv2kcvkbh9sqmzr4",
       "action": "plugin::content-manager.explorer.publish",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -503,7 +507,7 @@
       "locale": null
     },
     {
-      "documentId": "kmrc9eyj580iu0hc6e67xgwg",
+      "documentId": "k90umlsxforzrnil40yefpc6",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -515,7 +519,7 @@
           "implementingPartners",
           "sdgs",
           "targetCompensation",
-          "actual_compensation",
+          "actualCompensation",
           "startDate",
           "endDate",
           "budget",
@@ -525,14 +529,15 @@
           "country",
           "type",
           "updates",
-          "description"
+          "description",
+          "projectImage"
         ]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "reqtbtjy08qczpfrmo9qir1s",
+      "documentId": "ushbykkvs7zz7r4g90pbfvej",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -544,7 +549,7 @@
           "implementingPartners",
           "sdgs",
           "targetCompensation",
-          "actual_compensation",
+          "actualCompensation",
           "startDate",
           "endDate",
           "budget",
@@ -554,14 +559,15 @@
           "country",
           "type",
           "updates",
-          "description"
+          "description",
+          "projectImage"
         ]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "jwjtrzmpkuag6yvfgx3fmrkf",
+      "documentId": "stc3ixs9uhd47hkfv5d9hkxg",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::sdg.sdg",
@@ -576,7 +582,7 @@
       "locale": null
     },
     {
-      "documentId": "wwgkwjne85jo6xy8x0khdyrx",
+      "documentId": "pw1vm0anu3hi053h2pt91dej",
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
       "subject": "api::sdg.sdg",
@@ -585,7 +591,7 @@
       "locale": null
     },
     {
-      "documentId": "v2t2ls8rd3zvo7611op74b1t",
+      "documentId": "uq9f2zv42yhkf1agr7dwh2vk",
       "action": "plugin::content-manager.explorer.publish",
       "actionParameters": {},
       "subject": "api::sdg.sdg",
@@ -594,7 +600,7 @@
       "locale": null
     },
     {
-      "documentId": "wdkuzzm9abj0904cyzgtf7sq",
+      "documentId": "i4uvc71umps89yy5pku2sh95",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::sdg.sdg",
@@ -609,7 +615,7 @@
       "locale": null
     },
     {
-      "documentId": "fw4cn6n4duvmdni2eihjlu39",
+      "documentId": "zdaani92x0w1fgrqrqzro6bo",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::sdg.sdg",
@@ -624,7 +630,7 @@
       "locale": null
     },
     {
-      "documentId": "a4koh0k3pdrnmj23ic7urcld",
+      "documentId": "ag0ppems3ggzhjfl75rx8zbi",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::update.update",
@@ -640,7 +646,7 @@
       "locale": null
     },
     {
-      "documentId": "mh4im0uqjqjnkr9hqjytbhp8",
+      "documentId": "f727tuw6l9kelv9f0iegit4v",
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
       "subject": "api::update.update",
@@ -649,7 +655,7 @@
       "locale": null
     },
     {
-      "documentId": "r9gmjmv9po5nyrai3813h85m",
+      "documentId": "ysgt81fryc6sgc9hdg7cupa1",
       "action": "plugin::content-manager.explorer.publish",
       "actionParameters": {},
       "subject": "api::update.update",
@@ -658,7 +664,7 @@
       "locale": null
     },
     {
-      "documentId": "i72q5iat5wqbdfb3acus0l0b",
+      "documentId": "asznbvo5j8k947hsbmtrte58",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::update.update",
@@ -674,7 +680,7 @@
       "locale": null
     },
     {
-      "documentId": "v0lyyl7ugo7cawhaabnm98bg",
+      "documentId": "fhj3bftafcscsu6dkmzgxajw",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::update.update",
@@ -690,7 +696,7 @@
       "locale": null
     },
     {
-      "documentId": "bmxvhx172huud6zaxgxdz7el",
+      "documentId": "r53osl5p3ukdu7pg4615mj3u",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::waterhubs-page.waterhubs-page",
@@ -704,7 +710,7 @@
       "locale": null
     },
     {
-      "documentId": "mikx5cpac0p1ak9j53u0lgsg",
+      "documentId": "tjzckq5ypjjb2ck1b2ios5ea",
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
       "subject": "api::waterhubs-page.waterhubs-page",
@@ -713,7 +719,7 @@
       "locale": null
     },
     {
-      "documentId": "pfmatkbv0gllwvcq65d8anpp",
+      "documentId": "zcwllw1h69ocjmphdo8td9cm",
       "action": "plugin::content-manager.explorer.publish",
       "actionParameters": {},
       "subject": "api::waterhubs-page.waterhubs-page",
@@ -722,7 +728,7 @@
       "locale": null
     },
     {
-      "documentId": "m9ra3wl9xm2zlo4wsg5dp853",
+      "documentId": "qgur124bzzm36amgor64fi9d",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::waterhubs-page.waterhubs-page",
@@ -736,7 +742,7 @@
       "locale": null
     },
     {
-      "documentId": "hsokbwjg6oirsvm626fzm16y",
+      "documentId": "jjw9ggbz3fa5pmifbhssjzzq",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::waterhubs-page.waterhubs-page",
@@ -750,7 +756,7 @@
       "locale": null
     },
     {
-      "documentId": "rs2zqc8tsmup0oro7oy970w1",
+      "documentId": "d799ggrxtiywqerlosxj0uld",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::waterstat-page.waterstat-page",
@@ -764,7 +770,7 @@
       "locale": null
     },
     {
-      "documentId": "ha8mnp5f5powgl7kkp2mh5dp",
+      "documentId": "plsev9h0sy9z894060b72ld8",
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
       "subject": "api::waterstat-page.waterstat-page",
@@ -773,7 +779,7 @@
       "locale": null
     },
     {
-      "documentId": "t2ww4mrkmeuw0eaf5uinbcdr",
+      "documentId": "f7slr4a8lih2v1krbgemp2sj",
       "action": "plugin::content-manager.explorer.publish",
       "actionParameters": {},
       "subject": "api::waterstat-page.waterstat-page",
@@ -782,7 +788,7 @@
       "locale": null
     },
     {
-      "documentId": "s15jkdfr0c0a4uuuvycfuzca",
+      "documentId": "g656jptoj6d55k37m0vju75g",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::waterstat-page.waterstat-page",
@@ -796,7 +802,7 @@
       "locale": null
     },
     {
-      "documentId": "fcgxvf9ltwfgtnu8ft4pw2wp",
+      "documentId": "ephn85qsjnzex2xsymuympeq",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::waterstat-page.waterstat-page",

@@ -107,16 +107,16 @@
           "sortable": true
         }
       },
-      "actual_compensation": {
+      "actualCompensation": {
         "edit": {
-          "label": "actual_compensation",
+          "label": "actualCompensation",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "actual_compensation",
+          "label": "actualCompensation",
           "searchable": true,
           "sortable": true
         }
@@ -263,6 +263,20 @@
           "sortable": false
         }
       },
+      "projectImage": {
+        "edit": {
+          "label": "projectImage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "projectImage",
+          "searchable": false,
+          "sortable": false
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -326,84 +340,81 @@
       "list": [
         "id",
         "name",
-        "validatingPartner"
+        "validatingPartner",
+        "monitoringReports"
       ],
       "edit": [
         [
           {
             "name": "name",
             "size": 6
-          }
-        ],
-        [
+          },
           {
             "name": "validatingPartner",
             "size": 6
-          },
+          }
+        ],
+        [
           {
             "name": "monitoringReports",
             "size": 6
-          }
-        ],
-        [
+          },
           {
             "name": "implementingPartners",
             "size": 6
-          },
+          }
+        ],
+        [
           {
             "name": "sdgs",
             "size": 6
-          }
-        ],
-        [
+          },
           {
             "name": "targetCompensation",
             "size": 4
-          },
-          {
-            "name": "actual_compensation",
-            "size": 4
-          },
+          }
+        ],
+        [
           {
             "name": "startDate",
             "size": 4
-          }
-        ],
-        [
+          },
           {
             "name": "endDate",
             "size": 4
-          },
+          }
+        ],
+        [
           {
             "name": "budget",
             "size": 4
-          }
-        ],
-        [
+          },
           {
             "name": "projectCompensators",
             "size": 6
-          },
+          }
+        ],
+        [
           {
             "name": "location",
             "size": 6
-          }
-        ],
-        [
+          },
           {
             "name": "coordinates",
             "size": 6
-          },
-          {
-            "name": "country",
-            "size": 6
           }
         ],
         [
           {
-            "name": "type",
+            "name": "country",
             "size": 6
           },
+          {
+            "name": "type",
+            "size": 6
+          }
+        ],
+        [
           {
             "name": "updates",
             "size": 6
@@ -413,6 +424,16 @@
           {
             "name": "description",
             "size": 12
+          }
+        ],
+        [
+          {
+            "name": "actualCompensation",
+            "size": 4
+          },
+          {
+            "name": "projectImage",
+            "size": 6
           }
         ]
       ]

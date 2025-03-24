@@ -197,40 +197,41 @@
       "list": [
         "id",
         "name",
-        "targetPledge"
+        "targetPledge",
+        "sdgs"
       ],
       "edit": [
         [
           {
             "name": "name",
             "size": 6
-          }
-        ],
-        [
+          },
           {
             "name": "targetPledge",
             "size": 4
-          },
+          }
+        ],
+        [
           {
             "name": "sdgs",
             "size": 6
-          }
-        ],
-        [
+          },
           {
             "name": "projectCompensations",
             "size": 6
-          },
-          {
-            "name": "initialFootprint",
-            "size": 4
           }
         ],
         [
           {
-            "name": "avoidedFootprint",
+            "name": "initialFootprint",
             "size": 4
           },
+          {
+            "name": "avoidedFootprint",
+            "size": 4
+          }
+        ],
+        [
           {
             "name": "updates",
             "size": 6
