@@ -33,16 +33,16 @@
           "sortable": true
         }
       },
-      "targetPledge": {
+      "targetPledgeCaps": {
         "edit": {
-          "label": "targetPledge",
+          "label": "targetPledgeCaps",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "targetPledge",
+          "label": "targetPledgeCaps",
           "searchable": true,
           "sortable": true
         }
@@ -77,32 +77,18 @@
           "sortable": false
         }
       },
-      "initialFootprint": {
+      "description": {
         "edit": {
-          "label": "initialFootprint",
+          "label": "description",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "initialFootprint",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "avoidedFootprint": {
-        "edit": {
-          "label": "avoidedFootprint",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "avoidedFootprint",
-          "searchable": true,
-          "sortable": true
+          "label": "description",
+          "searchable": false,
+          "sortable": false
         }
       },
       "updates": {
@@ -120,16 +106,30 @@
           "sortable": false
         }
       },
-      "description": {
+      "compensationProgressDescription": {
         "edit": {
-          "label": "description",
+          "label": "compensationProgressDescription",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "description",
+          "label": "compensationProgressDescription",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "compensationProgressImage": {
+        "edit": {
+          "label": "compensationProgressImage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "compensationProgressImage",
           "searchable": false,
           "sortable": false
         }
@@ -197,18 +197,14 @@
       "list": [
         "id",
         "name",
-        "targetPledge",
-        "sdgs"
+        "sdgs",
+        "targetPledgeCaps"
       ],
       "edit": [
         [
           {
             "name": "name",
             "size": 6
-          },
-          {
-            "name": "targetPledge",
-            "size": 4
           }
         ],
         [
@@ -223,24 +219,30 @@
         ],
         [
           {
-            "name": "initialFootprint",
-            "size": 4
-          },
-          {
-            "name": "avoidedFootprint",
-            "size": 4
+            "name": "description",
+            "size": 12
           }
         ],
         [
           {
             "name": "updates",
             "size": 6
+          },
+          {
+            "name": "targetPledgeCaps",
+            "size": 4
           }
         ],
         [
           {
-            "name": "description",
+            "name": "compensationProgressDescription",
             "size": 12
+          }
+        ],
+        [
+          {
+            "name": "compensationProgressImage",
+            "size": 6
           }
         ]
       ]

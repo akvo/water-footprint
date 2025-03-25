@@ -234,21 +234,6 @@
           "sortable": true
         }
       },
-      "updates": {
-        "edit": {
-          "label": "updates",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "title"
-        },
-        "list": {
-          "label": "updates",
-          "searchable": false,
-          "sortable": false
-        }
-      },
       "description": {
         "edit": {
           "label": "description",
@@ -273,6 +258,35 @@
         },
         "list": {
           "label": "projectImage",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "catchmentBasin": {
+        "edit": {
+          "label": "catchmentBasin",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "catchmentBasin",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updates": {
+        "edit": {
+          "label": "updates",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "updates",
           "searchable": false,
           "sortable": false
         }
@@ -416,12 +430,6 @@
         ],
         [
           {
-            "name": "updates",
-            "size": 6
-          }
-        ],
-        [
-          {
             "name": "description",
             "size": 12
           }
@@ -433,6 +441,16 @@
           },
           {
             "name": "projectImage",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "catchmentBasin",
+            "size": 6
+          },
+          {
+            "name": "updates",
             "size": 6
           }
         ]

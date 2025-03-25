@@ -6,20 +6,20 @@
   "locale": null,
   "permissions": [
     {
-      "documentId": "ev4h6lavd2foc8wrasu9kjrw",
+      "documentId": "y4s2pyauysma6k3ymyi388es",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::compensator.compensator",
       "properties": {
         "fields": [
           "name",
-          "targetPledge",
+          "targetPledgeCaps",
           "sdgs",
           "projectCompensations",
-          "initialFootprint",
-          "avoidedFootprint",
+          "description",
           "updates",
-          "description"
+          "compensationProgressDescription",
+          "compensationProgressImage"
         ]
       },
       "conditions": [],
@@ -44,40 +44,40 @@
       "locale": null
     },
     {
-      "documentId": "dbritr380iaw3330rzort3k8",
+      "documentId": "y4y3g481t5bohefl5c7t7hkj",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::compensator.compensator",
       "properties": {
         "fields": [
           "name",
-          "targetPledge",
+          "targetPledgeCaps",
           "sdgs",
           "projectCompensations",
-          "initialFootprint",
-          "avoidedFootprint",
+          "description",
           "updates",
-          "description"
+          "compensationProgressDescription",
+          "compensationProgressImage"
         ]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "u4vn4vbnanfwktqlixmljcxe",
+      "documentId": "jcagc47lsptc1hpsv9bafxfs",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::compensator.compensator",
       "properties": {
         "fields": [
           "name",
-          "targetPledge",
+          "targetPledgeCaps",
           "sdgs",
           "projectCompensations",
-          "initialFootprint",
-          "avoidedFootprint",
+          "description",
           "updates",
-          "description"
+          "compensationProgressDescription",
+          "compensationProgressImage"
         ]
       },
       "conditions": [],
@@ -390,14 +390,13 @@
       "locale": null
     },
     {
-      "documentId": "qby2cqje47cbeyznuop3s156",
+      "documentId": "lm8gio035n6xehpd8prcku1k",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::project-compensator.project-compensator",
       "properties": {
         "fields": [
           "amountFunded",
-          "year",
           "compensator",
           "project",
           "capsFunded"
@@ -425,14 +424,13 @@
       "locale": null
     },
     {
-      "documentId": "l49z4tg0eurvfs2wvna9qg26",
+      "documentId": "x6ppo0n0u4stq7z5db5cejgt",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::project-compensator.project-compensator",
       "properties": {
         "fields": [
           "amountFunded",
-          "year",
           "compensator",
           "project",
           "capsFunded"
@@ -442,14 +440,13 @@
       "locale": null
     },
     {
-      "documentId": "jkqvryn4i2zx5ifaj28wk33c",
+      "documentId": "po62pncm2o56oqzb3jqr2ipg",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::project-compensator.project-compensator",
       "properties": {
         "fields": [
           "amountFunded",
-          "year",
           "compensator",
           "project",
           "capsFunded"
@@ -459,7 +456,7 @@
       "locale": null
     },
     {
-      "documentId": "iwfftxz1o4ggv3boeytzpjco",
+      "documentId": "dogseskv96qgw2kqde8j5n00",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -480,9 +477,10 @@
           "coordinates",
           "country",
           "type",
-          "updates",
           "description",
-          "projectImage"
+          "projectImage",
+          "catchmentBasin",
+          "updates"
         ]
       },
       "conditions": [],
@@ -507,7 +505,7 @@
       "locale": null
     },
     {
-      "documentId": "k90umlsxforzrnil40yefpc6",
+      "documentId": "ennszsror0pxflbd5a3ipqio",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -528,16 +526,17 @@
           "coordinates",
           "country",
           "type",
-          "updates",
           "description",
-          "projectImage"
+          "projectImage",
+          "catchmentBasin",
+          "updates"
         ]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "ushbykkvs7zz7r4g90pbfvej",
+      "documentId": "y93gniny4ohx195jt1t6cwzd",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -558,9 +557,10 @@
           "coordinates",
           "country",
           "type",
-          "updates",
           "description",
-          "projectImage"
+          "projectImage",
+          "catchmentBasin",
+          "updates"
         ]
       },
       "conditions": [],
@@ -630,7 +630,7 @@
       "locale": null
     },
     {
-      "documentId": "ag0ppems3ggzhjfl75rx8zbi",
+      "documentId": "lvjy3njymgn5r2smzrrzjkef",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::update.update",
@@ -639,7 +639,9 @@
           "title",
           "image",
           "content",
-          "featured"
+          "featured",
+          "compensator",
+          "project"
         ]
       },
       "conditions": [],
@@ -664,7 +666,7 @@
       "locale": null
     },
     {
-      "documentId": "asznbvo5j8k947hsbmtrte58",
+      "documentId": "y7ixjamf77p57jaaz4mkw2jl",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::update.update",
@@ -673,14 +675,16 @@
           "title",
           "image",
           "content",
-          "featured"
+          "featured",
+          "compensator",
+          "project"
         ]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "fhj3bftafcscsu6dkmzgxajw",
+      "documentId": "srmnm92km4mnzsit016e9vq0",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::update.update",
@@ -689,7 +693,9 @@
           "title",
           "image",
           "content",
-          "featured"
+          "featured",
+          "compensator",
+          "project"
         ]
       },
       "conditions": [],

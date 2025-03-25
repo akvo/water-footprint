@@ -75,6 +75,36 @@
           "sortable": true
         }
       },
+      "compensator": {
+        "edit": {
+          "label": "compensator",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "compensator",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "project": {
+        "edit": {
+          "label": "project",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "project",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -162,6 +192,16 @@
           {
             "name": "featured",
             "size": 4
+          },
+          {
+            "name": "compensator",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "project",
+            "size": 6
           }
         ]
       ]

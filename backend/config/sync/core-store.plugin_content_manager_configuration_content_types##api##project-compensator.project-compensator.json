@@ -33,20 +33,6 @@
           "sortable": true
         }
       },
-      "year": {
-        "edit": {
-          "label": "year",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "year",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "compensator": {
         "edit": {
           "label": "compensator",
@@ -154,17 +140,12 @@
       "list": [
         "id",
         "amountFunded",
-        "year",
         "compensator"
       ],
       "edit": [
         [
           {
             "name": "amountFunded",
-            "size": 4
-          },
-          {
-            "name": "year",
             "size": 4
           }
         ],
