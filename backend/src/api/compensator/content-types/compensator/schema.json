@@ -16,7 +16,7 @@
       "unique": true,
       "required": true
     },
-    "targetPledge": {
+    "targetPledgeCaps": {
       "type": "biginteger"
     },
     "sdgs": {
@@ -30,20 +30,28 @@
       "target": "api::project-compensator.project-compensator",
       "mappedBy": "compensator"
     },
-    "initialFootprint": {
-      "type": "biginteger"
-    },
-    "avoidedFootprint": {
-      "type": "biginteger"
+    "description": {
+      "type": "richtext",
+      "required": true
     },
     "updates": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::update.update"
+      "target": "api::update.update",
+      "mappedBy": "compensator"
     },
-    "description": {
-      "type": "richtext",
-      "required": true
+    "compensationProgressDescription": {
+      "type": "richtext"
+    },
+    "compensationProgressImage": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

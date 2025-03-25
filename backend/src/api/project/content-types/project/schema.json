@@ -40,7 +40,7 @@
       "type": "biginteger",
       "required": true
     },
-    "actual_compensation": {
+    "actualCompensation": {
       "type": "biginteger",
       "required": true
     },
@@ -74,14 +74,29 @@
         "Household & Community"
       ]
     },
-    "updates": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::update.update"
-    },
     "description": {
       "type": "richtext",
       "required": true
+    },
+    "projectImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "catchmentBasin": {
+      "type": "string"
+    },
+    "updates": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::update.update",
+      "mappedBy": "project"
     }
   }
 }

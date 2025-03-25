@@ -14,9 +14,6 @@
     "amountFunded": {
       "type": "biginteger"
     },
-    "year": {
-      "type": "integer"
-    },
     "compensator": {
       "type": "relation",
       "relation": "manyToOne",
@@ -28,6 +25,9 @@
       "relation": "manyToOne",
       "target": "api::project.project",
       "inversedBy": "projectCompensators"
+    },
+    "capsFunded": {
+      "type": "biginteger"
     }
   }
 }
