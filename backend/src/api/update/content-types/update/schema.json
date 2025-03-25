@@ -27,10 +27,23 @@
       ]
     },
     "content": {
-      "type": "richtext"
+      "type": "richtext",
+      "required": true
     },
     "featured": {
       "type": "boolean"
+    },
+    "compensator": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::compensator.compensator",
+      "inversedBy": "updates"
+    },
+    "project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "updates"
     }
   }
 }

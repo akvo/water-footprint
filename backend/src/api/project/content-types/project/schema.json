@@ -74,25 +74,29 @@
         "Household & Community"
       ]
     },
-    "updates": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::update.update"
-    },
     "description": {
       "type": "richtext",
       "required": true
     },
     "projectImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false,
-      "required": true
+      ]
+    },
+    "catchmentBasin": {
+      "type": "string"
+    },
+    "updates": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::update.update",
+      "mappedBy": "project"
     }
   }
 }

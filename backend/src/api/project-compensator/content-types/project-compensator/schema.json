@@ -14,9 +14,6 @@
     "amountFunded": {
       "type": "biginteger"
     },
-    "year": {
-      "type": "integer"
-    },
     "compensator": {
       "type": "relation",
       "relation": "manyToOne",
