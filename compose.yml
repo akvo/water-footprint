@@ -7,6 +7,7 @@ services:
       - ./frontend:/app
     ports:
       - 3000:3000
+    entrypoint: /app/docker-entrypoint.sh
     command: sh -c "npm install && npm run dev"
     environment:
       NEXT_TELEMETRY_DISABLED: 1
