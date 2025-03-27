@@ -28,6 +28,7 @@ export default function CompensatorProfile() {
           `/compensators/l66elegeaxv64n51w3ic8chk`,
           {
             'populate[0]': 'sdgs',
+            'populate[3]': 'sdgs.icon',
             'populate[1]': 'projectCompensations',
             'populate[2]': 'compensationProgressImage',
           }
@@ -186,6 +187,10 @@ export default function CompensatorProfile() {
       );
     }
 
+    const imageUrl = compensator?.compensationProgressImage?.url
+      ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${compensator.compensationProgressImage.url}`
+      : '/placeholder.svg';
+
     return (
       <div className="min-h-screen">
         <div>
@@ -257,11 +262,22 @@ export default function CompensatorProfile() {
                 <h2 className="text-gray-800 font-bold mb-4">SDGS:</h2>
                 <div className="flex justify-center">
                   <SDGWheel
-                    activeGoals={
-                      compensator.sdgs?.data?.map((sdg) => sdg.id) || [
-                        3, 6, 10, 14, 15,
-                      ]
-                    }
+                    sdgData={compensator.sdgs?.map((sdg) => ({
+                      id: sdg.id,
+                      title: sdg.name,
+                      color: sdg.colour,
+                      icon: sdg.icon
+                        ? () => (
+                            <img
+                              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${sdg.icon.url}`}
+                              alt={sdg.name}
+                              className="w-full h-full object-cover"
+                            />
+                          )
+                        : sdgData.find(
+                            (defaultSDG) => defaultSDG.title === sdg.name
+                          )?.icon || TreePine,
+                    }))}
                   />
                 </div>
               </div>
@@ -277,16 +293,17 @@ export default function CompensatorProfile() {
 
                   <div className="relative w-full">
                     <Image
-                      src={
-                        compensator.compensationProgressImage?.url ||
-                        '/placeholder.svg'
-                      }
+                      src={imageUrl}
                       alt={compensator.name}
-                      fill
                       className="object-cover"
+                      unoptimized
+                      width={1200}
+                      height={600}
                     />
                   </div>
-                  <p>{compensator?.compensationProgressDescription}</p>
+                  <p className="pt-2">
+                    {compensator?.compensationProgressDescription}
+                  </p>
                 </div>
               </div>
             )}

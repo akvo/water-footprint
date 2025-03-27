@@ -20,6 +20,7 @@
     "@strapi/plugin-users-permissions": "5.11.0",
     "@strapi/provider-email-nodemailer": "^5.11.0",
     "@strapi/strapi": "5.11.0",
+    "axios": "^1.8.4",
     "pg": "8.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

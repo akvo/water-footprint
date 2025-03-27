@@ -18,112 +18,7 @@ import {
   HandHelping,
 } from 'lucide-react';
 
-const sdgData = [
-  {
-    id: 1,
-    title: 'No Poverty',
-    color: '#E5243B',
-    icon: CircleDollarSign,
-  },
-  {
-    id: 2,
-    title: 'Zero Hunger',
-    color: '#DDA63A',
-    icon: Tent,
-  },
-  {
-    id: 3,
-    title: 'Good Health and Well-being',
-    color: '#4C9F38',
-    icon: HeartPulse,
-  },
-  {
-    id: 4,
-    title: 'Quality Education',
-    color: '#C5192D',
-    icon: Rocket,
-  },
-  {
-    id: 5,
-    title: 'Gender Equality',
-    color: '#FF3A21',
-    icon: ScaleBalance,
-  },
-  {
-    id: 6,
-    title: 'Clean Water and Sanitation',
-    color: '#26BDE2',
-    icon: WaterDrop,
-  },
-  {
-    id: 7,
-    title: 'Affordable and Clean Energy',
-    color: '#FCC30B',
-    icon: Plane,
-  },
-  {
-    id: 8,
-    title: 'Decent Work and Economic Growth',
-    color: '#A21942',
-    icon: Globe,
-  },
-  {
-    id: 9,
-    title: 'Industry, Innovation and Infrastructure',
-    color: '#FD6925',
-    icon: Factory,
-  },
-  {
-    id: 10,
-    title: 'Reduced Inequality',
-    color: '#DD1367',
-    icon: ScaleBalance,
-  },
-  {
-    id: 11,
-    title: 'Sustainable Cities and Communities',
-    color: '#FD9D24',
-    icon: Building,
-  },
-  {
-    id: 12,
-    title: 'Responsible Consumption and Production',
-    color: '#BF8B2E',
-    icon: TreePine,
-  },
-  {
-    id: 13,
-    title: 'Climate Action',
-    color: '#3F7E44',
-    icon: Leaf,
-  },
-  {
-    id: 14,
-    title: 'Life Below Water',
-    color: '#0A97D9',
-    icon: Waves,
-  },
-  {
-    id: 15,
-    title: 'Life on Land',
-    color: '#56C02B',
-    icon: TreePine,
-  },
-  {
-    id: 16,
-    title: 'Peace, Justice and Strong Institutions',
-    color: '#00689D',
-    icon: Shield,
-  },
-  {
-    id: 17,
-    title: 'Partnerships for the Goals',
-    color: '#19486A',
-    icon: HandHelping,
-  },
-];
-
-export function SDGTooltip({ id, title, color, position, onClose }) {
+export function SDGTooltip({ id, title, color, position, onClose, sdgData }) {
   const [isVisible, setIsVisible] = useState(false);
   const sdgItem = sdgData.find((item) => item.id === id);
   const IconComponent = sdgItem?.icon;
@@ -143,7 +38,6 @@ export function SDGTooltip({ id, title, color, position, onClose }) {
           className="py-2 px-3 text-white text-sm font-bold flex items-center space-x-2"
           style={{ backgroundColor: color }}
         >
-          {IconComponent && <IconComponent size={20} />}
           <span>Goal {id}</span>
         </div>
         <div className="bg-white py-2 px-3 text-sm">{title}</div>
@@ -164,6 +58,7 @@ export function SDGWheel({
   activeGoals = [3, 6, 10, 14, 15],
   onSectionClick,
   size = 380,
+  sdgData,
 }) {
   const [hoveredSection, setHoveredSection] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState(null);
@@ -242,12 +137,23 @@ export function SDGWheel({
           <foreignObject
             x={iconX - 12}
             y={iconY - 12}
-            width={24}
-            height={24}
+            width={30}
+            height={30}
             className="pointer-events-none"
           >
             <div className="flex items-center justify-center">
-              <IconComponent size={20} color={isActive ? 'white' : '#666666'} />
+              {typeof IconComponent === 'function' ? (
+                <IconComponent
+                  size={20}
+                  color={isActive ? 'white' : '#666666'}
+                />
+              ) : (
+                <img
+                  src={IconComponent}
+                  alt="SDG Icon"
+                  className="w-full h-full object-cover"
+                />
+              )}
             </div>
           </foreignObject>
         )}
@@ -274,7 +180,6 @@ export function SDGWheel({
           width={innerRadius * 0.8}
           height={innerRadius * 0.8}
           href="/sdg.png"
-          clipPath="inset(0% round 50%)"
         />
       </svg>
 
@@ -290,6 +195,7 @@ export function SDGWheel({
             setHoveredSection(null);
             setTooltipPosition(null);
           }}
+          sdgData={sdgData}
         />
       )}
     </div>

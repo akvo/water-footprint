@@ -7,7 +7,7 @@ export function cn(...inputs) {
 
 export const fetchStrapiData = async (endpoint, params = {}) => {
   const queryString = new URLSearchParams(params).toString();
-  const url = `http://localhost:1337/api${endpoint}?${queryString}`;
+  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${endpoint}?${queryString}`;
 
   try {
     const response = await fetch(url);
