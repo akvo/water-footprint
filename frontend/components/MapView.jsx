@@ -61,7 +61,7 @@ export default function ProjectMap({ projects }) {
           {projects.map((project) => (
             <div
               key={project.id}
-              className="flex mb-4 items-center cursor-pointer hover:bg-gray-100 p-2 rounded"
+              className="flex mb-4 items-center cursor-pointer hover:bg-gray-200 p-2 rounded"
               onClick={() => setSelectedProject(project)}
             >
               <div className="w-[120px] h-[80px] relative mr-4 flex-shrink-0">

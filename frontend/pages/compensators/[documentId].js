@@ -5,8 +5,11 @@ import dynamic from 'next/dynamic';
 import { List, LayoutGrid, ChevronLeft, ChevronRight } from 'lucide-react';
 import { SDGWheel } from '@/components/Sdg/sdg-wheel';
 import { fetchStrapiData } from '@/utils';
+import { useRouter } from 'next/router';
 
 export default function CompensatorProfile() {
+  const router = useRouter();
+  const { documentId } = router.query;
   const [compensator, setCompensator] = useState(null);
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +29,7 @@ export default function CompensatorProfile() {
       setIsLoading(true);
       try {
         const compensatorResponse = await fetchStrapiData(
-          `/compensators/l66elegeaxv64n51w3ic8chk`,
+          `/compensators/${documentId}`,
           {
             'populate[0]': 'sdgs',
             'populate[3]': 'sdgs.icon',
