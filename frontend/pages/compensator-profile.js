@@ -10,6 +10,7 @@ export default function CompensatorProfile() {
   const [compensator, setCompensator] = useState(null);
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMapView, setIsMapView] = useState(false);
 
   const Map = useMemo(
     () =>
@@ -71,6 +72,7 @@ export default function CompensatorProfile() {
               'filters[projectCompensators][documentId][$in]':
                 projectIds.join(','),
               'populate[0]': 'projectCompensators',
+              'populate[1]': 'projectImage',
             });
 
             if (projectsResponse?.data) {
@@ -86,7 +88,10 @@ export default function CompensatorProfile() {
                   title: project.name,
                   location: project.location,
                   description: project.description,
-                  image: '/placeholder.svg',
+                  image: project.projectImage?.url,
+                  coordinates: project.coordinates
+                    .split(',')
+                    .map((coord) => parseFloat(coord.trim())),
                   contributionPercentage: projectCompensation
                     ? Math.round(
                         (parseFloat(projectCompensation.capsFunded) /
@@ -268,10 +273,13 @@ export default function CompensatorProfile() {
                       color: sdg.colour,
                       icon: sdg.icon
                         ? () => (
-                            <img
+                            <Image
                               src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${sdg.icon.url}`}
                               alt={sdg.name}
                               className="w-full h-full object-cover"
+                              width={100}
+                              height={100}
+                              unoptimized
                             />
                           )
                         : sdgData.find(
@@ -312,91 +320,102 @@ export default function CompensatorProfile() {
           {projects.length > 0 && (
             <section className="py-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-4xl font-bold text-[#0DA2D7]">
-                  Projects Supported
-                </h2>
+                <div className="mb-6">
+                  <h2 className="text-4xl font-bold text-[#0DA2D7]">
+                    Projects Supported
+                  </h2>
 
-                <div className="flex justify-between items-center mb-6">
-                  <Link
-                    href="#"
-                    className="text-gray-700 hover:underline text-md font-medium"
-                  >
-                    View Map
-                  </Link>
-
-                  <div className="flex gap-2">
-                    <button className="p-1 text-gray-500 hover:text-gray-700">
-                      <List className="w-5 h-5" />
-                    </button>
-                    <button className="p-1 text-gray-500 hover:text-gray-700">
-                      <LayoutGrid className="w-5 h-5" />
-                    </button>
+                  <div className="flex justify-between items-center mb-6">
+                    <Link
+                      href="#"
+                      className="text-gray-700 hover:underline text-md font-medium"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setIsMapView(!isMapView);
+                      }}
+                    >
+                      {isMapView ? 'View as List' : 'View on Map'}
+                    </Link>
+                    {!isMapView && (
+                      <div className="flex gap-2">
+                        <button className="p-1 text-gray-500 hover:text-gray-700">
+                          <List className="w-5 h-5" />
+                        </button>
+                        <button className="p-1 text-gray-500 hover:text-gray-700">
+                          <LayoutGrid className="w-5 h-5" />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {projects.map((project) => (
-                    <div
-                      key={project.id}
-                      className={`bg-white rounded-lg overflow-hidden`}
-                      style={{ boxShadow: '-6px 6px 8px 0px #0000001A' }}
-                    >
-                      <div className="relative h-48 w-full">
-                        <Image
-                          src={project.image || '/placeholder.svg'}
-                          alt={project.title}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-
-                      <div className="p-4">
-                        <h3 className="text-xl font-semibold mb-1">
-                          {project.title}
-                        </h3>
-                        <p className="text-sm text-gray-600 mb-3">
-                          {project.location}
-                        </p>
-
-                        <p className="text-gray-700 text-sm mb-4">
-                          {project.description}
-                        </p>
-
-                        <div className="border-t border-gray-200 pt-4 mt-4">
-                          <div className="text-sm text-gray-700 mb-2">
-                            Amount Contributed
+                {!isMapView ? (
+                  <div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {projects.map((project) => (
+                        <div
+                          key={project.id}
+                          className={`bg-white rounded-lg overflow-hidden`}
+                          style={{ boxShadow: '-6px 6px 8px 0px #0000001A' }}
+                        >
+                          <div className="relative h-48 w-full">
+                            <Image
+                              src={
+                                project.image
+                                  ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${project.image}`
+                                  : '/placeholder.svg'
+                              }
+                              alt={project.title}
+                              className="object-cover"
+                              unoptimized
+                              fill
+                            />
                           </div>
-                          <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-                            <div
-                              className="h-full bg-blue-400 rounded-full"
-                              style={{
-                                width: `${project.contributionPercentage}%`,
-                              }}
-                            ></div>
+
+                          <div className="p-4">
+                            <h3 className="text-xl font-semibold mb-1">
+                              {project.title}
+                            </h3>
+                            <p className="text-sm text-gray-600 mb-3">
+                              {project.location}
+                            </p>
+
+                            <p className="text-gray-700 text-sm mb-4">
+                              {project.description}
+                            </p>
+
+                            <div className="border-t border-gray-200 pt-4 mt-4">
+                              <div className="text-sm text-gray-700 mb-2">
+                                Amount Contributed
+                              </div>
+                              <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                                <div
+                                  className="h-full bg-[#0DA2D7] rounded-full"
+                                  style={{
+                                    width: `${project.contributionPercentage}%`,
+                                  }}
+                                ></div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
 
-                <div className="flex justify-center mt-8 gap-2">
-                  <button className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200">
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-                  <button className="w-10 h-10 rounded-full bg-indigo-900 flex items-center justify-center text-white hover:bg-indigo-800">
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-                </div>
+                    <div className="flex justify-center mt-8 gap-2">
+                      <button className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200">
+                        <ChevronLeft className="w-5 h-5" />
+                      </button>
+                      <button className="w-10 h-10 rounded-full bg-indigo-900 flex items-center justify-center text-white hover:bg-indigo-800">
+                        <ChevronRight className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <Map projects={projects} />
+                )}
               </div>
             </section>
           )}
-
-          <section className="py-8">
-            <div className="max-w-6xl mx-auto">
-              <Map />
-            </div>
-          </section>
         </div>
       </div>
     );

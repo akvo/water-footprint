@@ -1,22 +1,6 @@
 import { cn } from '@/utils';
 import { useState } from 'react';
-import {
-  TreePine,
-  WaterDrop,
-  ScaleBalance,
-  Plane,
-  Rocket,
-  Factory,
-  HeartPulse,
-  Globe,
-  Tent,
-  Building,
-  CircleDollarSign,
-  Waves,
-  Leaf,
-  Shield,
-  HandHelping,
-} from 'lucide-react';
+import Image from 'next/image';
 
 export function SDGTooltip({ id, title, color, position, onClose, sdgData }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -148,10 +132,11 @@ export function SDGWheel({
                   color={isActive ? 'white' : '#666666'}
                 />
               ) : (
-                <img
+                <Image
                   src={IconComponent}
                   alt="SDG Icon"
-                  className="w-full h-full object-cover"
+                  layout="fill"
+                  objectFit="cover"
                 />
               )}
             </div>
