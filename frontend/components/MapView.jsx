@@ -13,6 +13,7 @@ import Image from 'next/image';
 import { fetchStrapiData } from '@/utils';
 import { SlidersHorizontal, Search, ChevronDown, X } from 'lucide-react';
 import { useAppContext } from '@/context/AppContext';
+import Link from 'next/link';
 
 const MapFlyTo = ({ coordinates }) => {
   const map = useMap();
@@ -575,31 +576,39 @@ export default function ProjectMap({ projectIds = [] }) {
             ) : (
               <>
                 {projects.map((project) => (
-                  <div
+                  <Link
                     key={project.id}
-                    className="flex mb-4 cursor-pointer hover:bg-gray-200 p-1 rounded"
-                    onClick={() => setSelectedProject(project)}
+                    href={`/projects/${project.documentId}`}
+                    className="block mb-4 hover:bg-gray-200 p-1 rounded"
                   >
-                    <div className="w-[120px] h-[80px] relative mr-4 flex-shrink-0">
-                      <Image
-                        src={
-                          project.image
-                            ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${project.image}`
-                            : '/placeholder.svg'
-                        }
-                        alt={project.title}
-                        className="object-cover rounded"
-                        unoptimized
-                        fill
-                      />
+                    <div
+                      className="flex cursor-pointer"
+                      onClick={(e) => {
+                        // e.preventDefault();
+                        setSelectedProject(project);
+                      }}
+                    >
+                      <div className="w-[120px] h-[80px] relative mr-4 flex-shrink-0">
+                        <Image
+                          src={
+                            project.image
+                              ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${project.image}`
+                              : '/placeholder.svg'
+                          }
+                          alt={project.title}
+                          className="object-cover rounded"
+                          unoptimized
+                          fill
+                        />
+                      </div>
+                      <div className="flex flex-col justify-between py-1">
+                        <h3 className="text-sm font-bold">{project.title}</h3>
+                        <p className="text-sm text-[#165DA6]">
+                          {project.country}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex flex-col justify-between py-1">
-                      <h3 className="text-sm font-bold">{project.title}</h3>
-                      <p className="text-sm text-[#165DA6]">
-                        {project.country}
-                      </p>
-                    </div>
-                  </div>
+                  </Link>
                 ))}
 
                 {totalPages > 1 && (
