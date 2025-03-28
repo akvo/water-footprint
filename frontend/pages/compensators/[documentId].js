@@ -184,7 +184,8 @@ export default function CompensatorProfile() {
               Compensator Not Found
             </h2>
             <p className="text-sm text-gray-600 mt-2">
-              We couldn't retrieve the compensator's information at this time.
+              We couldn&apos;t retrieve the compensator&apos;s information at
+              this time.
             </p>
             <Link
               href="/"
