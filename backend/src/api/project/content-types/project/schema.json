@@ -65,9 +65,6 @@
     "coordinates": {
       "type": "string"
     },
-    "country": {
-      "type": "string"
-    },
     "type": {
       "type": "enumeration",
       "enum": [
@@ -97,6 +94,11 @@
       "relation": "oneToMany",
       "target": "api::update.update",
       "mappedBy": "project"
+    },
+    "country": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::country.country"
     }
   }
 }

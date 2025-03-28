@@ -13,13 +13,17 @@
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry",
-    "config-sync": "config-sync"
+    "config-sync": "config-sync",
+    "seed-sdg": "node ./scripts/sdg-seed.js",
+    "seed-country": "node ./scripts/country-seed.js"
   },
   "dependencies": {
     "@strapi/plugin-cloud": "5.11.0",
     "@strapi/plugin-users-permissions": "5.11.0",
     "@strapi/provider-email-nodemailer": "^5.11.0",
     "@strapi/strapi": "5.11.0",
+    "axios": "^1.8.4",
+    "countries-list": "^3.1.1",
     "pg": "8.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

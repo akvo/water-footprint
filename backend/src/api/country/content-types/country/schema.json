@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "countries",
+  "info": {
+    "singularName": "country",
+    "pluralName": "countries",
+    "displayName": "Country",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "country_name": {
+      "type": "string"
+    },
+    "country_code": {
+      "type": "string"
+    }
+  }
+}
