@@ -22,9 +22,14 @@
       "unique": true
     },
     "icon": {
-      "type": "string",
-      "required": true,
-      "unique": false
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
