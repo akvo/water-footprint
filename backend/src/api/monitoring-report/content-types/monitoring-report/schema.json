@@ -14,8 +14,12 @@
     "name": {
       "type": "string"
     },
-    "link": {
-      "type": "string"
+    "file": {
+      "allowedTypes": [
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
