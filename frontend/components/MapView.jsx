@@ -44,8 +44,24 @@ export default function ProjectMap({ projectIds = [] }) {
   const [showTypeDropdown, setShowTypeDropdown] = useState(false);
   const [isFilterChanged, setIsFilterChanged] = useState(false);
   const [countrySearchTerm, setCountrySearchTerm] = useState('');
+  const [showCapsDropdown, setShowCapsDropdown] = useState(false);
+  const [selectedCapsRanges, setSelectedCapsRanges] = useState([]);
+
   const countryDropdownRef = useRef(null);
   const typeDropdownRef = useRef(null);
+  const capsDropdownRef = useRef(null);
+
+  const capsRanges = [
+    { id: 'under1m', label: 'Under 1 million', min: 0, max: 1000000 },
+    { id: '1to10m', label: '1-10 million', min: 1000000, max: 10000000 },
+    { id: '10to50m', label: '10-50 million', min: 10000000, max: 50000000 },
+    {
+      id: 'over50m',
+      label: 'Over 50 million',
+      min: 50000000,
+      max: 999999999999,
+    },
+  ];
 
   const pageSize = 10;
 
@@ -72,12 +88,21 @@ export default function ProjectMap({ projectIds = [] }) {
       ) {
         setShowTypeDropdown(false);
       }
+
+      if (
+        capsDropdownRef.current &&
+        !capsDropdownRef.current.contains(event.target) &&
+        showCapsDropdown
+      ) {
+        setShowCapsDropdown(false);
+      }
     }
 
     function handleKeyDown(event) {
       if (event.key === 'Escape') {
         if (showCountryDropdown) setShowCountryDropdown(false);
         if (showTypeDropdown) setShowTypeDropdown(false);
+        if (showCapsDropdown) setShowCapsDropdown(false);
       }
     }
 
@@ -88,7 +113,7 @@ export default function ProjectMap({ projectIds = [] }) {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [showCountryDropdown, showTypeDropdown]);
+  }, [showCountryDropdown, showTypeDropdown, showCapsDropdown]);
 
   useEffect(() => {
     const debounceTimer = setTimeout(
@@ -100,7 +125,7 @@ export default function ProjectMap({ projectIds = [] }) {
     );
 
     return () => clearTimeout(debounceTimer);
-  }, [searchTerm, page, selectedCountries, selectedTypes]);
+  }, [searchTerm, page, selectedCountries, selectedTypes, selectedCapsRanges]);
 
   const fetchProjects = async () => {
     setIsLoading(true);
@@ -133,6 +158,22 @@ export default function ProjectMap({ projectIds = [] }) {
       if (selectedTypes.length > 0) {
         selectedTypes.forEach((typeId, index) => {
           queryParams[`filters[$or][${index}][type][documentId][$eq]`] = typeId;
+        });
+      }
+
+      if (selectedCapsRanges.length > 0) {
+        const selectedRanges = capsRanges.filter((range) =>
+          selectedCapsRanges.includes(range.id)
+        );
+
+        selectedRanges.forEach((range, index) => {
+          queryParams[`filters[$or][${index}][targetCompensation][$gte]`] =
+            range.min.toString();
+
+          if (range.max !== Infinity) {
+            queryParams[`filters[$or][${index}][targetCompensation][$lte]`] =
+              range.max.toString();
+          }
         });
       }
 
@@ -226,16 +267,21 @@ export default function ProjectMap({ projectIds = [] }) {
         </div>
         <button
           onClick={() => setShowFilters((s) => !s)}
-          className="p-2 bg-white rounded shadow cursor-pointer"
+          className={`p-2 rounded transition-all flex items-center justify-center cursor-pointer ${
+            showFilters
+              ? 'bg-blue-50 shadow-inner text-blue-600 border border-blue-200'
+              : 'bg-white shadow border border-gray-100 text-gray-700 hover:bg-gray-50'
+          }`}
+          aria-label="Toggle filters"
         >
-          <SlidersHorizontal className="text-gray-700" />
+          <SlidersHorizontal size={18} />
         </button>
       </div>
 
       {showFilters && (
         <div className="relative z-[9999] bg-white rounded-lg shadow-md p-4 mb-4 border border-gray-100 animate-fadeIn">
           <div className="flex gap-4">
-            <div className="w-1/2">
+            <div className="w-1/3">
               <div className="mb-2 text-sm font-medium text-gray-700">
                 Filter by Country
               </div>
@@ -312,7 +358,7 @@ export default function ProjectMap({ projectIds = [] }) {
               </div>
             </div>
 
-            <div className="w-1/2">
+            <div className="w-1/3">
               <div className="mb-2 text-sm font-medium text-gray-700">
                 Filter by Project Type
               </div>
@@ -371,9 +417,59 @@ export default function ProjectMap({ projectIds = [] }) {
                 )}
               </div>
             </div>
+            <div className="w-1/3">
+              <div className="mb-2 text-sm font-medium text-gray-700">
+                Available Caps
+              </div>
+              <div className="relative" ref={capsDropdownRef}>
+                <button
+                  onClick={() => setShowCapsDropdown((prev) => !prev)}
+                  className="w-full flex items-center justify-between px-4 py-2 bg-white border border-gray-200 rounded-md text-sm hover:bg-gray-50"
+                >
+                  <span>
+                    {selectedCapsRanges.length === 0
+                      ? 'All Ranges'
+                      : `${selectedCapsRanges.length} selected`}
+                  </span>
+                  <ChevronDown
+                    size={16}
+                    className={`transition-transform ${
+                      showCapsDropdown ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+
+                {showCapsDropdown && (
+                  <div className="absolute left-0 right-0 mt-1 max-h-64 overflow-y-auto bg-white border rounded-md shadow-lg p-2">
+                    {capsRanges.map((range) => (
+                      <label
+                        key={range.id}
+                        className="flex items-center p-1.5 text-sm rounded hover:bg-gray-50 cursor-pointer"
+                      >
+                        <input
+                          type="checkbox"
+                          className="mr-2 h-4 w-4 text-blue-500 rounded"
+                          checked={selectedCapsRanges.includes(range.id)}
+                          onChange={() =>
+                            toggleSelected(
+                              range.id,
+                              setSelectedCapsRanges,
+                              selectedCapsRanges
+                            )
+                          }
+                        />
+                        {range.label}
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
 
-          {(selectedCountries.length > 0 || selectedTypes.length > 0) && (
+          {(selectedCountries.length > 0 ||
+            selectedTypes.length > 0 ||
+            selectedCapsRanges.length > 0) && (
             <div className="mt-3 pt-2 border-t flex items-center">
               <span className="text-xs text-gray-500 mr-2">
                 Active filters:
@@ -428,11 +524,32 @@ export default function ProjectMap({ projectIds = [] }) {
                   );
                 })}
 
+                {selectedCapsRanges.map((country) => (
+                  <span
+                    key={country}
+                    className="inline-flex items-center px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs"
+                  >
+                    {country}
+                    <X
+                      size={12}
+                      className="ml-1 cursor-pointer"
+                      onClick={() =>
+                        toggleSelected(
+                          country,
+                          setSelectedCapsRanges,
+                          selectedCapsRanges
+                        )
+                      }
+                    />
+                  </span>
+                ))}
+
                 <button
                   className="text-xs text-gray-500 hover:text-red-500 ml-2 cursor-pointer"
                   onClick={() => {
                     setSelectedCountries([]);
                     setSelectedTypes([]);
+                    setSelectedCapsRanges([]);
                   }}
                 >
                   Clear all
