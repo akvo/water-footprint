@@ -13,7 +13,8 @@
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry",
-    "config-sync": "config-sync"
+    "config-sync": "config-sync",
+    "seed-sdg": "node ./scripts/sdg-seed.js"
   },
   "dependencies": {
     "@strapi/plugin-cloud": "5.11.0",
