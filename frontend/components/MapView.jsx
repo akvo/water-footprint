@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import {
   MapContainer,
   Marker,
@@ -11,6 +11,8 @@ import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import Image from 'next/image';
 import { fetchStrapiData } from '@/utils';
+import { SlidersHorizontal, Search, ChevronDown, X } from 'lucide-react';
+import { useAppContext } from '@/context/AppContext';
 
 const MapFlyTo = ({ coordinates }) => {
   const map = useMap();
@@ -34,6 +36,17 @@ export default function ProjectMap({ projectIds = [] }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [showFilters, setShowFilters] = useState(false);
+  const [selectedCountries, setSelectedCountries] = useState([]);
+  const [selectedTypes, setSelectedTypes] = useState([]);
+  const { countries, projectCategories } = useAppContext();
+  const [showCountryDropdown, setShowCountryDropdown] = useState(false);
+  const [showTypeDropdown, setShowTypeDropdown] = useState(false);
+  const [isFilterChanged, setIsFilterChanged] = useState(false);
+  const [countrySearchTerm, setCountrySearchTerm] = useState('');
+  const countryDropdownRef = useRef(null);
+  const typeDropdownRef = useRef(null);
+
   const pageSize = 10;
 
   const handleSearch = (e) => {
@@ -43,12 +56,51 @@ export default function ProjectMap({ projectIds = [] }) {
   };
 
   useEffect(() => {
-    const debounceTimer = setTimeout(() => {
-      fetchProjects();
-    }, 500);
+    function handleClickOutside(event) {
+      if (
+        countryDropdownRef.current &&
+        !countryDropdownRef.current.contains(event.target) &&
+        showCountryDropdown
+      ) {
+        setShowCountryDropdown(false);
+      }
+
+      if (
+        typeDropdownRef.current &&
+        !typeDropdownRef.current.contains(event.target) &&
+        showTypeDropdown
+      ) {
+        setShowTypeDropdown(false);
+      }
+    }
+
+    function handleKeyDown(event) {
+      if (event.key === 'Escape') {
+        if (showCountryDropdown) setShowCountryDropdown(false);
+        if (showTypeDropdown) setShowTypeDropdown(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [showCountryDropdown, showTypeDropdown]);
+
+  useEffect(() => {
+    const debounceTimer = setTimeout(
+      () => {
+        fetchProjects();
+        setIsFilterChanged(false);
+      },
+      isFilterChanged ? 0 : 500
+    );
 
     return () => clearTimeout(debounceTimer);
-  }, [searchTerm, page]);
+  }, [searchTerm, page, selectedCountries, selectedTypes]);
 
   const fetchProjects = async () => {
     setIsLoading(true);
@@ -58,6 +110,7 @@ export default function ProjectMap({ projectIds = [] }) {
       const queryParams = {
         'populate[0]': 'projectImage',
         'populate[1]': 'projectCompensators',
+        'populate[2]': 'country',
         'pagination[page]': page,
         'pagination[pageSize]': pageSize,
       };
@@ -73,6 +126,16 @@ export default function ProjectMap({ projectIds = [] }) {
           projectIds.join(',');
       }
 
+      if (selectedCountries.length > 0) {
+        queryParams['filters[country][country_name][$in]'] =
+          selectedCountries.join(',');
+      }
+      if (selectedTypes.length > 0) {
+        selectedTypes.forEach((typeId, index) => {
+          queryParams[`filters[$or][${index}][type][documentId][$eq]`] = typeId;
+        });
+      }
+
       const response = await fetchStrapiData('/projects', queryParams);
 
       if (response?.data) {
@@ -81,6 +144,7 @@ export default function ProjectMap({ projectIds = [] }) {
           documentId: project.documentId || '',
           title: project.name || '',
           location: project.location || '',
+          country: project.country?.country_name || '',
           description: project.description || '',
           image: project.projectImage?.url || null,
           coordinates: project.coordinates
@@ -138,17 +202,247 @@ export default function ProjectMap({ projectIds = [] }) {
     };
   }, []);
 
+  const toggleSelected = (value, setter, currentValues) => {
+    setIsFilterChanged(true);
+    if (currentValues.includes(value)) {
+      setter(currentValues.filter((item) => item !== value));
+    } else {
+      setter([...currentValues, value]);
+    }
+    setPage(1);
+  };
+
   return (
     <div className="w-full">
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search projects..."
-          className="w-full p-2 border border-gray-300 rounded"
-          onChange={handleSearch}
-        />
+      <div className="flex items-center gap-2 mb-4">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-3 text-gray-500" size={18} />
+          <input
+            type="text"
+            placeholder="Find a project"
+            className="w-full px-10 py-2 bg-[#F3EEEE] border border-gray-200 rounded"
+            onChange={handleSearch}
+          />
+        </div>
+        <button
+          onClick={() => setShowFilters((s) => !s)}
+          className="p-2 bg-white rounded shadow cursor-pointer"
+        >
+          <SlidersHorizontal className="text-gray-700" />
+        </button>
       </div>
-      <div className="relative  h-[600px] overflow-hidden">
+
+      {showFilters && (
+        <div className="relative z-[9999] bg-white rounded-lg shadow-md p-4 mb-4 border border-gray-100 animate-fadeIn">
+          <div className="flex gap-4">
+            <div className="w-1/2">
+              <div className="mb-2 text-sm font-medium text-gray-700">
+                Filter by Country
+              </div>
+              <div className="relative" ref={countryDropdownRef}>
+                <button
+                  onClick={() => setShowCountryDropdown((prev) => !prev)}
+                  className="w-full flex items-center justify-between px-4 py-2 bg-white border border-gray-200 rounded-md text-sm hover:bg-gray-50"
+                >
+                  <span>
+                    {selectedCountries.length === 0
+                      ? 'All Countries'
+                      : `${selectedCountries.length} selected`}
+                  </span>
+                  <ChevronDown
+                    size={16}
+                    className={`transition-transform ${
+                      showCountryDropdown ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+
+                {showCountryDropdown && (
+                  <div className="absolute left-0 right-0 mt-1 max-h-64 overflow-y-auto bg-white border rounded-md shadow-lg p-2">
+                    <div className="sticky top-0 bg-white pb-2 mb-1 border-b">
+                      <input
+                        type="text"
+                        placeholder="Search countries..."
+                        className="w-full px-3 py-1.5 text-sm border rounded-md"
+                        value={countrySearchTerm}
+                        onChange={(e) => setCountrySearchTerm(e.target.value)}
+                      />
+                    </div>
+
+                    {countries
+                      .filter((country) =>
+                        country.country_name
+                          .toLowerCase()
+                          .includes(countrySearchTerm.toLowerCase())
+                      )
+                      .map((country) => (
+                        <label
+                          key={country.id}
+                          className="flex items-center p-1.5 text-sm rounded hover:bg-gray-50 cursor-pointer"
+                        >
+                          <input
+                            type="checkbox"
+                            className="mr-2 h-4 w-4 text-blue-500 rounded"
+                            checked={selectedCountries.includes(
+                              country.country_name
+                            )}
+                            onChange={() =>
+                              toggleSelected(
+                                country.country_name,
+                                setSelectedCountries,
+                                selectedCountries
+                              )
+                            }
+                          />
+                          {country.country_name}
+                        </label>
+                      ))}
+
+                    {countries.filter((country) =>
+                      country.country_name
+                        .toLowerCase()
+                        .includes(countrySearchTerm.toLowerCase())
+                    ).length === 0 && (
+                      <div className="py-2 text-center text-sm text-gray-500">
+                        No countries found
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="w-1/2">
+              <div className="mb-2 text-sm font-medium text-gray-700">
+                Filter by Project Type
+              </div>
+              <div className="relative" ref={typeDropdownRef}>
+                <button
+                  onClick={() => setShowTypeDropdown((prev) => !prev)}
+                  className="w-full flex items-center justify-between px-4 py-2 bg-white border border-gray-200 rounded-md text-sm hover:bg-gray-50"
+                >
+                  <span>
+                    {selectedTypes.length === 0
+                      ? 'All Types'
+                      : `${selectedTypes.length} selected`}
+                  </span>
+                  <ChevronDown
+                    size={16}
+                    className={`transition-transform ${
+                      showTypeDropdown ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+
+                {showTypeDropdown && (
+                  <div className="absolute left-0 right-0 mt-1 w-72 max-h-64 overflow-y-auto bg-white border rounded-md shadow-lg p-2">
+                    {projectCategories.map((cat) => (
+                      <div key={cat.id} className="mb-3">
+                        <div className="font-medium text-sm mb-1 text-gray-700 border-b pb-1">
+                          {cat.name}
+                        </div>
+                        <div className="pl-1">
+                          {cat.project_types.map((type) => (
+                            <label
+                              key={type.documentId}
+                              className="flex items-center p-1 text-sm rounded hover:bg-gray-50 cursor-pointer"
+                            >
+                              <input
+                                type="checkbox"
+                                className="mr-2 h-4 w-4 text-blue-500 rounded"
+                                checked={selectedTypes.includes(
+                                  type.documentId
+                                )}
+                                onChange={() =>
+                                  toggleSelected(
+                                    type.documentId,
+                                    setSelectedTypes,
+                                    selectedTypes
+                                  )
+                                }
+                              />
+                              {type.title}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {(selectedCountries.length > 0 || selectedTypes.length > 0) && (
+            <div className="mt-3 pt-2 border-t flex items-center">
+              <span className="text-xs text-gray-500 mr-2">
+                Active filters:
+              </span>
+              <div className="flex flex-wrap gap-1">
+                {selectedCountries.map((country) => (
+                  <span
+                    key={country}
+                    className="inline-flex items-center px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs"
+                  >
+                    {country}
+                    <X
+                      size={12}
+                      className="ml-1 cursor-pointer"
+                      onClick={() =>
+                        toggleSelected(
+                          country,
+                          setSelectedCountries,
+                          selectedCountries
+                        )
+                      }
+                    />
+                  </span>
+                ))}
+                {selectedTypes.map((typeId) => {
+                  let typeName = 'Unknown';
+                  projectCategories.forEach((cat) => {
+                    const found = cat.project_types.find(
+                      (t) => t.documentId === typeId
+                    );
+                    if (found) typeName = found.title;
+                  });
+
+                  return (
+                    <span
+                      key={typeId}
+                      className="inline-flex items-center px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs"
+                    >
+                      {typeName}
+                      <X
+                        size={12}
+                        className="ml-1 cursor-pointer"
+                        onClick={() =>
+                          toggleSelected(
+                            typeId,
+                            setSelectedTypes,
+                            selectedTypes
+                          )
+                        }
+                      />
+                    </span>
+                  );
+                })}
+
+                <button
+                  className="text-xs text-gray-500 hover:text-red-500 ml-2 cursor-pointer"
+                  onClick={() => {
+                    setSelectedCountries([]);
+                    setSelectedTypes([]);
+                  }}
+                >
+                  Clear all
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+      <div className="relative  h-[600px] overflow-hidden z-1">
         <div className="absolute top-0 left-0 w-[360px] h-full bg-white z-[9999] overflow-y-auto shadow-md opacity-[0.8]">
           <div className="p-1">
             {isLoading ? (
@@ -185,7 +479,7 @@ export default function ProjectMap({ projectIds = [] }) {
                     <div className="flex flex-col justify-between py-1">
                       <h3 className="text-sm font-bold">{project.title}</h3>
                       <p className="text-sm text-[#165DA6]">
-                        {project.location}
+                        {project.country}
                       </p>
                     </div>
                   </div>

@@ -251,9 +251,7 @@ export default function CompensatorProfile() {
                         <div className="text-gray-500 text-sm font-bold">
                           TARGET
                         </div>
-                        <div className="text-gray-700 font-bold">
-                          {compensator.targetPledgePercentage}%
-                        </div>
+                        <div className="text-gray-700 font-bold">100%</div>
                       </div>
                     </div>
                     <div className="h-6 bg-gray-200 rounded-md overflow-hidden">

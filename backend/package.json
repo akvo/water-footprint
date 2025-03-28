@@ -15,7 +15,8 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry",
     "config-sync": "config-sync",
     "seed-sdg": "node ./scripts/sdg-seed.js",
-    "seed-country": "node ./scripts/country-seed.js"
+    "seed-country": "node ./scripts/country-seed.js",
+    "seed-project-types": "node ./scripts/project-type-seed.js"
   },
   "dependencies": {
     "@strapi/plugin-cloud": "5.11.0",
