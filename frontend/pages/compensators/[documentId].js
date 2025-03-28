@@ -14,6 +14,7 @@ export default function CompensatorProfile() {
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isMapView, setIsMapView] = useState(false);
+  const [projectsId, setProjectsId] = useState([]);
 
   const Map = useMemo(
     () =>
@@ -119,6 +120,7 @@ export default function CompensatorProfile() {
 
           setCompensator(enhancedCompensatorData);
           setProjects(projectsData);
+          setProjectsId(projectIds);
         }
       } catch (error) {
         console.error('Error fetching compensator data:', error);
@@ -414,7 +416,7 @@ export default function CompensatorProfile() {
                     </div>
                   </div>
                 ) : (
-                  <Map projects={projects} />
+                  <Map projectIds={projectsId} />
                 )}
               </div>
             </section>

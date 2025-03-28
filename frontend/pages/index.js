@@ -4,11 +4,96 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useRef, useEffect, useMemo } from 'react';
 
-const HeroSection = () => {
+function AnimatedWaterSection() {
+  const particlesRef = useRef(null);
+  const svgRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = particlesRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const setCanvasDimensions = () => {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.offsetWidth * dpr;
+      canvas.height = canvas.offsetHeight * dpr;
+      ctx.scale(dpr, dpr);
+    };
+
+    setCanvasDimensions();
+    window.addEventListener('resize', setCanvasDimensions);
+
+    const particles = [];
+
+    const createParticles = () => {
+      const particleCount = Math.floor(canvas.width / 10);
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2 + 0.5,
+          speedX: Math.random() * 0.5 - 0.25,
+          speedY: Math.random() * 0.5 - 0.25,
+          opacity: Math.random() * 0.5 + 0.1,
+        });
+      }
+    };
+
+    const drawParticles = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((particle) => {
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+
+        if (particle.x < 0) particle.x = canvas.width;
+        if (particle.x > canvas.width) particle.x = 0;
+        if (particle.y < 0) particle.y = canvas.height;
+        if (particle.y > canvas.height) particle.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255,  ${particle.opacity})`;
+        ctx.fill();
+      });
+
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.lineWidth = 1;
+
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 80) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(drawParticles);
+    };
+
+    createParticles();
+    drawParticles();
+
+    return () => {
+      window.removeEventListener('resize', setCanvasDimensions);
+    };
+  }, []);
+
   return (
-    <section className="bg-gradient-to-r from-[#229aaa] to-[#4cb9c8]">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10">
-        {/* Left Content */}
+    <section className="bg-gradient-to-r from-[#229aaa] to-[#4cb9c8] py-12 relative overflow-hidden">
+      <canvas ref={particlesRef} className="absolute inset-0 w-full h-full" />
+
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10 px-4 relative z-10">
         <div className="text-white">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight">
             Fair & smart use of the world's fresh water
@@ -28,17 +113,76 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Right Content - Illustration Placeholder */}
         <div className="hidden md:flex justify-center">
-          <img
-            src="/images/Teardrop-bg.png"
-            alt="Water Network"
-            className="w-full max-w-md"
-          />
+          <div className="animate-float relative w-[360px] h-[360px]">
+            <div className="absolute inset-0 animate-pulse-slow">
+              <img
+                ref={svgRef}
+                src="/animation.svg"
+                className="w-full h-full"
+                alt="Water Animation"
+              />
+            </div>
+
+            {/* Overlay with spinning effect */}
+            <div className="absolute inset-0 animate-spin-slow opacity-50">
+              <svg viewBox="0 0 360 360" className="w-full h-full">
+                <defs>
+                  <radialGradient
+                    id="dropGradient"
+                    cx="50%"
+                    cy="50%"
+                    r="50%"
+                    fx="50%"
+                    fy="50%"
+                  >
+                    <stop offset="0%" stopColor="rgba(255,255,255,0.1)" />
+                    <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+                  </radialGradient>
+                </defs>
+                <g className="animate-spin-slow">
+                  {/* Circular paths that spin around the droplet */}
+                  {[...Array(8)].map((_, i) => (
+                    <circle
+                      key={i}
+                      cx="180"
+                      cy="180"
+                      r={60 + i * 20}
+                      fill="none"
+                      stroke="rgba(255,255,255,0.1)"
+                      strokeWidth="0.5"
+                      strokeDasharray="5,10"
+                    />
+                  ))}
+
+                  {/* Particles that move around the droplet */}
+                  {[...Array(20)].map((_, i) => {
+                    const angle = (i / 20) * Math.PI * 2;
+                    const radius = 100 + Math.random() * 60;
+                    const x = 180 + Math.cos(angle) * radius;
+                    const y = 180 + Math.sin(angle) * radius;
+                    return (
+                      <circle
+                        key={i}
+                        cx={x}
+                        cy={y}
+                        r={1 + Math.random() * 2}
+                        fill="rgba(255,255,255,0.6)"
+                      />
+                    );
+                  })}
+                </g>
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
+}
+
+const HeroSection = () => {
+  return <AnimatedWaterSection />;
 };
 
 const HowItWorksSection = () => {
@@ -480,10 +624,7 @@ const FeaturedStoriesSection = () => {
 };
 
 const ActiveProjectsSection = () => {
-  const [projects, setProjects] = useState([]);
   const [search, setSearch] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   const Map = useMemo(
     () =>
@@ -494,75 +635,14 @@ const ActiveProjectsSection = () => {
     []
   );
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await fetchStrapiData('/projects', {
-          'populate[0]': 'projectImage',
-          'populate[1]': 'projectCompensators',
-        });
-
-        if (response?.data) {
-          const formattedProjects = response.data.map((project) => ({
-            id: project.id,
-            documentId: project.documentId,
-            title: project.name,
-            location: project.location,
-            description: project.description,
-            image: project.projectImage?.url,
-            coordinates: project.coordinates
-              .split(',')
-              .map((coord) => parseFloat(coord.trim())),
-            contributionPercentage: 0,
-            capsFunded: 0,
-          }));
-
-          setProjects(formattedProjects);
-        }
-      } catch (err) {
-        console.error('Error fetching projects:', err);
-        setError('Failed to load projects');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div className="bg-white py-12">
-        <div className="max-w-6xl mx-auto text-center">Loading projects...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="bg-white py-12">
-        <div className="max-w-6xl mx-auto text-center text-red-500">
-          {error}
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="bg-white py-12">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold text-[#0da2d7] py-4">
           Active Projects
         </h2>
-        <input
-          type="text"
-          placeholder="Find a project"
-          className="mt-3 w-full p-2 border rounded"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
         <div className="flex pt-4 border-t border-gray-400 mt-6">
-          <Map projects={projects} />
+          <Map />
         </div>
       </div>
     </div>
