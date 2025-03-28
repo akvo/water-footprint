@@ -96,7 +96,7 @@ function AnimatedWaterSection() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10 px-4 relative z-10">
         <div className="text-white">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-            Fair & smart use of the world's fresh water
+            Fair & smart use of the world&apos;s fresh water
           </h1>
           <p className="mt-4 text-lg max-w-md">
             Our mission is to use the water footprint concept to promote the
@@ -116,11 +116,11 @@ function AnimatedWaterSection() {
         <div className="hidden md:flex justify-center">
           <div className="animate-float relative w-[360px] h-[360px]">
             <div className="absolute inset-0 animate-pulse-slow">
-              <img
-                ref={svgRef}
+              <Image
                 src="/animation.svg"
-                className="w-full h-full"
                 alt="Water Animation"
+                layout="fill"
+                objectFit="contain"
               />
             </div>
 
