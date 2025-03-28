@@ -65,12 +65,6 @@
     "coordinates": {
       "type": "string"
     },
-    "type": {
-      "type": "enumeration",
-      "enum": [
-        "Household & Community"
-      ]
-    },
     "description": {
       "type": "richtext",
       "required": true
@@ -99,6 +93,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::country.country"
+    },
+    "type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::project-type.project-type"
     }
   }
 }
