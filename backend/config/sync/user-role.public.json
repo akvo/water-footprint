@@ -51,13 +51,23 @@
       "locale": null
     },
     {
-      "documentId": "nvuqem1ye9s0esm6z5j9jesv",
+      "documentId": "ab6c7mko7tklwo9bea8lcx8j",
       "action": "api::project-type-category.project-type-category.find",
       "locale": null
     },
     {
-      "documentId": "kjodjecb3356btfrj65bwms8",
+      "documentId": "ydjesxicb9du1jxtic71bhi8",
       "action": "api::project-type-category.project-type-category.findOne",
+      "locale": null
+    },
+    {
+      "documentId": "lolai0dpd7b6agdqa4hehktl",
+      "action": "api::project-type.project-type.find",
+      "locale": null
+    },
+    {
+      "documentId": "wjpocwyv94v3edol8mncbbk2",
+      "action": "api::project-type.project-type.findOne",
       "locale": null
     },
     {
