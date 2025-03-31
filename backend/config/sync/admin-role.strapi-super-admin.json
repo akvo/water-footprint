@@ -84,6 +84,66 @@
       "locale": null
     },
     {
+      "documentId": "vpm3cb39wybsh9km4lin7bjv",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::country.country",
+      "properties": {
+        "fields": [
+          "country_name",
+          "country_code"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "e1dyp72qlketz28fsncosaxy",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::country.country",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "ve4pprhamwum2xxz0g5hykaf",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::country.country",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "k5aptb76hwqezbp7649jcm6n",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::country.country",
+      "properties": {
+        "fields": [
+          "country_name",
+          "country_code"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "w1ibd7swtg4odom02r3ygd2u",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::country.country",
+      "properties": {
+        "fields": [
+          "country_name",
+          "country_code"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
       "documentId": "v13b5jqupv20sdgc2ubw01k8",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
@@ -264,14 +324,14 @@
       "locale": null
     },
     {
-      "documentId": "emwb02n8e4vseui1o04cp23w",
+      "documentId": "z1gp78cdin22tvt2b56fr6bj",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::monitoring-report.monitoring-report",
       "properties": {
         "fields": [
           "name",
-          "link"
+          "file"
         ]
       },
       "conditions": [],
@@ -296,28 +356,28 @@
       "locale": null
     },
     {
-      "documentId": "i5uq7gkasn9hjnc56n3wvhkw",
+      "documentId": "z8auy5rq2w3hgfgujqsfibtt",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::monitoring-report.monitoring-report",
       "properties": {
         "fields": [
           "name",
-          "link"
+          "file"
         ]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "kbiouew5nodfeief3fsq9kcd",
+      "documentId": "i2rfqd575cej4ddbcwtyctn4",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::monitoring-report.monitoring-report",
       "properties": {
         "fields": [
           "name",
-          "link"
+          "file"
         ]
       },
       "conditions": [],
@@ -456,7 +516,127 @@
       "locale": null
     },
     {
-      "documentId": "dogseskv96qgw2kqde8j5n00",
+      "documentId": "h4rqdst1uh10vk9a3ayat61b",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::project-type-category.project-type-category",
+      "properties": {
+        "fields": [
+          "name",
+          "project_types"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "sw8kwcymn752ujj4hjlp9v64",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::project-type-category.project-type-category",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "s5zfktan7xdd0z3mkc6i9qwy",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::project-type-category.project-type-category",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "xlokexpcrjgm2i36zfe6xbk0",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::project-type-category.project-type-category",
+      "properties": {
+        "fields": [
+          "name",
+          "project_types"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "e38wgd8rws1nvzhjwc0msxox",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::project-type-category.project-type-category",
+      "properties": {
+        "fields": [
+          "name",
+          "project_types"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "kzf4opmk6ons9vx0js17yx5p",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::project-type.project-type",
+      "properties": {
+        "fields": [
+          "title",
+          "project_type_category"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "i287pcnepp7qyrkofyaddzq6",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::project-type.project-type",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "t9i6ez8i0mvl44tq467nrfwy",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::project-type.project-type",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "tu0lx5xn5zc0ypwe99oxlxgm",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::project-type.project-type",
+      "properties": {
+        "fields": [
+          "title",
+          "project_type_category"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "smz47df06xxkrvzxdmqwre7e",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::project-type.project-type",
+      "properties": {
+        "fields": [
+          "title",
+          "project_type_category"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "tc1xk8ep030f0cb7fnudt30g",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -475,12 +655,12 @@
           "projectCompensators",
           "location",
           "coordinates",
-          "country",
-          "type",
           "description",
           "projectImage",
           "catchmentBasin",
-          "updates"
+          "updates",
+          "country",
+          "type"
         ]
       },
       "conditions": [],
@@ -505,7 +685,7 @@
       "locale": null
     },
     {
-      "documentId": "ennszsror0pxflbd5a3ipqio",
+      "documentId": "bzbw4bgkpiv94e4mowv0m7tf",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -524,19 +704,19 @@
           "projectCompensators",
           "location",
           "coordinates",
-          "country",
-          "type",
           "description",
           "projectImage",
           "catchmentBasin",
-          "updates"
+          "updates",
+          "country",
+          "type"
         ]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "y93gniny4ohx195jt1t6cwzd",
+      "documentId": "ihdctikz7kaqnz7ha01zs7ik",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -555,12 +735,12 @@
           "projectCompensators",
           "location",
           "coordinates",
-          "country",
-          "type",
           "description",
           "projectImage",
           "catchmentBasin",
-          "updates"
+          "updates",
+          "country",
+          "type"
         ]
       },
       "conditions": [],
