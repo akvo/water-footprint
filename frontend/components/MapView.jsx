@@ -29,7 +29,7 @@ const MapFlyTo = ({ coordinates }) => {
   return null;
 };
 
-export default function ProjectMap({ projectIds = [] }) {
+export default function ProjectMap({ projectIds = [], setProjectCount }) {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -181,6 +181,7 @@ export default function ProjectMap({ projectIds = [] }) {
       const response = await fetchStrapiData('/projects', queryParams);
 
       if (response?.data) {
+        setProjectCount(response.meta?.pagination?.total || 0);
         const formattedProjects = response.data.map((project) => ({
           id: project.id,
           documentId: project.documentId || '',

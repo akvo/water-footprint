@@ -237,13 +237,13 @@ const HowItWorksSection = () => {
   );
 };
 
-const ImpactSection = () => {
+const ImpactSection = ({ partnersCount, projectCount }) => {
   const data = [
     {
       icon: '/images/global-icon.png',
       pretext: 'Globally we have',
-      counter: 2344,
-      title: 'Projects Funded',
+      counter: projectCount,
+      title: 'Projects',
     },
     {
       icon: '/images/water-icon.png',
@@ -254,7 +254,7 @@ const ImpactSection = () => {
     {
       icon: '/images/handshake-icon.png',
       pretext: 'Our current count of',
-      counter: 23,
+      counter: partnersCount,
       title: 'Partners onboarded',
     },
   ];
@@ -297,35 +297,12 @@ const ImpactSection = () => {
   );
 };
 
-const PartnersSection = () => {
+const PartnersSection = ({ partners, isLoading }) => {
   const scrollContainerRef = useRef(null);
   const cardRefs = useRef([]);
   const [pages, setPages] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [partners, setPartners] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const partnersPerPage = 4;
-
-  useEffect(() => {
-    const getPartners = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetchStrapiData('/partners', {
-          'pagination[limit]': 100,
-        });
-
-        if (response?.data) {
-          setPartners(response.data);
-        }
-      } catch (error) {
-        console.error('Error fetching partners:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getPartners();
-  }, []);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -682,9 +659,7 @@ const FeaturedStoriesSection = () => {
   );
 };
 
-const ActiveProjectsSection = () => {
-  const [search, setSearch] = useState('');
-
+const ActiveProjectsSection = ({ setProjectCount }) => {
   const Map = useMemo(
     () =>
       dynamic(() => import('@/components/MapView'), {
@@ -701,7 +676,7 @@ const ActiveProjectsSection = () => {
           Active Projects
         </h2>
         <div className="flex pt-4 border-t border-gray-400 mt-6">
-          <Map />
+          <Map setProjectCount={setProjectCount} />
         </div>
       </div>
     </div>
@@ -709,13 +684,44 @@ const ActiveProjectsSection = () => {
 };
 
 export default function Index() {
+  const [partners, setPartners] = useState([]);
+  const [partnersCount, setPartnersCount] = useState(0);
+  const [projectCount, setProjectCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const getPartners = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetchStrapiData('/partners', {
+          'filters[platformPartner][$eq]': true,
+          'pagination[limit]': 100,
+        });
+
+        if (response?.data) {
+          setPartners(response.data);
+          setPartnersCount(response.meta.pagination.total);
+        }
+      } catch (error) {
+        console.error('Error fetching partners:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getPartners();
+  }, []);
+
   return (
     <main className="min-h-screen bg-white">
       <HeroSection />
       <HowItWorksSection />
-      <ActiveProjectsSection />
-      <ImpactSection />
-      <PartnersSection />
+      <ActiveProjectsSection setProjectCount={setProjectCount} />
+      <ImpactSection
+        partnersCount={partnersCount}
+        projectCount={projectCount}
+      />
+      <PartnersSection {...{ partners, isLoading }} />
       <CompensatorsSection />
       <FeaturedStoriesSection />
     </main>
