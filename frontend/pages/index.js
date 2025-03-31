@@ -237,7 +237,7 @@ const HowItWorksSection = () => {
   );
 };
 
-const ImpactSection = ({ partnersCount, projectCount }) => {
+const ImpactSection = ({ partnersCount, projectCount, compensatorsCount }) => {
   const data = [
     {
       icon: '/images/global-icon.png',
@@ -248,7 +248,7 @@ const ImpactSection = ({ partnersCount, projectCount }) => {
     {
       icon: '/images/water-icon.png',
       pretext: 'Liters of Water',
-      counter: 12456786,
+      counter: compensatorsCount,
       title: 'Compensated',
     },
     {
@@ -687,29 +687,49 @@ export default function Index() {
   const [partners, setPartners] = useState([]);
   const [partnersCount, setPartnersCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
+  const [compensatorsCount, setCompensatorsCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const getPartners = async () => {
+    const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetchStrapiData('/partners', {
+        const partnersResponse = await fetchStrapiData('/partners', {
           'filters[platformPartner][$eq]': true,
           'pagination[limit]': 100,
         });
 
-        if (response?.data) {
-          setPartners(response.data);
-          setPartnersCount(response.meta.pagination.total);
+        if (partnersResponse?.data) {
+          setPartners(partnersResponse.data);
+          setPartnersCount(partnersResponse.meta.pagination.total);
+        }
+
+        const compensatorsResponse = await fetchStrapiData(
+          '/project-compensators',
+          {
+            'pagination[limit]': 500,
+          }
+        );
+
+        if (compensatorsResponse?.data) {
+          const totalAmount = compensatorsResponse.data.reduce(
+            (total, compensator) => {
+              const amount = parseFloat(compensator.amountFunded || 0);
+              return total + amount;
+            },
+            0
+          );
+
+          setCompensatorsCount(totalAmount);
         }
       } catch (error) {
-        console.error('Error fetching partners:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    getPartners();
+    fetchData();
   }, []);
 
   return (
@@ -720,6 +740,7 @@ export default function Index() {
       <ImpactSection
         partnersCount={partnersCount}
         projectCount={projectCount}
+        compensatorsCount={compensatorsCount}
       />
       <PartnersSection {...{ partners, isLoading }} />
       <CompensatorsSection />
