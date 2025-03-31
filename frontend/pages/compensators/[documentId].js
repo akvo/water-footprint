@@ -4,7 +4,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { List, LayoutGrid, ChevronLeft, ChevronRight } from 'lucide-react';
 import { SDGWheel } from '@/components/Sdg/sdg-wheel';
-import { fetchStrapiData } from '@/utils';
+import { env, fetchStrapiData } from '@/utils';
 import { useRouter } from 'next/router';
 
 export default function CompensatorProfile() {
@@ -128,9 +128,8 @@ export default function CompensatorProfile() {
         setIsLoading(false);
       }
     };
-
-    fetchData();
-  }, []);
+    if (documentId) fetchData();
+  }, [documentId]);
 
   const renderContent = () => {
     if (isLoading) {
@@ -199,7 +198,9 @@ export default function CompensatorProfile() {
     }
 
     const imageUrl = compensator?.compensationProgressImage?.url
-      ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${compensator.compensationProgressImage.url}`
+      ? `${env('NEXT_PUBLIC_BACKEND_URL')}${
+          compensator.compensationProgressImage.url
+        }`
       : '/placeholder.svg';
 
     return (
@@ -278,7 +279,9 @@ export default function CompensatorProfile() {
                       icon: sdg.icon
                         ? () => (
                             <Image
-                              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${sdg.icon.url}`}
+                              src={`${env('NEXT_PUBLIC_BACKEND_URL')}${
+                                sdg.icon.url
+                              }`}
                               alt={sdg.name}
                               className="w-full h-full object-cover"
                               width={100}
@@ -365,7 +368,9 @@ export default function CompensatorProfile() {
                             <Image
                               src={
                                 project.image
-                                  ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${project.image}`
+                                  ? `${env('NEXT_PUBLIC_BACKEND_URL')}${
+                                      project.image
+                                    }`
                                   : '/placeholder.svg'
                               }
                               alt={project.title}
