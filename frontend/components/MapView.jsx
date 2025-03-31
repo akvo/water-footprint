@@ -10,7 +10,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import Image from 'next/image';
-import { fetchStrapiData } from '@/utils';
+import { fetchStrapiData, env } from '@/utils';
 import { SlidersHorizontal, Search, ChevronDown, X } from 'lucide-react';
 import { useAppContext } from '@/context/AppContext';
 import Link from 'next/link';
@@ -181,7 +181,8 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
       const response = await fetchStrapiData('/projects', queryParams);
 
       if (response?.data) {
-        setProjectCount(response.meta?.pagination?.total || 0);
+        if (setProjectCount)
+          setProjectCount(response.meta?.pagination?.total || 0);
         const formattedProjects = response.data.map((project) => ({
           id: project.id,
           documentId: project.documentId || '',
@@ -593,7 +594,9 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
                         <Image
                           src={
                             project.image
-                              ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${project.image}`
+                              ? `${env('NEXT_PUBLIC_BACKEND_URL')}${
+                                  project.image
+                                }`
                               : '/placeholder.svg'
                           }
                           alt={project.title}
