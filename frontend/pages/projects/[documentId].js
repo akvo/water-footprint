@@ -194,7 +194,7 @@ export default function ProjectPage() {
                 {project.waterCompensated.percentComplete > 0 && (
                   <>
                     <h2 className="text-gray-800 font-bold mb-4 border-b border-blue-100 pb-2 uppercase">
-                      Percentage Funded
+                      Project Funding
                     </h2>
                     <div className="flex justify-between mb-2">
                       <div>
