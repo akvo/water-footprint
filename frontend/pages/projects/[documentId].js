@@ -65,7 +65,7 @@ export default function ProjectPage() {
         'populate[7]': 'monitoringReports.file',
         'populate[8]': 'updates',
         'populate[9]': 'updates.image',
-        'filters[updates.publishedAt][$notNull]': true,
+        'filters[updates][publishedAt][$notNull]': true,
       });
 
       if (response?.data && response.data.length > 0) {

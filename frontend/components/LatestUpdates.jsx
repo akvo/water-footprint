@@ -25,7 +25,7 @@ const LatestUpdates = ({
         {displayedUpdates.map((update) => (
           <Link
             key={update.id}
-            href={`/updates/${update.id}`}
+            href={`/updates/${update.documentId}`}
             className="group"
           >
             <div className="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 group-hover:translate-y-[-5px]">
