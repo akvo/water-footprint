@@ -508,6 +508,7 @@ const FeaturedStoriesSection = () => {
           'populate[0]': 'image',
           'sort[0]': 'publishedAt:desc',
           'pagination[pageSize]': 10,
+          'filters[publishedAt][$notNull]': true,
         });
 
         if (response?.data) {
