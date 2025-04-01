@@ -237,7 +237,7 @@ const HowItWorksSection = () => {
   );
 };
 
-const ImpactSection = ({ projectCount }) => {
+const ImpactSection = ({ partnersCount, projectCount, compensatorsCount }) => {
   const data = [
     {
       icon: '/images/global-icon.png',
@@ -248,13 +248,13 @@ const ImpactSection = ({ projectCount }) => {
     {
       icon: '/images/water-icon.png',
       pretext: 'Liters of Water',
-      counter: 121212,
+      counter: compensatorsCount,
       title: 'Compensated',
     },
     {
       icon: '/images/handshake-icon.png',
       pretext: 'Our current count of',
-      counter: 121212,
+      counter: partnersCount,
       title: 'Partners onboarded',
     },
   ];
@@ -297,29 +297,77 @@ const ImpactSection = ({ projectCount }) => {
   );
 };
 
-const PartnersSection = () => {
-  const partners = [
-    'WORLD WATERNET',
-    'ACACIA WATER',
-    '11TH HOUR RACING TEAM',
-    'AKVO',
-    'PARTNER 5',
-    'PARTNER 6',
-    'PARTNER 7',
-    'PARTNER 8',
-    'PARTNER 9',
-    'PARTNER 10',
-    'PARTNER 11',
-    'PARTNER 12',
-  ];
+const PartnersSection = ({ partners, isLoading }) => {
+  const sortedPartners = useMemo(() => {
+    return [...(partners || [])].sort((a, b) =>
+      (a.name || '').localeCompare(b.name || '')
+    );
+  }, [partners]);
+
+  const scrollContainerRef = useRef(null);
+  const cardRefs = useRef([]);
+  const [pages, setPages] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const partnersPerPage = 4;
-  const totalPages = Math.ceil(partners.length / partnersPerPage);
 
-  const displayedPartners = partners.slice(
-    currentPage * partnersPerPage,
-    (currentPage + 1) * partnersPerPage
-  );
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container || isLoading || sortedPartners.length === 0) return;
+
+    const pageOffsets = [];
+    let currentWidth = 0;
+    let currentPageStart = 0;
+
+    for (let i = 0; i < cardRefs.current.length; i++) {
+      const el = cardRefs.current[i];
+      if (!el) continue;
+
+      currentWidth += el.offsetWidth;
+
+      if ((i + 1) % partnersPerPage === 0 || i === sortedPartners.length - 1) {
+        pageOffsets.push(currentPageStart);
+        currentPageStart = currentWidth;
+      }
+    }
+
+    setPages(pageOffsets);
+  }, [sortedPartners.length, isLoading]);
+
+  const scrollToPage = (pageIndex) => {
+    const container = scrollContainerRef.current;
+    if (!container || !pages.length) return;
+
+    container.scrollTo({
+      left: pages[pageIndex],
+      behavior: 'smooth',
+    });
+    setCurrentPage(pageIndex);
+  };
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container || !pages.length) return;
+
+    const handleScroll = () => {
+      const scrollPosition = container.scrollLeft;
+
+      let closestPage = 0;
+      let closestDistance = Math.abs(scrollPosition - pages[0]);
+
+      for (let i = 1; i < pages.length; i++) {
+        const distance = Math.abs(scrollPosition - pages[i]);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestPage = i;
+        }
+      }
+
+      setCurrentPage(closestPage);
+    };
+
+    container.addEventListener('scroll', handleScroll);
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [pages]);
 
   return (
     <section className="bg-white py-12 text-center">
@@ -328,30 +376,61 @@ const PartnersSection = () => {
         Our work is made possible through the support of the following partners
       </p>
 
-      <div className="mt-8 py-4 text-center max-w-6xl mx-auto mt-6">
-        <div className="flex justify-center gap-4 py-4">
-          {displayedPartners.map((partner, index) => (
+      <div className="mt-8 py-4 max-w-6xl mx-auto overflow-hidden">
+        {isLoading ? (
+          <div className="flex justify-center py-8">
+            <div className="w-8 h-8 border-4 border-[#0da2d7] border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : partners.length > 0 ? (
+          <>
             <div
-              key={index}
-              className="bg-gray-100 text-gray-900 font-bold p-8 max-w-content text-center rounded-lg shadow-sm"
+              ref={scrollContainerRef}
+              className="flex overflow-x-auto scroll-smooth no-scrollbar gap-4 px-2 pb-4"
             >
-              {partner}
+              {partners.map((partner, index) => (
+                <div
+                  key={partner.id || index}
+                  ref={(el) => (cardRefs.current[index] = el)}
+                  className="flex-shrink-0 px-4"
+                >
+                  {partner.link ? (
+                    <a
+                      href={partner.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block"
+                    >
+                      <div className="bg-gray-100 text-gray-900 font-bold px-6 py-4 rounded-lg shadow-sm whitespace-nowrap capitalize hover:bg-gray-200 transition-colors">
+                        {partner.name || `Partner ${index + 1}`}
+                      </div>
+                    </a>
+                  ) : (
+                    <div className="bg-gray-100 text-gray-900 font-bold px-6 py-4 rounded-lg shadow-sm whitespace-nowrap capitalize">
+                      {partner.name || `Partner ${index + 1}`}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        {/* Pagination */}
-        <div className="mt-4 flex justify-center gap-2">
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <div
-              key={index}
-              className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
-                currentPage === index ? 'bg-[#0da2d7]' : 'bg-gray-300'
-              }`}
-              onClick={() => setCurrentPage(index)}
-            ></div>
-          ))}
-        </div>
+            {pages.length > 1 && (
+              <div className="mt-6 flex justify-center gap-2">
+                {Array.from({ length: pages.length }).map((_, index) => (
+                  <button
+                    key={index}
+                    className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
+                      currentPage === index ? 'bg-[#0da2d7]' : 'bg-gray-300'
+                    }`}
+                    onClick={() => scrollToPage(index)}
+                    aria-label={`Go to page ${index + 1}`}
+                  ></button>
+                ))}
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="text-gray-500 py-8">No partners available</div>
+        )}
       </div>
     </section>
   );
@@ -611,15 +690,65 @@ const ActiveProjectsSection = ({ setProjectCount }) => {
 };
 
 export default function Index() {
+  const [partners, setPartners] = useState([]);
+  const [partnersCount, setPartnersCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
+  const [compensatorsCount, setCompensatorsCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const partnersResponse = await fetchStrapiData('/partners', {
+          'filters[platformPartner][$eq]': true,
+          'pagination[limit]': 100,
+        });
+
+        if (partnersResponse?.data) {
+          setPartners(partnersResponse.data);
+          setPartnersCount(partnersResponse.meta.pagination.total);
+        }
+
+        const compensatorsResponse = await fetchStrapiData(
+          '/project-compensators',
+          {
+            'pagination[limit]': 500,
+          }
+        );
+
+        if (compensatorsResponse?.data) {
+          const totalAmount = compensatorsResponse.data.reduce(
+            (total, compensator) => {
+              const amount = parseFloat(compensator.amountFunded || 0);
+              return total + amount;
+            },
+            0
+          );
+
+          setCompensatorsCount(totalAmount);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <main className="min-h-screen bg-white">
       <HeroSection />
       <HowItWorksSection />
       <ActiveProjectsSection setProjectCount={setProjectCount} />
-      <ImpactSection projectCount={projectCount} />
-      <PartnersSection />
+      <ImpactSection
+        partnersCount={partnersCount}
+        projectCount={projectCount}
+        compensatorsCount={compensatorsCount}
+      />
+      <PartnersSection {...{ partners, isLoading }} />
       <CompensatorsSection />
       <FeaturedStoriesSection />
     </main>
