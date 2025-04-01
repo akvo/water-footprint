@@ -505,10 +505,14 @@ const FeaturedStoriesSection = () => {
         setIsLoading(true);
         const response = await fetchStrapiData('/updates', {
           'filters[featured][$eq]': true,
+          'filters[publishedAt][$notNull]': true,
+          'filters[$or][0][project][$notNull]': true,
+          'filters[$or][1][compensator][$notNull]': true,
           'populate[0]': 'image',
+          'populate[1]': 'project',
+          'populate[2]': 'compensator',
           'sort[0]': 'publishedAt:desc',
           'pagination[pageSize]': 10,
-          'filters[publishedAt][$notNull]': true,
         });
 
         if (response?.data) {
