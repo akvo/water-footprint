@@ -139,6 +139,7 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
         'populate[2]': 'country',
         'pagination[page]': page,
         'pagination[pageSize]': pageSize,
+        'filters[publishedAt][$notNull]': true,
       };
 
       if (searchTerm) {

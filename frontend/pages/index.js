@@ -1,4 +1,4 @@
-import { fetchStrapiData } from '@/utils';
+import { fetchStrapiData, env } from '@/utils';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -494,43 +494,46 @@ const CompensatorsSection = () => {
 };
 
 const FeaturedStoriesSection = () => {
-  const stories = [
-    {
-      image: `https://picsum.photos/600/300?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-      title: 'Racing towards a water neutral world',
-      description:
-        '11th Hour Racing Team will work with Water Footprint Implementation to track water usage, reduce water consumption, and compensate for the unavoidable water footprint from the campaign.',
-    },
-    {
-      image: `https://picsum.photos/600/300?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-      title: 'Launching Water Footprint Compensation',
-      description:
-        'The Water Footprint Compensation will be launched in New York, on the 24th of March, during the UN Water Conference. This is a crucial step towards achieving fair and smart use of the world’s freshwater. Find out how to become a partner.',
-    },
-    {
-      image: `https://picsum.photos/600/300?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-      title: 'Protecting Marine Ecosystems',
-      description:
-        'Efforts are being made to protect marine life by reducing plastic waste and promoting sustainable fishing practices.',
-    },
-    {
-      image: `https://picsum.photos/600/300?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-      title: 'Sustainable Water Solutions',
-      description:
-        'Innovative solutions are emerging to ensure sustainable water management and conservation in urban areas.',
-    },
-  ];
-
+  const [stories, setStories] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const storiesPerPage = 2;
+
+  useEffect(() => {
+    const fetchFeaturedUpdates = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetchStrapiData('/updates', {
+          'filters[featured][$eq]': true,
+          'populate[0]': 'image',
+          'sort[0]': 'publishedAt:desc',
+          'pagination[pageSize]': 10,
+        });
+
+        if (response?.data) {
+          const formattedStories = response.data.map((update) => ({
+            image: update.image
+              ? `${env('NEXT_PUBLIC_BACKEND_URL')}${update.image.url}`
+              : '/placeholder.svg',
+            title: update.title,
+            description: update.content,
+            id: update.id,
+            publishedAt: update.publishedAt,
+            documentId: update.documentId,
+          }));
+
+          setStories(formattedStories);
+        }
+      } catch (error) {
+        console.error('Error fetching featured updates:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchFeaturedUpdates();
+  }, []);
+
   const totalPages = Math.ceil(stories.length / storiesPerPage);
 
   const displayedStories = stories.slice(
@@ -542,6 +545,20 @@ const FeaturedStoriesSection = () => {
     setCurrentPage(pageIndex);
   };
 
+  if (isLoading) {
+    return (
+      <section className="bg-white">
+        <div className="max-w-6xl mx-auto py-10 flex justify-center">
+          <div className="w-8 h-8 border-4 border-[#0da2d7] border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      </section>
+    );
+  }
+
+  if (stories.length === 0) {
+    return null;
+  }
+
   return (
     <section className="bg-white">
       <div className="max-w-6xl mx-auto py-10">
@@ -550,9 +567,10 @@ const FeaturedStoriesSection = () => {
         </h2>
         <div className="grid md:grid-cols-2 gap-6">
           {displayedStories.map((story, index) => (
-            <div
-              key={index}
-              className="bg-white shadow-lg overflow-hidden hover:shadow-2xl transition duration-300"
+            <Link
+              key={story.id}
+              href={`/updates/${story.documentId}`}
+              className="bg-white shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 block"
             >
               <Image
                 src={story.image}
@@ -560,27 +578,32 @@ const FeaturedStoriesSection = () => {
                 width={552}
                 height={234}
                 className="w-full h-68 object-cover"
+                unoptimized
               />
               <div className="p-5">
                 <h3 className="text-lg font-bold text-gray-800">
                   {story.title}
                 </h3>
-                <p className="text-gray-600 mt-2">{story.description}</p>
+                <p className="text-gray-600 mt-2 line-clamp-3">
+                  {story.description}
+                </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
-        <div className="flex justify-end mt-6 space-x-2">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <span
-              key={index}
-              onClick={() => handlePageChange(index)}
-              className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
-                currentPage === index ? 'bg-[#0da2d7]' : 'bg-gray-300'
-              }`}
-            ></span>
-          ))}
-        </div>
+        {totalPages > 1 && (
+          <div className="flex justify-end mt-6 space-x-2">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <span
+                key={index}
+                onClick={() => handlePageChange(index)}
+                className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
+                  currentPage === index ? 'bg-[#0da2d7]' : 'bg-gray-300'
+                }`}
+              ></span>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
