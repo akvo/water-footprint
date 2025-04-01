@@ -316,16 +316,18 @@ export default function CompensatorProfile() {
                     PROGRESS:
                   </h2>
 
-                  <div className="relative w-full">
-                    <Image
-                      src={imageUrl}
-                      alt={compensator.name}
-                      className="object-cover"
-                      unoptimized
-                      width={1200}
-                      height={600}
-                    />
-                  </div>
+                  {imageUrl && (
+                    <div className="relative w-full max-w-lg mx-auto mb-4">
+                      <Image
+                        src={imageUrl}
+                        alt={compensator.name}
+                        className="object-contain rounded-lg shadow-md"
+                        unoptimized
+                        width={1200}
+                        height={300}
+                      />
+                    </div>
+                  )}
                   <p className="pt-2">
                     {compensator?.compensationProgressDescription}
                   </p>
