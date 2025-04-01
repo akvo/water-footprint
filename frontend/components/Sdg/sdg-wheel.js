@@ -26,14 +26,6 @@ export function SDGTooltip({ id, title, color, position, onClose, sdgData }) {
         </div>
         <div className="bg-white py-2 px-3 text-sm">{title}</div>
       </div>
-      <div
-        className="absolute w-3 h-3 rotate-45 bg-white"
-        style={{
-          bottom: '-1.5px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }}
-      />
     </div>
   );
 }
