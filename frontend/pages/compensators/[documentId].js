@@ -4,12 +4,10 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import {
   List,
-  LayoutGrid,
   ChevronLeft,
   ChevronRight,
-  Map as MapIcon,
-  MapPin,
   MapPinned,
+  TreePine,
 } from 'lucide-react';
 import { SDGWheel } from '@/components/Sdg/sdg-wheel';
 import { fetchStrapiData, env } from '@/utils';
