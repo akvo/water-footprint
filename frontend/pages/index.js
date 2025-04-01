@@ -469,6 +469,10 @@ const CompensatorsSection = () => {
     setCurrentPage(pageIndex);
   };
 
+  if (!isLoading && compensators.length === 0) {
+    return null;
+  }
+
   if (isLoading) {
     return (
       <section className="bg-white py-12 text-center">

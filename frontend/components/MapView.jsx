@@ -10,7 +10,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import Image from 'next/image';
-import { fetchStrapiData } from '@/utils';
+import { fetchStrapiData, env } from '@/utils';
 
 const MapFlyTo = ({ coordinates }) => {
   const map = useMap();
@@ -34,7 +34,7 @@ export default function ProjectMap({ projectIds = [] }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const pageSize = 10;
+  const pageSize = 100;
 
   const handleSearch = (e) => {
     const value = e.target.value;
@@ -149,7 +149,7 @@ export default function ProjectMap({ projectIds = [] }) {
         />
       </div>
       <div className="relative  h-[600px] overflow-hidden">
-        <div className="absolute top-0 left-0 w-[360px] h-full bg-white z-[9999] overflow-y-auto shadow-md opacity-[0.8]">
+        <div className="absolute top-0 left-0 w-[360px] h-full bg-white z-[9999] overflow-y-auto shadow-md opacity-[0.9]">
           <div className="p-1">
             {isLoading ? (
               <div className="flex justify-center p-4">
@@ -173,7 +173,9 @@ export default function ProjectMap({ projectIds = [] }) {
                       <Image
                         src={
                           project.image
-                            ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${project.image}`
+                            ? `${env('NEXT_PUBLIC_BACKEND_URL')}${
+                                project.image
+                              }`
                             : '/placeholder.svg'
                         }
                         alt={project.title}
