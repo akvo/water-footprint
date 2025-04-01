@@ -100,6 +100,15 @@ export default function ProjectPage() {
           projectData?.projectCompensators &&
           projectData.projectCompensators.length > 0
         ) {
+          const totalFunded = projectData.projectCompensators.reduce(
+            (sum, comp) => sum + (parseFloat(comp?.capsFunded) || 0),
+            0
+          );
+
+          const targetAmount = parseFloat(projectData.targetCompensation) || 0;
+
+          const remainingAmount = Math.max(0, targetAmount - totalFunded);
+
           const chartData = projectData.projectCompensators.map((comp) => {
             return {
               name: comp?.compensator?.name || 'Unknown',
@@ -112,11 +121,24 @@ export default function ProjectPage() {
               contributionId: comp.documentId,
             };
           });
+
+          if (remainingAmount > 0) {
+            chartData.push({
+              name: 'Unfunded',
+              amount: remainingAmount,
+              caps: remainingAmount,
+              documentId: null,
+              id: 'unfunded',
+              value: remainingAmount,
+              isUnfunded: true,
+            });
+          }
+
           const colors = generateColors(chartData.length);
 
           const chartDataWithColors = chartData.map((item, index) => ({
             ...item,
-            color: colors[index],
+            color: item.isUnfunded ? '#E5E5E5' : colors[index],
           }));
 
           setFundingData(chartDataWithColors);
@@ -169,30 +191,60 @@ export default function ProjectPage() {
                 </p>
               </div>
               <div>
-                <h2 className="text-gray-800 font-bold mb-4 border-b border-blue-100 pb-2">
-                  WATER COMPENSATED
-                </h2>
-                <div className="flex justify-between mb-2">
+                {project.waterCompensated.percentComplete > 0 && (
+                  <>
+                    <h2 className="text-gray-800 font-bold mb-4 border-b border-blue-100 pb-2 uppercase">
+                      Percentage Funded
+                    </h2>
+                    <div className="flex justify-between mb-2">
+                      <div>
+                        <div className="text-gray-500 text-sm font-bold">
+                          ACTUAL
+                        </div>
+                        <div className="text-[#0DA2D7] font-bold">
+                          {project.waterCompensated.percentComplete}%
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-gray-500 text-sm font-bold">
+                          TARGET
+                        </div>
+                        <div className="text-gray-700 font-bold">100%</div>
+                      </div>
+                    </div>
+                    <div className="h-6 bg-gray-200 rounded-md overflow-hidden mb-6">
+                      <div
+                        className="h-full bg-[#0DA2D7] rounded-md"
+                        style={{
+                          width: `${project.waterCompensated.percentComplete}%`,
+                        }}
+                      ></div>
+                    </div>
+                  </>
+                )}
+                <div className="flex justify-between text-sm text-gray-700 my-2">
                   <div>
-                    <div className="text-gray-500 text-sm font-bold">
-                      ACTUAL
-                    </div>
-                    <div className="text-[#0DA2D7] font-bold">
-                      {project.waterCompensated.percentComplete}%
-                    </div>
+                    <span className="font-medium uppercase">Total CAPS:</span>{' '}
+                    {project.waterCompensated.targetValue.toLocaleString()}
                   </div>
-                  <div className="text-right">
-                    <div className="text-gray-500 text-sm font-bold">
-                      TARGET
-                    </div>
-                    <div className="text-gray-700 font-bold">100%</div>
+                  <div>
+                    <span className="font-medium uppercase">
+                      Available CAPS:
+                    </span>{' '}
+                    {(
+                      project.waterCompensated.targetValue -
+                      project.waterCompensated.actualValue
+                    ).toLocaleString()}
                   </div>
                 </div>
-                <div className="h-6 bg-gray-200 rounded-md overflow-hidden">
+                <div className="h-6 bg-gray-100 overflow-hidden rounded-md">
                   <div
                     className="h-full bg-[#0DA2D7] rounded-md"
                     style={{
-                      width: `${project.waterCompensated.percentComplete}%`,
+                      width: `${
+                        100 - project.waterCompensated.percentComplete
+                      }%`,
+                      float: 'right',
                     }}
                   ></div>
                 </div>
@@ -358,19 +410,33 @@ export default function ProjectPage() {
                       FUNDERS :
                     </div>
                     <div className="flex flex-wrap gap-6 mb-4">
-                      {fundingData.map((funder, index) => (
-                        <Link
-                          key={index}
-                          href={`/compensators/${funder.documentId}`}
-                          className="flex items-center gap-2 hover:underline"
-                        >
-                          <div
-                            className="w-4 h-4 rounded-sm"
-                            style={{ backgroundColor: funder.color }}
-                          ></div>
-                          <span className="text-sm">{funder.name}</span>
-                        </Link>
-                      ))}
+                      {fundingData.map((funder, index) => {
+                        if (funder.documentId) {
+                          return (
+                            <Link
+                              key={index}
+                              href={`/compensators/${funder.documentId}`}
+                              className="flex items-center gap-2 hover:underline"
+                            >
+                              <div
+                                className="w-4 h-4 rounded-sm"
+                                style={{ backgroundColor: funder.color }}
+                              ></div>
+                              <span className="text-sm">{funder.name}</span>
+                            </Link>
+                          );
+                        }
+
+                        return (
+                          <div key={index} className="flex items-center gap-2">
+                            <div
+                              className="w-4 h-4 rounded-sm"
+                              style={{ backgroundColor: funder.color }}
+                            ></div>
+                            <span className="text-sm">{funder.name}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>

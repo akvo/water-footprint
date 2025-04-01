@@ -583,13 +583,7 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
                     href={`/projects/${project.documentId}`}
                     className="block mb-4 hover:bg-gray-200 p-1 rounded"
                   >
-                    <div
-                      className="flex cursor-pointer"
-                      onClick={(e) => {
-                        // e.preventDefault();
-                        setSelectedProject(project);
-                      }}
-                    >
+                    <div className="flex cursor-pointer">
                       <div className="w-[120px] h-[80px] relative mr-4 flex-shrink-0">
                         <Image
                           src={
