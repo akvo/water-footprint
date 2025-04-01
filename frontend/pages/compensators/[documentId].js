@@ -6,6 +6,7 @@ import { List, LayoutGrid, ChevronLeft, ChevronRight } from 'lucide-react';
 import { SDGWheel } from '@/components/Sdg/sdg-wheel';
 import { env, fetchStrapiData } from '@/utils';
 import { useRouter } from 'next/router';
+import LatestUpdates from '@/components/LatestUpdates';
 
 export default function CompensatorProfile() {
   const router = useRouter();
@@ -15,6 +16,7 @@ export default function CompensatorProfile() {
   const [isLoading, setIsLoading] = useState(true);
   const [isMapView, setIsMapView] = useState(false);
   const [projectsId, setProjectsId] = useState([]);
+  const [currentUpdatesPage, setCurrentUpdatesPage] = useState(1);
 
   const Map = useMemo(
     () =>
@@ -36,6 +38,8 @@ export default function CompensatorProfile() {
             'populate[3]': 'sdgs.icon',
             'populate[1]': 'projectCompensations',
             'populate[2]': 'compensationProgressImage',
+            'populate[4]': 'updates',
+            'populate[5]': 'updates.image',
           }
         );
 
@@ -289,7 +293,7 @@ export default function CompensatorProfile() {
                               unoptimized
                             />
                           )
-                        : sdgData.find(
+                        : sdgData?.find(
                             (defaultSDG) => defaultSDG.title === sdg.name
                           )?.icon || TreePine,
                     }))}
@@ -424,6 +428,18 @@ export default function CompensatorProfile() {
                 )}
               </div>
             </section>
+          )}
+
+          {compensator.updates?.length > 0 && (
+            <div className="max-w-6xl mx-auto">
+              <div className="my-10">
+                <LatestUpdates
+                  updates={compensator.updates}
+                  currentPage={currentUpdatesPage}
+                  setCurrentPage={setCurrentUpdatesPage}
+                />
+              </div>
+            </div>
           )}
         </div>
       </div>

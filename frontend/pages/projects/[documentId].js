@@ -5,6 +5,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { env, fetchStrapiData } from '@/utils';
 import Link from 'next/link';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import LatestUpdates from '@/components/LatestUpdates';
 
 const data = [
   { name: '11th Hour Racing Team', value: 45, color: '#2A1E5C' },
@@ -483,96 +484,11 @@ export default function ProjectPage() {
           )}
           {project.updates?.length > 0 && (
             <div className="mt-10">
-              <h2 className="text-[#0DA2D7] text-3xl font-bold mb-4">
-                Latest Updates
-              </h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {project.updates
-                  .slice((currentPage - 1) * 3, currentPage * 3)
-                  .map((update) => (
-                    <Link
-                      key={update.id}
-                      href={`/projects/${update.id}`}
-                      className="group"
-                    >
-                      <div className="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 group-hover:translate-y-[-5px]">
-                        <div className="relative h-48">
-                          <Image
-                            src={
-                              update.image
-                                ? `${env('NEXT_PUBLIC_BACKEND_URL')}${
-                                    update.image?.url
-                                  }`
-                                : '/placeholder.svg'
-                            }
-                            alt={update.title}
-                            fill
-                            className="object-cover"
-                            unoptimized
-                          />
-                        </div>
-
-                        <div className="p-6">
-                          <h2 className="text-xl font-semibold mb-2 group-hover:text-blue-400 transition-colors">
-                            {update.title}
-                          </h2>
-                          <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                            {update.content}
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-              </div>
-
-              {project.updates.length > 3 && (
-                <div className="flex justify-center mt-8 gap-2">
-                  <button
-                    className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                      currentPage === 1
-                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                        : 'bg-indigo-900 text-white hover:bg-indigo-800 cursor-pointer'
-                    }`}
-                    onClick={() =>
-                      setCurrentPage((prev) => Math.max(1, prev - 1))
-                    }
-                    disabled={currentPage === 1}
-                    aria-label="Previous page"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-
-                  <div className="flex items-center">
-                    <span className="text-sm text-gray-700">
-                      Page {currentPage} of{' '}
-                      {Math.ceil(project.updates.length / 3)}
-                    </span>
-                  </div>
-
-                  <button
-                    className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                      currentPage === Math.ceil(project.updates.length / 3)
-                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                        : 'bg-indigo-900 text-white hover:bg-indigo-800 cursor-pointer'
-                    }`}
-                    onClick={() =>
-                      setCurrentPage((prev) =>
-                        Math.min(
-                          Math.ceil(project.updates.length / 3),
-                          prev + 1
-                        )
-                      )
-                    }
-                    disabled={
-                      currentPage === Math.ceil(project.updates.length / 3)
-                    }
-                    aria-label="Next page"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-                </div>
-              )}
+              <LatestUpdates
+                updates={project.updates}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
             </div>
           )}
         </div>
