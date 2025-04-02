@@ -420,10 +420,6 @@
         ],
         [
           {
-            "name": "country",
-            "size": 6
-          },
-          {
             "name": "type",
             "size": 6
           }
@@ -451,6 +447,12 @@
           },
           {
             "name": "updates",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "country",
             "size": 6
           }
         ]
