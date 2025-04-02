@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react';
+import { Send, Loader2 } from 'lucide-react';
 import axios from 'axios';
 
 const ContactPage = () => {
@@ -67,16 +67,10 @@ const ContactPage = () => {
 
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/email`, {
-        to: 'navin@akvo.org',
-        subject: `Contact Form: ${formData.subject}`,
-        html: `
-          <h1>New contact form submission</h1>
-          <p><strong>Name:</strong> ${formData.name}</p>
-          <p><strong>Email:</strong> ${formData.email}</p>
-          <p><strong>Subject:</strong> ${formData.subject}</p>
-          <p><strong>Message:</strong></p>
-          <p>${formData.message.replace(/\n/g, '<br>')}</p>
-        `,
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
       });
 
       setSubmitSuccess(true);
@@ -104,8 +98,8 @@ const ContactPage = () => {
             Contact Us
           </h1>
           <p className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
-            We'd love to hear from you. Please fill out the form below or use
-            one of our contact methods.
+            We&apos;d love to hear from you. Please fill out the form below or
+            use one of our contact methods.
           </p>
         </div>
 
@@ -134,8 +128,8 @@ const ContactPage = () => {
                     </div>
                     <div className="ml-3">
                       <p className="text-sm text-green-700">
-                        Thank you for your message! We'll get back to you as
-                        soon as possible.
+                        Thank you for your message! We&apos;ll get back to you
+                        as soon as possible.
                       </p>
                     </div>
                   </div>
