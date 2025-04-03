@@ -26,20 +26,12 @@ export function SDGTooltip({ id, title, color, position, onClose, sdgData }) {
         </div>
         <div className="bg-white py-2 px-3 text-sm">{title}</div>
       </div>
-      <div
-        className="absolute w-3 h-3 rotate-45 bg-white"
-        style={{
-          bottom: '-1.5px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }}
-      />
     </div>
   );
 }
 
 export function SDGWheel({
-  activeGoals = [3, 6, 10, 14, 15],
+  activeGoals = [],
   onSectionClick,
   size = 380,
   sdgData,
@@ -52,13 +44,22 @@ export function SDGWheel({
   const outerRadius = size / 2;
   const innerRadius = size / 4;
 
-  const sections = sdgData.map((sdg, index) => {
+  const fullSDGSet = Array.from({ length: 17 }, (_, i) => i + 1);
+
+  const sections = fullSDGSet.map((id) => {
+    const sdg = sdgData.find((s) => s.id === id) || {
+      id,
+      title: `SDG ${id}`,
+      color: '#E5E5E5',
+      icon: null,
+    };
     const isActive = activeGoals.includes(sdg.id);
     const isHovered = hoveredSection === sdg.id;
     const IconComponent = sdg.icon;
 
-    const totalSections = sdgData.length;
+    const totalSections = 17;
     const anglePerSection = (2 * Math.PI) / totalSections;
+    const index = id - 1;
     const startAngle = index * anglePerSection - Math.PI / 2;
     const endAngle = startAngle + anglePerSection;
 
@@ -93,6 +94,8 @@ export function SDGWheel({
       });
     };
 
+    const sectionColor = isActive ? sdg.color : '#E5E5E5';
+    const iconColor = isActive ? 'white' : '#666666';
     return (
       <g
         key={sdg.id}
@@ -109,15 +112,14 @@ export function SDGWheel({
       >
         <path
           d={path}
-          fill={isActive ? sdg.color : '#E5E5E5'}
+          fill={sectionColor}
           stroke="#FFFFFF"
           strokeWidth={1}
-          className={cn(
-            'transition-all duration-200',
+          className={`transition-all duration-200 ${
             isHovered && !isActive && 'fill-gray-300'
-          )}
+          }`}
         />
-        {IconComponent && (
+        {(isActive || IconComponent) && (
           <foreignObject
             x={iconX - 12}
             y={iconY - 12}
@@ -127,18 +129,10 @@ export function SDGWheel({
           >
             <div className="flex items-center justify-center">
               {typeof IconComponent === 'function' ? (
-                <IconComponent
-                  size={20}
-                  color={isActive ? 'white' : '#666666'}
-                />
-              ) : (
-                <Image
-                  src={IconComponent}
-                  alt="SDG Icon"
-                  layout="fill"
-                  objectFit="cover"
-                />
-              )}
+                <IconComponent size={20} color={iconColor} />
+              ) : isActive ? (
+                <div className="text-white text-xs font-bold">{sdg.id}</div>
+              ) : null}
             </div>
           </foreignObject>
         )}
@@ -150,7 +144,6 @@ export function SDGWheel({
     <div className="relative" style={{ width: size, height: size }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         {sections}
-
         <circle
           cx={centerX}
           cy={centerY}
@@ -167,13 +160,15 @@ export function SDGWheel({
           href="/sdg.png"
         />
       </svg>
-
       {hoveredSection && tooltipPosition && (
         <SDGTooltip
           id={hoveredSection}
-          title={sdgData.find((sdg) => sdg.id === hoveredSection)?.title || ''}
+          title={
+            sdgData.find((sdg) => sdg.id === hoveredSection)?.title ||
+            `SDG ${hoveredSection}`
+          }
           color={
-            sdgData.find((sdg) => sdg.id === hoveredSection)?.color || '#000'
+            sdgData.find((sdg) => sdg.id === hoveredSection)?.color || '#777'
           }
           position={tooltipPosition}
           onClose={() => {
