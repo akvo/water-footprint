@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "project_types",
+  "info": {
+    "singularName": "project-type",
+    "pluralName": "project-types",
+    "displayName": "Project types",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "project_type_category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project-type-category.project-type-category",
+      "inversedBy": "project_types"
+    }
+  }
+}

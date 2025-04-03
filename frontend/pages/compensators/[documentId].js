@@ -135,7 +135,6 @@ export default function CompensatorProfile() {
         setIsLoading(false);
       }
     };
-
     if (documentId) fetchData();
   }, [documentId]);
 

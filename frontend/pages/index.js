@@ -96,7 +96,7 @@ function AnimatedWaterSection() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10 px-4 relative z-10">
         <div className="text-white">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-            Fair & smart use of the world's fresh water
+            Fair & smart use of the world&apos;s fresh water
           </h1>
           <p className="mt-4 text-lg max-w-md">
             Our mission is to use the water footprint concept to promote the
@@ -116,11 +116,11 @@ function AnimatedWaterSection() {
         <div className="hidden md:flex justify-center">
           <div className="animate-float relative w-[360px] h-[360px]">
             <div className="absolute inset-0 animate-pulse-slow">
-              <img
-                ref={svgRef}
+              <Image
                 src="/animation.svg"
-                className="w-full h-full"
                 alt="Water Animation"
+                layout="fill"
+                objectFit="contain"
               />
             </div>
 
@@ -237,24 +237,24 @@ const HowItWorksSection = () => {
   );
 };
 
-const ImpactSection = () => {
+const ImpactSection = ({ projectCount }) => {
   const data = [
     {
       icon: '/images/global-icon.png',
       pretext: 'Globally we have',
-      counter: 2344,
-      title: 'Projects Funded',
+      counter: projectCount,
+      title: 'Projects',
     },
     {
       icon: '/images/water-icon.png',
       pretext: 'Liters of Water',
-      counter: 12456786,
+      counter: 121212,
       title: 'Compensated',
     },
     {
       icon: '/images/handshake-icon.png',
       pretext: 'Our current count of',
-      counter: 23,
+      counter: 121212,
       title: 'Partners onboarded',
     },
   ];
@@ -312,46 +312,14 @@ const PartnersSection = () => {
     'PARTNER 11',
     'PARTNER 12',
   ];
-
-  const scrollContainerRef = useRef(null);
-  const cardRefs = useRef([]);
-  const [pages, setPages] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const partnersPerPage = 4;
+  const totalPages = Math.ceil(partners.length / partnersPerPage);
 
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const pageOffsets = [];
-    let currentWidth = 0;
-    let currentPageStart = 0;
-
-    for (let i = 0; i < cardRefs.current.length; i++) {
-      const el = cardRefs.current[i];
-      if (!el) continue;
-
-      currentWidth += el.offsetWidth;
-
-      if ((i + 1) % partnersPerPage === 0 || i === partners.length - 1) {
-        pageOffsets.push(currentPageStart);
-        currentPageStart = currentWidth;
-      }
-    }
-
-    setPages(pageOffsets);
-  }, [partners.length]);
-
-  const scrollToPage = (pageIndex) => {
-    const container = scrollContainerRef.current;
-    if (!container || !pages.length) return;
-
-    container.scrollTo({
-      left: pages[pageIndex],
-      behavior: 'smooth',
-    });
-    setCurrentPage(pageIndex);
-  };
+  const displayedPartners = partners.slice(
+    currentPage * partnersPerPage,
+    (currentPage + 1) * partnersPerPage
+  );
 
   return (
     <section className="bg-white py-12 text-center">
@@ -360,32 +328,27 @@ const PartnersSection = () => {
         Our work is made possible through the support of the following partners
       </p>
 
-      <div className="mt-8 py-4 max-w-6xl mx-auto overflow-hidden">
-        <div
-          ref={scrollContainerRef}
-          className="flex overflow-x-auto scroll-smooth no-scrollbar gap-4 px-2"
-        >
-          {partners.map((partner, index) => (
+      <div className="mt-8 py-4 text-center max-w-6xl mx-auto mt-6">
+        <div className="flex justify-center gap-4 py-4">
+          {displayedPartners.map((partner, index) => (
             <div
               key={index}
-              ref={(el) => (cardRefs.current[index] = el)}
-              className="flex-shrink-0 px-4"
+              className="bg-gray-100 text-gray-900 font-bold p-8 max-w-content text-center rounded-lg shadow-sm"
             >
-              <div className="bg-gray-100 text-gray-900 font-bold px-6 py-4 rounded-lg shadow-sm whitespace-nowrap">
-                {partner}
-              </div>
+              {partner}
             </div>
           ))}
         </div>
 
-        <div className="mt-6 flex justify-center gap-2">
-          {Array.from({ length: pages.length }).map((_, index) => (
+        {/* Pagination */}
+        <div className="mt-4 flex justify-center gap-2">
+          {Array.from({ length: totalPages }).map((_, index) => (
             <div
               key={index}
               className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
                 currentPage === index ? 'bg-[#0da2d7]' : 'bg-gray-300'
               }`}
-              onClick={() => scrollToPage(index)}
+              onClick={() => setCurrentPage(index)}
             ></div>
           ))}
         </div>
@@ -627,9 +590,7 @@ const FeaturedStoriesSection = () => {
   );
 };
 
-const ActiveProjectsSection = () => {
-  const [search, setSearch] = useState('');
-
+const ActiveProjectsSection = ({ setProjectCount }) => {
   const Map = useMemo(
     () =>
       dynamic(() => import('@/components/MapView'), {
@@ -646,7 +607,7 @@ const ActiveProjectsSection = () => {
           Active Projects
         </h2>
         <div className="flex pt-4 border-t border-gray-400 mt-6">
-          <Map />
+          <Map setProjectCount={setProjectCount} />
         </div>
       </div>
     </div>
@@ -654,12 +615,14 @@ const ActiveProjectsSection = () => {
 };
 
 export default function Index() {
+  const [projectCount, setProjectCount] = useState(0);
+
   return (
     <main className="min-h-screen bg-white">
       <HeroSection />
       <HowItWorksSection />
-      <ActiveProjectsSection />
-      <ImpactSection />
+      <ActiveProjectsSection setProjectCount={setProjectCount} />
+      <ImpactSection projectCount={projectCount} />
       <PartnersSection />
       <CompensatorsSection />
       <FeaturedStoriesSection />

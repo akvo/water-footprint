@@ -16,8 +16,13 @@
       "locale": null
     },
     {
-      "documentId": "s357grotjupsa8ztvbqqdq4l",
+      "documentId": "wrm8h1w1wszyng5ydhtr3wei",
       "action": "api::country.country.find",
+      "locale": null
+    },
+    {
+      "documentId": "g4gr64k4lkdeyeg7z88a4pao",
+      "action": "api::country.country.findOne",
       "locale": null
     },
     {
@@ -51,13 +56,23 @@
       "locale": null
     },
     {
-      "documentId": "nvuqem1ye9s0esm6z5j9jesv",
+      "documentId": "axytdbmmz5eb61lhfxhcmlqk",
       "action": "api::project-type-category.project-type-category.find",
       "locale": null
     },
     {
-      "documentId": "kjodjecb3356btfrj65bwms8",
+      "documentId": "xhphec34uzn5jv2p23t47ehu",
       "action": "api::project-type-category.project-type-category.findOne",
+      "locale": null
+    },
+    {
+      "documentId": "rqz5e1s94stdfq7685g0mds4",
+      "action": "api::project-type.project-type.find",
+      "locale": null
+    },
+    {
+      "documentId": "hy1ioyye61s2y0se48x2ebb1",
+      "action": "api::project-type.project-type.findOne",
       "locale": null
     },
     {
