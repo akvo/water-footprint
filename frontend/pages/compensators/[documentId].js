@@ -2,9 +2,15 @@ import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { List, LayoutGrid, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  List,
+  ChevronLeft,
+  ChevronRight,
+  MapPinned,
+  TreePine,
+} from 'lucide-react';
 import { SDGWheel } from '@/components/Sdg/sdg-wheel';
-import { env, fetchStrapiData } from '@/utils';
+import { fetchStrapiData, env } from '@/utils';
 import { useRouter } from 'next/router';
 
 export default function CompensatorProfile() {
@@ -77,6 +83,7 @@ export default function CompensatorProfile() {
                 projectIds.join(','),
               'populate[0]': 'projectCompensators',
               'populate[1]': 'projectImage',
+              'pagination[pageSize]': 100,
             });
 
             if (projectsResponse?.data) {
@@ -183,8 +190,8 @@ export default function CompensatorProfile() {
               Compensator Not Found
             </h2>
             <p className="text-sm text-gray-600 mt-2">
-              We couldn&apos;t retrieve the compensator&apos;s information at
-              this time.
+              We couldn&#39;t retrieve the compensator&#39;s information at this
+              time.
             </p>
             <Link
               href="/"
@@ -209,9 +216,9 @@ export default function CompensatorProfile() {
           <div className="bg-[#0DA2D71A] px-4 py-10">
             <div className="max-w-6xl mx-auto">
               <div className="flex items-center gap-2 text-md font-semibold">
-                <a href="#" className="text-gray-700 hover:underline">
+                <Link href="/" className="text-gray-700 hover:underline">
                   Home
-                </a>
+                </Link>
                 <span className="text-gray-500">/</span>
                 <span className="text-[#0DA2D7]">Compensator profile</span>
               </div>
@@ -306,16 +313,18 @@ export default function CompensatorProfile() {
                     PROGRESS:
                   </h2>
 
-                  <div className="relative w-full">
-                    <Image
-                      src={imageUrl}
-                      alt={compensator.name}
-                      className="object-cover"
-                      unoptimized
-                      width={1200}
-                      height={600}
-                    />
-                  </div>
+                  {imageUrl && (
+                    <div className="relative w-full max-w-lg mx-auto mb-4">
+                      <Image
+                        src={imageUrl}
+                        alt={compensator.name}
+                        className="object-contain rounded-lg shadow-md"
+                        unoptimized
+                        width={1200}
+                        height={300}
+                      />
+                    </div>
+                  )}
                   <p className="pt-2">
                     {compensator?.compensationProgressDescription}
                   </p>
@@ -327,97 +336,32 @@ export default function CompensatorProfile() {
           {projects.length > 0 && (
             <section className="py-8">
               <div className="max-w-6xl mx-auto">
-                <div className="mb-6">
+                <div className="flex justify-between mb-6 items-center">
                   <h2 className="text-4xl font-bold text-[#0DA2D7]">
                     Projects Supported
                   </h2>
 
-                  <div className="flex justify-between items-center mb-6">
-                    <Link
-                      href="#"
-                      className="text-gray-700 hover:underline text-md font-medium"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setIsMapView(!isMapView);
-                      }}
-                    >
-                      {isMapView ? 'View as List' : 'View on Map'}
-                    </Link>
-                    {!isMapView && (
-                      <div className="flex gap-2">
-                        <button className="p-1 text-gray-500 hover:text-gray-700">
-                          <List className="w-5 h-5" />
-                        </button>
-                        <button className="p-1 text-gray-500 hover:text-gray-700">
-                          <LayoutGrid className="w-5 h-5" />
-                        </button>
-                      </div>
+                  <div className="flex gap-2">
+                    {isMapView ? (
+                      <button
+                        className="p-1 text-gray-500 hover:text-gray-700 cursor-pointer"
+                        onClick={() => setIsMapView(!isMapView)}
+                      >
+                        <List className="w-6 h-6" />
+                      </button>
+                    ) : (
+                      <button
+                        className="p-1 text-gray-500 hover:text-gray-700 cursor-pointer"
+                        onClick={() => setIsMapView(!isMapView)}
+                      >
+                        <MapPinned className="w-6 h-6" />
+                      </button>
                     )}
                   </div>
                 </div>
                 {!isMapView ? (
                   <div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {projects.map((project) => (
-                        <div
-                          key={project.id}
-                          className={`bg-white rounded-lg overflow-hidden`}
-                          style={{ boxShadow: '-6px 6px 8px 0px #0000001A' }}
-                        >
-                          <div className="relative h-48 w-full">
-                            <Image
-                              src={
-                                project.image
-                                  ? `${env('NEXT_PUBLIC_BACKEND_URL')}${
-                                      project.image
-                                    }`
-                                  : '/placeholder.svg'
-                              }
-                              alt={project.title}
-                              className="object-cover"
-                              unoptimized
-                              fill
-                            />
-                          </div>
-
-                          <div className="p-4">
-                            <h3 className="text-xl font-semibold mb-1">
-                              {project.title}
-                            </h3>
-                            <p className="text-sm text-gray-600 mb-3">
-                              {project.location}
-                            </p>
-
-                            <p className="text-gray-700 text-sm mb-4">
-                              {project.description}
-                            </p>
-
-                            <div className="border-t border-gray-200 pt-4 mt-4">
-                              <div className="text-sm text-gray-700 mb-2">
-                                Amount Contributed
-                              </div>
-                              <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-                                <div
-                                  className="h-full bg-[#0DA2D7] rounded-full"
-                                  style={{
-                                    width: `${project.contributionPercentage}%`,
-                                  }}
-                                ></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="flex justify-center mt-8 gap-2">
-                      <button className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200">
-                        <ChevronLeft className="w-5 h-5" />
-                      </button>
-                      <button className="w-10 h-10 rounded-full bg-indigo-900 flex items-center justify-center text-white hover:bg-indigo-800">
-                        <ChevronRight className="w-5 h-5" />
-                      </button>
-                    </div>
+                    <ProjectsListing projects={projects} />
                   </div>
                 ) : (
                   <Map projectIds={projectsId} />
@@ -432,3 +376,122 @@ export default function CompensatorProfile() {
 
   return renderContent();
 }
+
+const ProjectsListing = ({ projects }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const projectsPerPage = 6;
+
+  const totalPages = Math.ceil(projects.length / projectsPerPage);
+  const indexOfLastProject = currentPage * projectsPerPage;
+  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+  const currentProjects = projects.slice(
+    indexOfFirstProject,
+    indexOfLastProject
+  );
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [projects.length]);
+
+  return (
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {currentProjects.map((project) => (
+          <Link
+            href={`/projects/${project.documentId}`}
+            key={project.documentId}
+            className="bg-white rounded-lg overflow-hidden transition-shadow hover:shadow-lg cursor-pointer"
+            style={{ boxShadow: '-6px 6px 8px 0px #0000001A' }}
+          >
+            <div className="relative h-48 w-full">
+              <Image
+                src={
+                  project.image
+                    ? `${env('NEXT_PUBLIC_BACKEND_URL')}${project.image}`
+                    : '/placeholder.svg'
+                }
+                alt={project.title}
+                className="object-cover"
+                unoptimized
+                fill
+              />
+            </div>
+
+            <div className="p-4">
+              <h3 className="text-xl font-semibold mb-1 hover:text-[#0DA2D7] transition-colors">
+                {project.title}
+              </h3>
+              <p className="text-sm text-gray-600 mb-3">{project.location}</p>
+
+              <p className="text-gray-700 text-sm mb-4 line-clamp-3 overflow-hidden text-ellipsis">
+                {project.description}
+              </p>
+
+              <div className="border-t border-gray-200 pt-4 mt-4">
+                <div className="text-sm text-gray-700 mb-2">
+                  Amount Contributed
+                </div>
+                <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-[#0DA2D7] rounded-full"
+                    style={{
+                      width: `${project.contributionPercentage}%`,
+                    }}
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-8 gap-2">
+          <button
+            className={`w-10 h-10 rounded-full flex items-center justify-center ${
+              currentPage === 1
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+            onClick={goToPreviousPage}
+            disabled={currentPage === 1}
+            aria-label="Previous page"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          <div className="flex items-center">
+            <span className="text-sm text-gray-700">
+              Page {currentPage} of {totalPages}
+            </span>
+          </div>
+
+          <button
+            className={`w-10 h-10 rounded-full flex items-center justify-center ${
+              currentPage === totalPages
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-indigo-900 text-white hover:bg-indigo-800'
+            }`}
+            onClick={goToNextPage}
+            disabled={currentPage === totalPages}
+            aria-label="Next page"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
