@@ -40,7 +40,6 @@ export default function CompensatorProfile() {
             'populate[2]': 'compensationProgressImage',
             'populate[4]': 'updates',
             'populate[5]': 'updates.image',
-            'filters[updates][publishedAt][$notNull]': true,
           }
         );
 
