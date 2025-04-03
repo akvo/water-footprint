@@ -85,7 +85,9 @@ export default function ProjectPage() {
             targetValue: targetValue,
             percentComplete: percentageComplete,
           },
-          image: projectData.projectImage?.url,
+          image: projectData.projectImage?.url
+            ? projectData.projectImage.url
+            : '/placeholder.svg',
           country: projectData.country?.country_name,
           period: {
             start: projectData.startDate,
@@ -275,7 +277,7 @@ export default function ProjectPage() {
             <div className="w-1/2">
               <div className="rounded-lg overflow-hidden shadow-lg">
                 <Image
-                  src="/placeholder.svg?height=600&width=800"
+                  src={`${env('NEXT_PUBLIC_BACKEND_URL')}${project.image}`}
                   alt={project.title}
                   width={800}
                   height={400}
