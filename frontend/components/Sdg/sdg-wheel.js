@@ -30,12 +30,7 @@ export function SDGTooltip({ id, title, color, position, onClose, sdgData }) {
   );
 }
 
-export function SDGWheel({
-  activeGoals = [],
-  onSectionClick,
-  size = 380,
-  sdgData,
-}) {
+export function SDGWheel({ size = 380, sdgData }) {
   const [hoveredSection, setHoveredSection] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState(null);
 
@@ -53,7 +48,7 @@ export function SDGWheel({
       color: '#E5E5E5',
       icon: null,
     };
-    const isActive = activeGoals.includes(sdg.id);
+    const isActive = true;
     const isHovered = hoveredSection === sdg.id;
     const IconComponent = sdg.icon;
 
@@ -99,7 +94,6 @@ export function SDGWheel({
     return (
       <g
         key={sdg.id}
-        onClick={() => onSectionClick?.(sdg.id)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => {
           setHoveredSection(null);
@@ -131,7 +125,7 @@ export function SDGWheel({
               {typeof IconComponent === 'function' ? (
                 <IconComponent size={20} color={iconColor} />
               ) : isActive ? (
-                <div className="text-white text-xs font-bold">{sdg.id}</div>
+                <div className="text-white text-xs font-bold" />
               ) : null}
             </div>
           </foreignObject>
