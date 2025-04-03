@@ -1,12 +1,6 @@
-import { cn } from '@/utils';
 import { useState } from 'react';
-import Image from 'next/image';
 
-export function SDGTooltip({ id, title, color, position, onClose, sdgData }) {
-  const [isVisible, setIsVisible] = useState(false);
-  const sdgItem = sdgData.find((item) => item.id === id);
-  const IconComponent = sdgItem?.icon;
-
+export function SDGTooltip({ id, title, color, position }) {
   return (
     <div
       className="fixed z-50 transition-opacity duration-200 shadow-lg rounded-md overflow-hidden"
@@ -37,7 +31,9 @@ export function SDGWheel({ size = 380, sdgData }) {
   const centerX = size / 2;
   const centerY = size / 2;
   const outerRadius = size / 2;
-  const innerRadius = size / 4;
+  const innerRadius = size / 3;
+
+  const iconSize = 32;
 
   const fullSDGSet = Array.from({ length: 17 }, (_, i) => i + 1);
 
@@ -48,8 +44,8 @@ export function SDGWheel({ size = 380, sdgData }) {
       color: '#E5E5E5',
       icon: null,
     };
-    const isActive = true;
-    const isHovered = hoveredSection === sdg.id;
+    const isActive = sdgData.some((s) => s.id === id);
+    const isHovered = isActive && hoveredSection === sdg.id;
     const IconComponent = sdg.icon;
 
     const totalSections = 17;
@@ -76,17 +72,19 @@ export function SDGWheel({ size = 380, sdgData }) {
     `;
 
     const iconAngle = startAngle + anglePerSection / 2;
-    const iconRadius = (outerRadius + innerRadius) / 2;
+    const iconRadius = ((outerRadius + innerRadius) / 2) * 1.05;
     const iconX = centerX + iconRadius * Math.cos(iconAngle);
     const iconY = centerY + iconRadius * Math.sin(iconAngle);
 
     const handleMouseEnter = (event) => {
-      setHoveredSection(sdg.id);
-      const rect = event.currentTarget.getBoundingClientRect();
-      setTooltipPosition({
-        x: rect.left + rect.width / 2,
-        y: rect.top,
-      });
+      if (isActive) {
+        setHoveredSection(sdg.id);
+        const rect = event.currentTarget.getBoundingClientRect();
+        setTooltipPosition({
+          x: rect.left + rect.width / 2,
+          y: rect.top,
+        });
+      }
     };
 
     const sectionColor = isActive ? sdg.color : '#E5E5E5';
@@ -115,10 +113,10 @@ export function SDGWheel({ size = 380, sdgData }) {
         />
         {(isActive || IconComponent) && (
           <foreignObject
-            x={iconX - 12}
-            y={iconY - 12}
-            width={30}
-            height={30}
+            x={iconX - iconSize / 2}
+            y={iconY - iconSize / 2}
+            width={iconSize}
+            height={iconSize}
             className="pointer-events-none"
           >
             <div className="flex items-center justify-center">
