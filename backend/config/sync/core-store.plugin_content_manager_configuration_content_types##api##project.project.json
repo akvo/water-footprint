@@ -206,34 +206,6 @@
           "sortable": true
         }
       },
-      "country": {
-        "edit": {
-          "label": "country",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "country",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "type": {
-        "edit": {
-          "label": "type",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "type",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "description": {
         "edit": {
           "label": "description",
@@ -289,6 +261,36 @@
           "label": "updates",
           "searchable": false,
           "sortable": false
+        }
+      },
+      "country": {
+        "edit": {
+          "label": "country",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "country_name"
+        },
+        "list": {
+          "label": "country",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "type": {
+        "edit": {
+          "label": "type",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "type",
+          "searchable": true,
+          "sortable": true
         }
       },
       "createdAt": {
@@ -420,10 +422,6 @@
         ],
         [
           {
-            "name": "country",
-            "size": 6
-          },
-          {
             "name": "type",
             "size": 6
           }
@@ -451,6 +449,12 @@
           },
           {
             "name": "updates",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "country",
             "size": 6
           }
         ]
