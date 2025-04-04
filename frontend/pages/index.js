@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { useState } from "react";
+import Image from 'next/image';
+import { useState } from 'react';
 
 const HeroSection = () => {
   return (
@@ -8,10 +8,12 @@ const HeroSection = () => {
         {/* Left Content */}
         <div className="text-white">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-            Fair & smart use of the world's fresh water
+            Fair & smart use of the world&apos;s fresh water
           </h1>
           <p className="mt-4 text-lg max-w-md">
-            Our mission is to use the water footprint concept to promote the transition toward sustainable, fair and efficient use of fresh water resources worldwide.
+            Our mission is to use the water footprint concept to promote the
+            transition toward sustainable, fair and efficient use of fresh water
+            resources worldwide.
           </p>
           <div className="mt-6 flex gap-4">
             <button className="bg-white text-black px-6 py-3 rounded-lg font-semibold shadow-lg">
@@ -39,22 +41,22 @@ const HeroSection = () => {
 const HowItWorksSection = () => {
   const data = [
     {
-      icon: "/images/project-icon.png",
-      title: "Implementing Projects",
+      icon: '/images/project-icon.png',
+      title: 'Implementing Projects',
       description:
-        "Activities contributing to restoration, replenishment, and protection of the water system.",
+        'Activities contributing to restoration, replenishment, and protection of the water system.',
     },
     {
-      icon: "/images/platform-icon.png",
-      title: "Platform",
+      icon: '/images/platform-icon.png',
+      title: 'Platform',
       description:
-        "Compensators are matched to quality-assured projects that promote restoration, replenishment, or protection activities of the water system where water is consumed.",
+        'Compensators are matched to quality-assured projects that promote restoration, replenishment, or protection activities of the water system where water is consumed.',
     },
     {
-      icon: "/images/compensator-icon.png",
-      title: "Compensators",
+      icon: '/images/compensator-icon.png',
+      title: 'Compensators',
       description:
-        "Organisations that want to become water-neutral or water-positive by reducing their Water Footprint by avoid, reduce, and reuse measures and by compensating for their residual Water Footprint through investing in Water Footprint Compensation activities.",
+        'Organisations that want to become water-neutral or water-positive by reducing their Water Footprint by avoid, reduce, and reuse measures and by compensating for their residual Water Footprint through investing in Water Footprint Compensation activities.',
     },
   ];
 
@@ -62,13 +64,22 @@ const HowItWorksSection = () => {
     <section className="bg-white py-12 text-center">
       <h2 className="text-4xl font-bold text-[#0da2d7] py-4">How it works</h2>
       <p className="font-semibold mt-2 max-w-lg mx-auto">
-        Water Footprint Compensation (WFC): the next step towards fair and smart use of the world’s fresh water
+        Water Footprint Compensation (WFC): the next step towards fair and smart
+        use of the world’s fresh water
       </p>
       <div className="mt-8 grid md:grid-cols-3 gap-6 max-w-6xl mx-auto py-8">
         {data.map((item, index) => (
-          <div key={index} className="bg-gray-100 p-6 rounded-md shadow-md text-center">
+          <div
+            key={index}
+            className="bg-gray-100 p-6 rounded-md shadow-md text-center"
+          >
             <div className="flex justify-center items-center py-8">
-              <Image src={item.icon} alt={`${item.title} icon`} width={70} height={70} />
+              <Image
+                src={item.icon}
+                alt={`${item.title} icon`}
+                width={70}
+                height={70}
+              />
             </div>
             <h3 className="text-lg font-bold py-4">{item.title}</h3>
             <p className="text-gray-600 pb-4 max-w-2xs">{item.description}</p>
@@ -82,31 +93,33 @@ const HowItWorksSection = () => {
 const ImpactSection = () => {
   const data = [
     {
-      icon: "/images/global-icon.png",
-      pretext: "Globally we have",
+      icon: '/images/global-icon.png',
+      pretext: 'Globally we have',
       counter: 2344,
-      title: "Projects Funded",
+      title: 'Projects Funded',
     },
     {
-      icon: "/images/water-icon.png",
-      pretext: "Liters of Water",
+      icon: '/images/water-icon.png',
+      pretext: 'Liters of Water',
       counter: 12456786,
-      title: "Compensated",
+      title: 'Compensated',
     },
     {
-      icon: "/images/handshake-icon.png",
-      pretext: "Our current count of",
+      icon: '/images/handshake-icon.png',
+      pretext: 'Our current count of',
       counter: 23,
-      title: "Partners onboarded",
+      title: 'Partners onboarded',
     },
   ];
 
   return (
     <section className="bg-white py-12 text-center">
-      <h2 className="text-4xl font-bold text-[#0da2d7] py-4">Impact Created by WFI - Platform</h2>
+      <h2 className="text-4xl font-bold text-[#0da2d7] py-4">
+        Impact Created by WFI - Platform
+      </h2>
       <p className="font-semibold mt-2 max-w-lg mx-auto">
-        We have managed to achieve impact in a broad number of areas
-        as highlighted by the metrics below
+        We have managed to achieve impact in a broad number of areas as
+        highlighted by the metrics below
       </p>
       <div className="py-2">&nbsp;</div>
 
@@ -116,11 +129,18 @@ const ImpactSection = () => {
             <div key={index} className="text-center py-8">
               <div className="flex justify-center py-8">
                 <div className="bg-[#83ddfd] p-3 rounded-full">
-                  <Image src={item.icon} alt={`${item.title} icon`} width={24} height={24} />
+                  <Image
+                    src={item.icon}
+                    alt={`${item.title} icon`}
+                    width={24}
+                    height={24}
+                  />
                 </div>
               </div>
               <p className="text-gray-500 mt-2">{item.pretext}</p>
-              <p className="text-3xl font-bold text-[#2d1a45] py-3">{item.counter.toLocaleString('en')}</p>
+              <p className="text-3xl font-bold text-[#2d1a45] py-3">
+                {item.counter.toLocaleString('en')}
+              </p>
               <p className="text-gray-500">{item.title}</p>
             </div>
           ))}
@@ -132,18 +152,18 @@ const ImpactSection = () => {
 
 const PartnersSection = () => {
   const partners = [
-    "WORLD WATERNET",
-    "ACACIA WATER",
-    "11TH HOUR RACING TEAM",
-    "AKVO",
-    "PARTNER 5",
-    "PARTNER 6",
-    "PARTNER 7",
-    "PARTNER 8",
-    "PARTNER 9",
-    "PARTNER 10",
-    "PARTNER 11",
-    "PARTNER 12",
+    'WORLD WATERNET',
+    'ACACIA WATER',
+    '11TH HOUR RACING TEAM',
+    'AKVO',
+    'PARTNER 5',
+    'PARTNER 6',
+    'PARTNER 7',
+    'PARTNER 8',
+    'PARTNER 9',
+    'PARTNER 10',
+    'PARTNER 11',
+    'PARTNER 12',
   ];
   const [currentPage, setCurrentPage] = useState(0);
   const partnersPerPage = 4;
@@ -178,8 +198,9 @@ const PartnersSection = () => {
           {Array.from({ length: totalPages }).map((_, index) => (
             <div
               key={index}
-              className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${currentPage === index ? "bg-[#0da2d7]" : "bg-gray-300"
-                }`}
+              className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
+                currentPage === index ? 'bg-[#0da2d7]' : 'bg-gray-300'
+              }`}
               onClick={() => setCurrentPage(index)}
             ></div>
           ))}
@@ -192,28 +213,36 @@ const PartnersSection = () => {
 const FeaturedStoriesSection = () => {
   const stories = [
     {
-      image: `https://picsum.photos/600/300?${Math.random().toString(36).slice(2)}`,
-      title: "Racing towards a water neutral world",
+      image: `https://picsum.photos/600/300?${Math.random()
+        .toString(36)
+        .slice(2)}`,
+      title: 'Racing towards a water neutral world',
       description:
-        "11th Hour Racing Team will work with Water Footprint Implementation to track water usage, reduce water consumption, and compensate for the unavoidable water footprint from the campaign.",
+        '11th Hour Racing Team will work with Water Footprint Implementation to track water usage, reduce water consumption, and compensate for the unavoidable water footprint from the campaign.',
     },
     {
-      image: `https://picsum.photos/600/300?${Math.random().toString(36).slice(2)}`,
-      title: "Launching Water Footprint Compensation",
+      image: `https://picsum.photos/600/300?${Math.random()
+        .toString(36)
+        .slice(2)}`,
+      title: 'Launching Water Footprint Compensation',
       description:
-        "The Water Footprint Compensation will be launched in New York, on the 24th of March, during the UN Water Conference. This is a crucial step towards achieving fair and smart use of the world’s freshwater. Find out how to become a partner.",
+        'The Water Footprint Compensation will be launched in New York, on the 24th of March, during the UN Water Conference. This is a crucial step towards achieving fair and smart use of the world’s freshwater. Find out how to become a partner.',
     },
     {
-      image: `https://picsum.photos/600/300?${Math.random().toString(36).slice(2)}`,
-      title: "Protecting Marine Ecosystems",
+      image: `https://picsum.photos/600/300?${Math.random()
+        .toString(36)
+        .slice(2)}`,
+      title: 'Protecting Marine Ecosystems',
       description:
-        "Efforts are being made to protect marine life by reducing plastic waste and promoting sustainable fishing practices.",
+        'Efforts are being made to protect marine life by reducing plastic waste and promoting sustainable fishing practices.',
     },
     {
-      image: `https://picsum.photos/600/300?${Math.random().toString(36).slice(2)}`,
-      title: "Sustainable Water Solutions",
+      image: `https://picsum.photos/600/300?${Math.random()
+        .toString(36)
+        .slice(2)}`,
+      title: 'Sustainable Water Solutions',
       description:
-        "Innovative solutions are emerging to ensure sustainable water management and conservation in urban areas.",
+        'Innovative solutions are emerging to ensure sustainable water management and conservation in urban areas.',
     },
   ];
 
@@ -233,16 +262,26 @@ const FeaturedStoriesSection = () => {
   return (
     <section className="bg-white">
       <div className="max-w-6xl mx-auto py-10">
-        <h2 className="text-4xl font-bold text-[#0da2d7] mb-6">Featured Stories</h2>
+        <h2 className="text-4xl font-bold text-[#0da2d7] mb-6">
+          Featured Stories
+        </h2>
         <div className="grid md:grid-cols-2 gap-6">
           {displayedStories.map((story, index) => (
             <div
               key={index}
               className="bg-white shadow-lg overflow-hidden hover:shadow-2xl transition duration-300"
             >
-              <Image src={story.image} alt={story.title} width={552} height={234} className="w-full h-68 object-cover" />
+              <Image
+                src={story.image}
+                alt={story.title}
+                width={552}
+                height={234}
+                className="w-full h-68 object-cover"
+              />
               <div className="p-5">
-                <h3 className="text-lg font-bold text-gray-800">{story.title}</h3>
+                <h3 className="text-lg font-bold text-gray-800">
+                  {story.title}
+                </h3>
                 <p className="text-gray-600 mt-2">{story.description}</p>
               </div>
             </div>
@@ -253,8 +292,9 @@ const FeaturedStoriesSection = () => {
             <span
               key={index}
               onClick={() => handlePageChange(index)}
-              className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${currentPage === index ? "bg-[#0da2d7]" : "bg-gray-300"
-                }`}
+              className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
+                currentPage === index ? 'bg-[#0da2d7]' : 'bg-gray-300'
+              }`}
             ></span>
           ))}
         </div>
@@ -263,66 +303,87 @@ const FeaturedStoriesSection = () => {
   );
 };
 
-
 const ActiveProjectsSection = () => {
   const projects = [
     {
-      title: "Community capacity development for wetland restoration",
-      location: "South Africa",
-      image: `https://picsum.photos/200/200?${Math.random().toString(36).slice(2)}`,
+      title: 'Community capacity development for wetland restoration',
+      location: 'South Africa',
+      image: `https://picsum.photos/200/200?${Math.random()
+        .toString(36)
+        .slice(2)}`,
     },
     {
-      title: "Atmospheric moisture harvesting with the Droppler technology",
-      location: "Oman",
-      image: `https://picsum.photos/200/200?${Math.random().toString(36).slice(2)}`,
+      title: 'Atmospheric moisture harvesting with the Droppler technology',
+      location: 'Oman',
+      image: `https://picsum.photos/200/200?${Math.random()
+        .toString(36)
+        .slice(2)}`,
     },
     {
-      title: "Managed aquifer recharge (MAR)",
-      location: "The Netherlands",
-      image: `https://picsum.photos/200/200?${Math.random().toString(36).slice(2)}`,
+      title: 'Managed aquifer recharge (MAR)',
+      location: 'The Netherlands',
+      image: `https://picsum.photos/200/200?${Math.random()
+        .toString(36)
+        .slice(2)}`,
     },
     {
-      title: "Wastewater treatment with the Blue Elephant technology",
-      location: "India",
-      image: `https://picsum.photos/200/200?${Math.random().toString(36).slice(2)}`,
+      title: 'Wastewater treatment with the Blue Elephant technology',
+      location: 'India',
+      image: `https://picsum.photos/200/200?${Math.random()
+        .toString(36)
+        .slice(2)}`,
     },
     {
-      title: "Solar-powered water desalination",
-      location: "Saudi Arabia",
-      image: `https://picsum.photos/200/200?${Math.random().toString(36).slice(2)}`,
+      title: 'Solar-powered water desalination',
+      location: 'Saudi Arabia',
+      image: `https://picsum.photos/200/200?${Math.random()
+        .toString(36)
+        .slice(2)}`,
     },
     {
-      title: "Sustainable farming irrigation project",
-      location: "Kenya",
-      image: `https://picsum.photos/200/200?${Math.random().toString(36).slice(2)}`,
+      title: 'Sustainable farming irrigation project',
+      location: 'Kenya',
+      image: `https://picsum.photos/200/200?${Math.random()
+        .toString(36)
+        .slice(2)}`,
     },
     {
-      title: "Rainwater harvesting system for rural schools",
-      location: "Brazil",
-      image: `https://picsum.photos/200/200?${Math.random().toString(36).slice(2)}`,
+      title: 'Rainwater harvesting system for rural schools',
+      location: 'Brazil',
+      image: `https://picsum.photos/200/200?${Math.random()
+        .toString(36)
+        .slice(2)}`,
     },
     {
-      title: "Floating wetlands for water purification",
-      location: "Bangladesh",
-      image: `https://picsum.photos/200/200?${Math.random().toString(36).slice(2)}`,
+      title: 'Floating wetlands for water purification',
+      location: 'Bangladesh',
+      image: `https://picsum.photos/200/200?${Math.random()
+        .toString(36)
+        .slice(2)}`,
     },
     {
-      title: "Community-led river cleanup initiative",
-      location: "Indonesia",
-      image: `https://picsum.photos/200/200?${Math.random().toString(36).slice(2)}`,
+      title: 'Community-led river cleanup initiative',
+      location: 'Indonesia',
+      image: `https://picsum.photos/200/200?${Math.random()
+        .toString(36)
+        .slice(2)}`,
     },
     {
-      title: "Greywater recycling in urban households",
-      location: "Mexico",
-      image: `https://picsum.photos/200/200?${Math.random().toString(36).slice(2)}`,
-    }
+      title: 'Greywater recycling in urban households',
+      location: 'Mexico',
+      image: `https://picsum.photos/200/200?${Math.random()
+        .toString(36)
+        .slice(2)}`,
+    },
   ];
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   return (
     <div className="bg-white py-12">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-[#0da2d7] py-4">Active Projects</h2>
+        <h2 className="text-4xl font-bold text-[#0da2d7] py-4">
+          Active Projects
+        </h2>
         <input
           type="text"
           placeholder="Find a project"
@@ -334,15 +395,30 @@ const ActiveProjectsSection = () => {
           {/* Sidebar */}
           <div className="w-1/3 overflow-y-auto max-h-screen bg-[#f9fafb]">
             <div className="mt-4">
-              {projects.filter(p => p.title.toLowerCase().includes(search.toLowerCase())).map(project => (
-                <div key={project.id} className="flex p-4 border-b border-gray-200 last:border-b-0">
-                  <Image src={project.image} alt={project.title} height={200} width={200} className="w-24 h-24 mr-3" />
-                  <div>
-                    <h3 className="font-semibold">{project.title}</h3>
-                    <p className="text-[#165da6] text-sm">{project.location}</p>
+              {projects
+                .filter((p) =>
+                  p.title.toLowerCase().includes(search.toLowerCase())
+                )
+                .map((project) => (
+                  <div
+                    key={project.id}
+                    className="flex p-4 border-b border-gray-200 last:border-b-0"
+                  >
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      height={200}
+                      width={200}
+                      className="w-24 h-24 mr-3"
+                    />
+                    <div>
+                      <h3 className="font-semibold">{project.title}</h3>
+                      <p className="text-[#165da6] text-sm">
+                        {project.location}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
 
@@ -352,7 +428,7 @@ const ActiveProjectsSection = () => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
