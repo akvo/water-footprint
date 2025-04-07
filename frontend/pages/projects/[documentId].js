@@ -64,10 +64,14 @@ export default function ProjectPage() {
 
       if (response?.data && response.data.length > 0) {
         const projectData = response.data[0];
-        const actualValue = parseFloat(projectData.actualCompensation) || 0;
-        const targetValue = parseFloat(projectData.targetCompensation) || 100;
+        const actualFunding = parseFloat(projectData.amountFunded) || 0;
+        const targetFunding = parseFloat(projectData.budget) || 100;
         const percentageComplete =
-          targetValue > 0 ? Math.round((actualValue / targetValue) * 100) : 0;
+          targetFunding > 0 ? Math.round((actualFunding / targetFunding) * 100) : 0;
+        const capsFunded = parseFloat(projectData.actualCompensation) || 0;
+        const targetCaps = parseFloat(projectData.targetCompensation) || 0;
+        const percentageCompensated =
+          targetCaps > 0 ? Math.round((capsFunded / targetCaps) * 100) : 0;
 
         const formattedProject = {
           id: projectData.id,
@@ -76,9 +80,10 @@ export default function ProjectPage() {
           description: projectData.description,
           targetCompensation: projectData.targetCompensation,
           waterCompensated: {
-            actualValue: actualValue,
-            targetValue: targetValue,
-            percentComplete: percentageComplete,
+            capsFunded,
+            targetCaps,
+            percentageComplete,
+            percentageCompensated,
           },
           image: projectData.projectImage?.url,
           country: projectData.country?.country_name,
@@ -191,7 +196,7 @@ export default function ProjectPage() {
                 </p>
               </div>
               <div>
-                {project.waterCompensated.percentComplete > 0 && (
+                {project.waterCompensated.percentageComplete > 0 && (
                   <>
                     <h2 className="text-gray-800 font-bold mb-4 border-b border-blue-100 pb-2 uppercase">
                       Project Funding
@@ -202,7 +207,7 @@ export default function ProjectPage() {
                           ACTUAL
                         </div>
                         <div className="text-[#0DA2D7] font-bold">
-                          {project.waterCompensated.percentComplete}%
+                          {project.waterCompensated.percentageComplete}%
                         </div>
                       </div>
                       <div className="text-right">
@@ -216,7 +221,7 @@ export default function ProjectPage() {
                       <div
                         className="h-full bg-[#0DA2D7] rounded-md"
                         style={{
-                          width: `${project.waterCompensated.percentComplete}%`,
+                          width: `${project.waterCompensated.percentageComplete}%`,
                         }}
                       ></div>
                     </div>
@@ -224,25 +229,25 @@ export default function ProjectPage() {
                 )}
                 <div className="flex justify-between text-sm text-gray-700 my-2">
                   <div>
-                    <span className="font-medium uppercase">Total CAPS:</span>{' '}
-                    {project.waterCompensated.targetValue.toLocaleString()}
+                    <span className="font-medium">Compensated CAPs:</span>{' '}
+                    {project.waterCompensated.capsFunded.toLocaleString()}
                   </div>
                   <div>
-                    <span className="font-medium uppercase">
+                    <span className="font-medium">
                       Available CAPS:
                     </span>{' '}
                     {(
-                      project.waterCompensated.targetValue -
-                      project.waterCompensated.actualValue
+                      project.waterCompensated.targetCaps -
+                      project.waterCompensated.capsFunded
                     ).toLocaleString()}
                   </div>
                 </div>
-                <div className="h-6 bg-gray-100 overflow-hidden rounded-md">
+                <div className="h-6 bg-[#0DA2D7] overflow-hidden rounded-md">
                   <div
-                    className="h-full bg-[#0DA2D7] rounded-md"
+                    className="h-full bg-gray-200 rounded-md"
                     style={{
                       width: `${
-                        100 - project.waterCompensated.percentComplete
+                        100 - project.waterCompensated.percentageCompensated
                       }%`,
                       float: 'right',
                     }}
@@ -464,7 +469,7 @@ export default function ProjectPage() {
                           return [
                             `$${value.toLocaleString()} USD (${
                               item.caps
-                            } CAPS)`,
+                            } CAPs)`,
                             item.name,
                           ];
                         }}
