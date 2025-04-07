@@ -1,41 +1,12 @@
+import AnimatedWaterSection from '@/components/AnimatedWaterSection';
+import { fetchStrapiData } from '@/utils';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useState } from 'react';
+import Link from 'next/link';
+import { useState, useRef, useEffect, useMemo } from 'react';
 
 const HeroSection = () => {
-  return (
-    <section className="bg-gradient-to-r from-[#229aaa] to-[#4cb9c8]">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10">
-        {/* Left Content */}
-        <div className="text-white">
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-            Fair & smart use of the world&apos;s fresh water
-          </h1>
-          <p className="mt-4 text-lg max-w-md">
-            Our mission is to use the water footprint concept to promote the
-            transition toward sustainable, fair and efficient use of fresh water
-            resources worldwide.
-          </p>
-          <div className="mt-6 flex gap-4">
-            <button className="bg-white text-black px-6 py-3 rounded-lg font-semibold shadow-lg">
-              Join Network
-            </button>
-            <button className="border border-white px-6 py-3 rounded-lg text-white font-semibold">
-              Learn More
-            </button>
-          </div>
-        </div>
-
-        {/* Right Content - Illustration Placeholder */}
-        <div className="hidden md:flex justify-center">
-          <img
-            src="/images/Teardrop-bg.png"
-            alt="Water Network"
-            className="w-full max-w-md"
-          />
-        </div>
-      </div>
-    </section>
-  );
+  return <AnimatedWaterSection />;
 };
 
 const HowItWorksSection = () => {
@@ -71,7 +42,7 @@ const HowItWorksSection = () => {
         {data.map((item, index) => (
           <div
             key={index}
-            className="bg-gray-100 p-6 rounded-md shadow-md text-center"
+            className="bg-gray-100 p-6 rounded-md shadow-md text-center h-fit"
           >
             <div className="flex justify-center items-center py-8">
               <Image
@@ -124,10 +95,10 @@ const ImpactSection = () => {
       <div className="py-2">&nbsp;</div>
 
       <div className="bg-[#0da2d7]/10">
-        <div className="mt-8 py-4 grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="py-8 grid md:grid-cols-3 gap-6 max-w-6xl mx-auto pb-10">
           {data.map((item, index) => (
-            <div key={index} className="text-center py-8">
-              <div className="flex justify-center py-8">
+            <div key={index} className="text-center">
+              <div className="flex justify-center py-2">
                 <div className="bg-[#83ddfd] p-3 rounded-full">
                   <Image
                     src={item.icon}
@@ -165,14 +136,46 @@ const PartnersSection = () => {
     'PARTNER 11',
     'PARTNER 12',
   ];
+
+  const scrollContainerRef = useRef(null);
+  const cardRefs = useRef([]);
+  const [pages, setPages] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const partnersPerPage = 4;
-  const totalPages = Math.ceil(partners.length / partnersPerPage);
 
-  const displayedPartners = partners.slice(
-    currentPage * partnersPerPage,
-    (currentPage + 1) * partnersPerPage
-  );
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const pageOffsets = [];
+    let currentWidth = 0;
+    let currentPageStart = 0;
+
+    for (let i = 0; i < cardRefs.current.length; i++) {
+      const el = cardRefs.current[i];
+      if (!el) continue;
+
+      currentWidth += el.offsetWidth;
+
+      if ((i + 1) % partnersPerPage === 0 || i === partners.length - 1) {
+        pageOffsets.push(currentPageStart);
+        currentPageStart = currentWidth;
+      }
+    }
+
+    setPages(pageOffsets);
+  }, [partners.length]);
+
+  const scrollToPage = (pageIndex) => {
+    const container = scrollContainerRef.current;
+    if (!container || !pages.length) return;
+
+    container.scrollTo({
+      left: pages[pageIndex],
+      behavior: 'smooth',
+    });
+    setCurrentPage(pageIndex);
+  };
 
   return (
     <section className="bg-white py-12 text-center">
@@ -181,27 +184,172 @@ const PartnersSection = () => {
         Our work is made possible through the support of the following partners
       </p>
 
-      <div className="mt-8 py-4 text-center max-w-6xl mx-auto mt-6">
-        <div className="flex justify-center gap-4 py-4">
-          {displayedPartners.map((partner, index) => (
+      <div className="mt-8 py-4 max-w-6xl mx-auto overflow-hidden">
+        <div
+          ref={scrollContainerRef}
+          className="flex overflow-x-auto scroll-smooth no-scrollbar gap-4 px-2"
+        >
+          {partners.map((partner, index) => (
             <div
               key={index}
-              className="bg-gray-100 text-gray-900 font-bold p-8 max-w-content text-center rounded-lg shadow-sm"
+              ref={(el) => (cardRefs.current[index] = el)}
+              className="flex-shrink-0 px-4"
             >
-              {partner}
+              <div className="bg-gray-100 text-gray-900 font-bold px-6 py-4 rounded-lg shadow-sm whitespace-nowrap">
+                {partner}
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Pagination */}
-        <div className="mt-4 flex justify-center gap-2">
-          {Array.from({ length: totalPages }).map((_, index) => (
+        <div className="mt-6 flex justify-center gap-2">
+          {Array.from({ length: pages.length }).map((_, index) => (
             <div
               key={index}
               className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
                 currentPage === index ? 'bg-[#0da2d7]' : 'bg-gray-300'
               }`}
-              onClick={() => setCurrentPage(index)}
+              onClick={() => scrollToPage(index)}
+            ></div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const CompensatorsSection = () => {
+  const [compensators, setCompensators] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const scrollContainerRef = useRef(null);
+  const cardRefs = useRef([]);
+  const [pages, setPages] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const compensatorsPerPage = 4;
+
+  useEffect(() => {
+    const fetchCompensators = async () => {
+      try {
+        const response = await fetchStrapiData('/compensators', {
+          'pagination[pageSize]': 100,
+          'fields[0]': 'name',
+          'fields[1]': 'documentId',
+        });
+
+        if (response?.data) {
+          const compensatorList = response.data.map((comp) => ({
+            name: comp.name,
+            documentId: comp.documentId,
+          }));
+          setCompensators(compensatorList);
+        }
+      } catch (err) {
+        console.error('Error fetching compensators:', err);
+        setError('Failed to load compensators');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCompensators();
+  }, []);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container || compensators.length === 0) return;
+
+    const pageOffsets = [];
+    let currentWidth = 0;
+    let currentPageStart = 0;
+
+    for (let i = 0; i < cardRefs.current.length; i++) {
+      const el = cardRefs.current[i];
+      if (!el) continue;
+
+      currentWidth += el.offsetWidth;
+
+      if (
+        (i + 1) % compensatorsPerPage === 0 ||
+        i === compensators.length - 1
+      ) {
+        pageOffsets.push(currentPageStart);
+        currentPageStart = currentWidth;
+      }
+    }
+
+    setPages(pageOffsets);
+  }, [compensators.length]);
+
+  const scrollToPage = (pageIndex) => {
+    const container = scrollContainerRef.current;
+    if (!container || !pages.length) return;
+
+    container.scrollTo({
+      left: pages[pageIndex],
+      behavior: 'smooth',
+    });
+    setCurrentPage(pageIndex);
+  };
+
+  if (!isLoading && compensators.length === 0) {
+    return null;
+  }
+
+  if (isLoading) {
+    return (
+      <section className="bg-white py-12 text-center">
+        <div className="animate-pulse">Loading Compensators...</div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="bg-white py-12 text-center">
+        <div className="text-red-500">{error}</div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="bg-white py-12 text-center">
+      <h2 className="text-4xl font-bold text-[#0da2d7] py-4">Compensators</h2>
+      <p className="font-semibold mt-2 max-w-lg mx-auto">
+        Our work is made possible through the support of the following partners
+      </p>
+
+      <div className="mt-8 py-4 max-w-6xl mx-auto overflow-hidden">
+        <div
+          ref={scrollContainerRef}
+          className="flex overflow-x-auto scroll-smooth no-scrollbar gap-4 px-2"
+        >
+          {compensators.map((compensator, index) => (
+            <Link
+              key={compensator.documentId}
+              href={`/compensators/${compensator.documentId}`}
+            >
+              <div
+                ref={(el) => (cardRefs.current[index] = el)}
+                className="flex-shrink-0 px-4 cursor-pointer"
+              >
+                <div className="bg-gray-100 text-gray-900 font-bold px-6 py-4 rounded-lg shadow-sm whitespace-nowrap">
+                  {compensator.name}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="mt-6 flex justify-center gap-2">
+          {Array.from({ length: pages.length }).map((_, index) => (
+            <div
+              key={index}
+              className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
+                currentPage === index ? 'bg-[#0da2d7]' : 'bg-gray-300'
+              }`}
+              onClick={() => scrollToPage(index)}
             ></div>
           ))}
         </div>
@@ -304,79 +452,14 @@ const FeaturedStoriesSection = () => {
 };
 
 const ActiveProjectsSection = () => {
-  const projects = [
-    {
-      title: 'Community capacity development for wetland restoration',
-      location: 'South Africa',
-      image: `https://picsum.photos/200/200?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-    },
-    {
-      title: 'Atmospheric moisture harvesting with the Droppler technology',
-      location: 'Oman',
-      image: `https://picsum.photos/200/200?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-    },
-    {
-      title: 'Managed aquifer recharge (MAR)',
-      location: 'The Netherlands',
-      image: `https://picsum.photos/200/200?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-    },
-    {
-      title: 'Wastewater treatment with the Blue Elephant technology',
-      location: 'India',
-      image: `https://picsum.photos/200/200?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-    },
-    {
-      title: 'Solar-powered water desalination',
-      location: 'Saudi Arabia',
-      image: `https://picsum.photos/200/200?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-    },
-    {
-      title: 'Sustainable farming irrigation project',
-      location: 'Kenya',
-      image: `https://picsum.photos/200/200?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-    },
-    {
-      title: 'Rainwater harvesting system for rural schools',
-      location: 'Brazil',
-      image: `https://picsum.photos/200/200?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-    },
-    {
-      title: 'Floating wetlands for water purification',
-      location: 'Bangladesh',
-      image: `https://picsum.photos/200/200?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-    },
-    {
-      title: 'Community-led river cleanup initiative',
-      location: 'Indonesia',
-      image: `https://picsum.photos/200/200?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-    },
-    {
-      title: 'Greywater recycling in urban households',
-      location: 'Mexico',
-      image: `https://picsum.photos/200/200?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-    },
-  ];
-  const [search, setSearch] = useState('');
+  const Map = useMemo(
+    () =>
+      dynamic(() => import('@/components/MapView'), {
+        loading: () => <p>Loading map...</p>,
+        ssr: false,
+      }),
+    []
+  );
 
   return (
     <div className="bg-white py-12">
@@ -384,48 +467,8 @@ const ActiveProjectsSection = () => {
         <h2 className="text-4xl font-bold text-[#0da2d7] py-4">
           Active Projects
         </h2>
-        <input
-          type="text"
-          placeholder="Find a project"
-          className="mt-3 w-full p-2 border rounded"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
         <div className="flex pt-4 border-t border-gray-400 mt-6">
-          {/* Sidebar */}
-          <div className="w-1/3 overflow-y-auto max-h-screen bg-[#f9fafb]">
-            <div className="mt-4">
-              {projects
-                .filter((p) =>
-                  p.title.toLowerCase().includes(search.toLowerCase())
-                )
-                .map((project) => (
-                  <div
-                    key={project.id}
-                    className="flex p-4 border-b border-gray-200 last:border-b-0"
-                  >
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      height={200}
-                      width={200}
-                      className="w-24 h-24 mr-3"
-                    />
-                    <div>
-                      <h3 className="font-semibold">{project.title}</h3>
-                      <p className="text-[#165da6] text-sm">
-                        {project.location}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-            </div>
-          </div>
-
-          {/* Map Placeholder */}
-          <div className="w-2/3 flex items-center justify-center bg-gray-100">
-            <div className="text-gray-400 text-xl">[Map will be here]</div>
-          </div>
+          <Map />
         </div>
       </div>
     </div>
@@ -440,6 +483,7 @@ export default function Index() {
       <ActiveProjectsSection />
       <ImpactSection />
       <PartnersSection />
+      <CompensatorsSection />
       <FeaturedStoriesSection />
     </main>
   );

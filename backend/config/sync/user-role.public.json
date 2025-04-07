@@ -6,6 +6,91 @@
   "locale": null,
   "permissions": [
     {
+      "documentId": "s9pf7v8sqc91wfuhg5lwf9ok",
+      "action": "api::compensator.compensator.find",
+      "locale": null
+    },
+    {
+      "documentId": "a03ozv7wzb156op7pqb1zcak",
+      "action": "api::compensator.compensator.findOne",
+      "locale": null
+    },
+    {
+      "documentId": "s357grotjupsa8ztvbqqdq4l",
+      "action": "api::country.country.find",
+      "locale": null
+    },
+    {
+      "documentId": "etuhwf5osmvkponz93uc5yat",
+      "action": "api::monitoring-report.monitoring-report.find",
+      "locale": null
+    },
+    {
+      "documentId": "qx20z7t9jqtrowg1vjycz8jx",
+      "action": "api::monitoring-report.monitoring-report.findOne",
+      "locale": null
+    },
+    {
+      "documentId": "g1uuot3y22abgkqlq13uz16r",
+      "action": "api::partner.partner.find",
+      "locale": null
+    },
+    {
+      "documentId": "m6kuj8ove94jmduuvzqytfn7",
+      "action": "api::partner.partner.findOne",
+      "locale": null
+    },
+    {
+      "documentId": "iai2csq1orc4wljzy2uc5y9g",
+      "action": "api::project-compensator.project-compensator.find",
+      "locale": null
+    },
+    {
+      "documentId": "qnqyatmf1ijrv1qsgdt27740",
+      "action": "api::project-compensator.project-compensator.findOne",
+      "locale": null
+    },
+    {
+      "documentId": "nvuqem1ye9s0esm6z5j9jesv",
+      "action": "api::project-type-category.project-type-category.find",
+      "locale": null
+    },
+    {
+      "documentId": "kjodjecb3356btfrj65bwms8",
+      "action": "api::project-type-category.project-type-category.findOne",
+      "locale": null
+    },
+    {
+      "documentId": "g1y12kkehgp0xdk5fq20m10u",
+      "action": "api::project.project.find",
+      "locale": null
+    },
+    {
+      "documentId": "ayegfmdsbaiz96e3nz5loi6y",
+      "action": "api::project.project.findOne",
+      "locale": null
+    },
+    {
+      "documentId": "zafur5nbmfdye40k6oru7owo",
+      "action": "api::sdg.sdg.find",
+      "locale": null
+    },
+    {
+      "documentId": "talzu46vwk668fd1wggbd01b",
+      "action": "api::sdg.sdg.findOne",
+      "locale": null
+    },
+    {
+      "documentId": "xib9dljuqomlzh1ed3bzwha0",
+      "action": "plugin::upload.content-api.find",
+      "locale": null
+    },
+    {
+      "documentId": "yp3g72ufdvaijmrvsc31xc0v",
+      "action": "plugin::upload.content-api.findOne",
+      "locale": null
+    },
+    {
       "documentId": "ycwazlnxkjvl429k6dozl1eh",
       "action": "plugin::users-permissions.auth.callback",
       "locale": null
