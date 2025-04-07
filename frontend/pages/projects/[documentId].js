@@ -6,14 +6,6 @@ import { env, fetchStrapiData } from '@/utils';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
 
-const data = [
-  { name: '11th Hour Racing Team', value: 45, color: '#2A1E5C' },
-  { name: 'Oasis', value: 20, color: '#433770' },
-  { name: 'WFP', value: 15, color: '#645C82' },
-  { name: 'USAID', value: 10, color: '#8D8698' },
-  { name: 'GIZ', value: 10, color: '#B6B0B8' },
-];
-
 export default function ProjectPage() {
   const router = useRouter();
   const { documentId } = router.query;
@@ -65,9 +57,11 @@ export default function ProjectPage() {
       if (response?.data && response.data.length > 0) {
         const projectData = response.data[0];
         const actualFunding = parseFloat(projectData.amountFunded) || 0;
-        const targetFunding = parseFloat(projectData.budget) || 100;
+        const targetFunding = parseFloat(projectData.budget) || 0;
         const percentageComplete =
-          targetFunding > 0 ? Math.round((actualFunding / targetFunding) * 100) : 0;
+          targetFunding > 0
+            ? Math.round((actualFunding / targetFunding) * 100)
+            : 0;
         const capsFunded = parseFloat(projectData.actualCompensation) || 0;
         const targetCaps = parseFloat(projectData.targetCompensation) || 0;
         const percentageCompensated =
@@ -101,18 +95,41 @@ export default function ProjectPage() {
 
         setProject(formattedProject);
 
+        //FACTOR OUT AND TEST>>>
+        // We have to assume that project compensator numbers and project numbers do not contradict
+        // Only show this section if there are compensators - otherwise the bars are enough
         if (
           projectData?.projectCompensators &&
           projectData.projectCompensators.length > 0
         ) {
-          const totalFunded = projectData.projectCompensators.reduce(
-            (sum, comp) => sum + (parseFloat(comp?.capsFunded) || 0),
-            0
+          const { compensatorsTotalFunded, compensatorsTotalCaps } =
+            projectData.projectCompensators.reduce(
+              (memo, comp) => {
+                memo.compensatorTotalFunded =
+                  memo.compensatorTotalFunded +
+                  (parseFloat(comp?.capsFunded) || 0);
+                memo.compensatorTotalCaps =
+                  memo.compensatorTotalCaps +
+                  (parseFloat(comp?.capsFunded) || 0);
+                return memo;
+              },
+              { compensatorsTotalFunded: 0, compensatorTotalCaps: 0 }
+            );
+
+          const projectTargetCaps = targetCaps;
+          const projectActualCaps = capsFunded;
+
+          const projectRemainingCaps = Math.max(
+            0,
+            projectTargetCaps - projectActualCaps
           );
+          const projectTargetFunding = targetFunding;
+          const projectActualFunding = actualFunding;
 
-          const targetAmount = parseFloat(projectData.targetCompensation) || 0;
-
-          const remainingAmount = Math.max(0, targetAmount - totalFunded);
+          const projectRemainingFunding = Math.max(
+            0,
+            projectTargetFunding - projectActualFunding
+          );
 
           const chartData = projectData.projectCompensators.map((comp) => {
             return {
@@ -127,14 +144,36 @@ export default function ProjectPage() {
             };
           });
 
-          if (remainingAmount > 0) {
+          if (compensatorsTotalFunded < projectActualFunding) {
+            const unknownSourceFunding =
+              projectActualFunding - compensatorsTotalFunded;
+            const unknownSourceCaps = projectActualCaps - compensatorsTotalCaps;
             chartData.push({
-              name: 'Unfunded',
-              amount: remainingAmount,
-              caps: remainingAmount,
+              name: 'Other Sources',
+              amount: unknownSourceFunding,
+              caps: unknownSourceCaps,
               documentId: null,
               id: 'unfunded',
-              value: remainingAmount,
+              value: unknownSourceFunding,
+            });
+          }
+
+          // If there are caps available, show them
+          // But if these would look completely wrong
+          // as the sum from project compensator records
+          // is greater than the target for the whole project
+          // then skip this.
+          if (
+            compensatorsTotalFunded < projectTargetFunding &&
+            (projectRemainingCaps && projectRemainingFunding) > 0
+          ) {
+            chartData.push({
+              name: 'Caps Available',
+              amount: projectRemainingFunding,
+              caps: projectRemainingCaps,
+              documentId: null,
+              id: 'unfunded',
+              value: projectRemainingFunding,
               isUnfunded: true,
             });
           }
@@ -147,6 +186,8 @@ export default function ProjectPage() {
           }));
 
           setFundingData(chartDataWithColors);
+
+          //<<<FACTOR OUT AND TEST
         }
       } else {
         setError('Project not found');
@@ -233,23 +274,18 @@ export default function ProjectPage() {
                     {project.waterCompensated.capsFunded.toLocaleString()}
                   </div>
                   <div>
-                    <span className="font-medium">
-                      Available CAPS:
-                    </span>{' '}
+                    <span className="font-medium">Available CAPS:</span>{' '}
                     {(
                       project.waterCompensated.targetCaps -
                       project.waterCompensated.capsFunded
                     ).toLocaleString()}
                   </div>
                 </div>
-                <div className="h-6 bg-[#0DA2D7] overflow-hidden rounded-md">
+                <div className="h-6 bg-gray-200 overflow-hidden rounded-md mb-6">
                   <div
-                    className="h-full bg-gray-200 rounded-md"
+                    className="h-full bg-[#0DA2D7] rounded-md"
                     style={{
-                      width: `${
-                        100 - project.waterCompensated.percentageCompensated
-                      }%`,
-                      float: 'right',
+                      width: `${project.waterCompensated.percentageCompensated}%`,
                     }}
                   ></div>
                 </div>
@@ -404,6 +440,7 @@ export default function ProjectPage() {
                       </div>
                       <div className="text-[#0DA2D7] text-lg ml-2">
                         {fundingData
+                          .filter((item) => item.isUnfunded !== true)
                           .reduce((total, item) => total + item.amount, 0)
                           .toLocaleString()}{' '}
                         USD
