@@ -452,8 +452,6 @@ const FeaturedStoriesSection = () => {
 };
 
 const ActiveProjectsSection = () => {
-  const [search, setSearch] = useState('');
-
   const Map = useMemo(
     () =>
       dynamic(() => import('@/components/MapView'), {
