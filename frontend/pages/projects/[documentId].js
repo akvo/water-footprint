@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { env, fetchStrapiData } from '@/utils';
+import { prepareProjectChartData } from '@/utils/projectChartUtils';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
 
@@ -95,99 +96,14 @@ export default function ProjectPage() {
 
         setProject(formattedProject);
 
-        //FACTOR OUT AND TEST>>>
-        // We have to assume that project compensator numbers and project numbers do not contradict
-        // Only show this section if there are compensators - otherwise the bars are enough
-        if (
-          projectData?.projectCompensators &&
-          projectData.projectCompensators.length > 0
-        ) {
-          const { compensatorsTotalFunded, compensatorsTotalCaps } =
-            projectData.projectCompensators.reduce(
-              (memo, comp) => {
-                memo.compensatorTotalFunded =
-                  memo.compensatorTotalFunded +
-                  (parseFloat(comp?.capsFunded) || 0);
-                memo.compensatorTotalCaps =
-                  memo.compensatorTotalCaps +
-                  (parseFloat(comp?.capsFunded) || 0);
-                return memo;
-              },
-              { compensatorsTotalFunded: 0, compensatorTotalCaps: 0 }
-            );
-
-          const projectTargetCaps = targetCaps;
-          const projectActualCaps = capsFunded;
-
-          const projectRemainingCaps = Math.max(
-            0,
-            projectTargetCaps - projectActualCaps
-          );
-          const projectTargetFunding = targetFunding;
-          const projectActualFunding = actualFunding;
-
-          const projectRemainingFunding = Math.max(
-            0,
-            projectTargetFunding - projectActualFunding
-          );
-
-          const chartData = projectData.projectCompensators.map((comp) => {
-            return {
-              name: comp?.compensator?.name || 'Unknown',
-              amount: parseFloat(comp?.amountFunded) || 0,
-              caps: parseFloat(comp?.capsFunded) || 0,
-              documentId: comp?.compensator?.documentId,
-              id: comp?.id,
-              value: parseFloat(comp?.amountFunded) || 0,
-              compensator: comp.compensator,
-              contributionId: comp.documentId,
-            };
-          });
-
-          if (compensatorsTotalFunded < projectActualFunding) {
-            const unknownSourceFunding =
-              projectActualFunding - compensatorsTotalFunded;
-            const unknownSourceCaps = projectActualCaps - compensatorsTotalCaps;
-            chartData.push({
-              name: 'Other Sources',
-              amount: unknownSourceFunding,
-              caps: unknownSourceCaps,
-              documentId: null,
-              id: 'unfunded',
-              value: unknownSourceFunding,
-            });
-          }
-
-          // If there are caps available, show them
-          // But if these would look completely wrong
-          // as the sum from project compensator records
-          // is greater than the target for the whole project
-          // then skip this.
-          if (
-            compensatorsTotalFunded < projectTargetFunding &&
-            (projectRemainingCaps && projectRemainingFunding) > 0
-          ) {
-            chartData.push({
-              name: 'Caps Available',
-              amount: projectRemainingFunding,
-              caps: projectRemainingCaps,
-              documentId: null,
-              id: 'unfunded',
-              value: projectRemainingFunding,
-              isUnfunded: true,
-            });
-          }
-
+        const chartData = prepareProjectChartData(projectData);
+        if (chartData.length > 0) {
           const colors = generateColors(chartData.length);
-
           const chartDataWithColors = chartData.map((item, index) => ({
             ...item,
             color: item.isUnfunded ? '#E5E5E5' : colors[index],
           }));
-
           setFundingData(chartDataWithColors);
-
-          //<<<FACTOR OUT AND TEST
         }
       } else {
         setError('Project not found');
@@ -310,7 +226,7 @@ export default function ProjectPage() {
             <div className="w-1/2">
               <div className="rounded-lg overflow-hidden shadow-lg">
                 <Image
-                  src="/placeholder.svg?height=600&width=800"
+                  src={project.image || '/placeholder.svg?height=600&width=800'}
                   alt={project.title}
                   width={800}
                   height={400}
