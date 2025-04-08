@@ -1,8 +1,36 @@
-import { useRef, useEffect } from 'react';
+import { fetchStrapiData } from '@/utils';
+import { useRef, useEffect, useState } from 'react';
 
 const AnimatedWaterSection = () => {
   const particlesRef = useRef(null);
   const svgRef = useRef(null);
+  const [homeData, setHomeData] = useState({
+    title: "Fair & smart use of the world's fresh water",
+    description:
+      'Our mission is to use the water footprint concept to promote the transition toward sustainable, fair and efficient use of fresh water resources worldwide.',
+  });
+
+  useEffect(() => {
+    const getHomePageData = async () => {
+      try {
+        const response = await fetchStrapiData('/homepage', {
+          populate: '*',
+        });
+
+        if (response?.data?.attributes) {
+          const data = response.data.attributes;
+          setHomeData({
+            title: data.heroTitle || homeData.title,
+            description: data.heroDescription || homeData.description,
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching homepage data:', error);
+      }
+    };
+
+    getHomePageData();
+  }, []);
 
   useEffect(() => {
     const canvas = particlesRef.current;
@@ -92,13 +120,9 @@ const AnimatedWaterSection = () => {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10 px-4 relative z-10">
         <div className="text-white">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-            Fair & smart use of the world's fresh water
+            {homeData.title}
           </h1>
-          <p className="mt-4 text-lg max-w-md">
-            Our mission is to use the water footprint concept to promote the
-            transition toward sustainable, fair and efficient use of fresh water
-            resources worldwide.
-          </p>
+          <p className="mt-4 text-lg max-w-md">{homeData.description}</p>
           <div className="mt-6 flex gap-4">
             <button className="bg-white text-black px-6 py-3 rounded-lg font-semibold shadow-lg">
               Join Network

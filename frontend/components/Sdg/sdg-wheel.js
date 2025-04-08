@@ -24,7 +24,7 @@ export function SDGTooltip({ id, title, color, position }) {
   );
 }
 
-export function SDGWheel({ size = 380, sdgData }) {
+export function SDGWheel({ size = 420, sdgData }) {
   const [hoveredSection, setHoveredSection] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState(null);
 
@@ -33,7 +33,7 @@ export function SDGWheel({ size = 380, sdgData }) {
   const outerRadius = size / 2;
   const innerRadius = size / 3;
 
-  const iconSize = 32;
+  const iconSize = 46;
 
   const fullSDGSet = Array.from({ length: 17 }, (_, i) => i + 1);
 
@@ -72,7 +72,7 @@ export function SDGWheel({ size = 380, sdgData }) {
     `;
 
     const iconAngle = startAngle + anglePerSection / 2;
-    const iconRadius = ((outerRadius + innerRadius) / 2) * 1.05;
+    const iconRadius = ((outerRadius + innerRadius) / 2) * 1;
     const iconX = centerX + iconRadius * Math.cos(iconAngle);
     const iconY = centerY + iconRadius * Math.sin(iconAngle);
 

@@ -33,18 +33,18 @@
           "sortable": true
         }
       },
-      "file": {
+      "link": {
         "edit": {
-          "label": "file",
+          "label": "link",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "file",
-          "searchable": false,
-          "sortable": false
+          "label": "link",
+          "searchable": true,
+          "sortable": true
         }
       },
       "createdAt": {
@@ -111,7 +111,7 @@
         "id",
         "name",
         "createdAt",
-        "file"
+        "link"
       ],
       "edit": [
         [
@@ -120,7 +120,7 @@
             "size": 6
           },
           {
-            "name": "file",
+            "name": "link",
             "size": 6
           }
         ]
