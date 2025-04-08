@@ -4,6 +4,8 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 const PartnersSection = ({ setPartnersCount }) => {
   const [partners, setPartners] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
+  const partnersPerPage = 4;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,70 +36,18 @@ const PartnersSection = ({ setPartnersCount }) => {
     );
   }, [partners]);
 
-  const scrollContainerRef = useRef(null);
-  const cardRefs = useRef([]);
-  const [pages, setPages] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const partnersPerPage = 4;
+  const totalPages = Math.ceil(sortedPartners.length / partnersPerPage);
 
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container || isLoading || sortedPartners.length === 0) return;
+  const currentPartners = useMemo(() => {
+    const startIndex = currentPage * partnersPerPage;
+    return sortedPartners.slice(startIndex, startIndex + partnersPerPage);
+  }, [sortedPartners, currentPage, partnersPerPage]);
 
-    const pageOffsets = [];
-    let currentWidth = 0;
-    let currentPageStart = 0;
-
-    for (let i = 0; i < cardRefs.current.length; i++) {
-      const el = cardRefs.current[i];
-      if (!el) continue;
-
-      currentWidth += el.offsetWidth;
-
-      if ((i + 1) % partnersPerPage === 0 || i === sortedPartners.length - 1) {
-        pageOffsets.push(currentPageStart);
-        currentPageStart = currentWidth;
-      }
+  const goToPage = (pageIndex) => {
+    if (pageIndex >= 0 && pageIndex < totalPages) {
+      setCurrentPage(pageIndex);
     }
-
-    setPages(pageOffsets);
-  }, [sortedPartners.length, isLoading]);
-
-  const scrollToPage = (pageIndex) => {
-    const container = scrollContainerRef.current;
-    if (!container || !pages.length) return;
-
-    container.scrollTo({
-      left: pages[pageIndex],
-      behavior: 'smooth',
-    });
-    setCurrentPage(pageIndex);
   };
-
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container || !pages.length) return;
-
-    const handleScroll = () => {
-      const scrollPosition = container.scrollLeft;
-
-      let closestPage = 0;
-      let closestDistance = Math.abs(scrollPosition - pages[0]);
-
-      for (let i = 1; i < pages.length; i++) {
-        const distance = Math.abs(scrollPosition - pages[i]);
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestPage = i;
-        }
-      }
-
-      setCurrentPage(closestPage);
-    };
-
-    container.addEventListener('scroll', handleScroll);
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, [pages]);
 
   return (
     <section className="bg-white py-12 text-center">
@@ -111,18 +61,11 @@ const PartnersSection = ({ setPartnersCount }) => {
           <div className="flex justify-center py-8">
             <div className="w-8 h-8 border-4 border-[#0da2d7] border-t-transparent rounded-full animate-spin"></div>
           </div>
-        ) : partners.length > 0 ? (
+        ) : sortedPartners.length > 0 ? (
           <>
-            <div
-              ref={scrollContainerRef}
-              className="flex overflow-x-auto scroll-smooth no-scrollbar gap-4 px-2 pb-4"
-            >
-              {partners.map((partner, index) => (
-                <div
-                  key={partner.id || index}
-                  ref={(el) => (cardRefs.current[index] = el)}
-                  className="flex-shrink-0 px-4"
-                >
+            <div className="flex justify-center gap-4 px-2 pb-4">
+              {currentPartners.map((partner, index) => (
+                <div key={partner.id || index} className="flex-shrink-0 px-4">
                   {partner.link ? (
                     <a
                       href={partner.link}
@@ -143,15 +86,15 @@ const PartnersSection = ({ setPartnersCount }) => {
               ))}
             </div>
 
-            {pages.length > 1 && (
+            {totalPages > 1 && (
               <div className="mt-6 flex justify-center gap-2">
-                {Array.from({ length: pages.length }).map((_, index) => (
+                {Array.from({ length: totalPages }).map((_, index) => (
                   <button
                     key={index}
                     className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
                       currentPage === index ? 'bg-[#0da2d7]' : 'bg-gray-300'
                     }`}
-                    onClick={() => scrollToPage(index)}
+                    onClick={() => goToPage(index)}
                     aria-label={`Go to page ${index + 1}`}
                   ></button>
                 ))}
