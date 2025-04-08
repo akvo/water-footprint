@@ -8,6 +8,7 @@ import { fetchStrapiData, env } from '@/utils';
 import { useRouter } from 'next/router';
 import PledgeProgressBar from '@/components/PledgeProgressBar';
 import ProjectsListing from '@/components/ProjectListing';
+import LatestUpdates from '@/components/LatestUpdates';
 
 export default function CompensatorProfile() {
   const router = useRouter();

@@ -7,18 +7,18 @@ import TruncatedText from '@/components/TruncatedText';
 
 const UpdateDetailPage = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { documentId } = router.query;
   const [update, setUpdate] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUpdateDetails = async () => {
-      if (!id) return;
+      if (!documentId) return;
 
       try {
         setIsLoading(true);
-        const response = await fetchStrapiData(`/updates/${id}`, {
+        const response = await fetchStrapiData(`/updates/${documentId}`, {
           'populate[0]': 'image',
           'populate[1]': 'compensator',
           'populate[2]': 'project',
@@ -46,7 +46,7 @@ const UpdateDetailPage = () => {
     };
 
     fetchUpdateDetails();
-  }, [id]);
+  }, [documentId]);
 
   const getBreadcrumbSource = () => {
     if (update?.project) {
@@ -139,14 +139,13 @@ const UpdateDetailPage = () => {
           <h1 className="text-3xl md:text-4xl font-bold text-[#0DA2D7] mb-6">
             {update.title}
           </h1>
-
           {update.image && (
-            <div className="mb-8 rounded-lg overflow-hidden">
+            <div className="mb-8 rounded-lg overflow-hidden max-w-3xl mx-auto">
               <Image
                 src={update.image}
                 alt={update.title}
-                width={1200}
-                height={600}
+                width={800}
+                height={450}
                 className="w-full h-auto object-cover"
                 priority
                 unoptimized
