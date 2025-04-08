@@ -414,7 +414,7 @@ const FeaturedStoriesSection = () => {
   );
 };
 
-const ActiveProjectsSection = () => {
+const ActiveProjectsSection = ({setProjectCount}) => {
   const Map = useMemo(
     () =>
       dynamic(() => import('@/components/MapView'), {

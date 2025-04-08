@@ -1,5 +1,5 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::monitoring-report.monitoring-report",
+  "key": "plugin_content_manager_configuration_content_types::api::project-type-category.project-type-category",
   "value": {
     "settings": {
       "bulkable": true,
@@ -33,16 +33,17 @@
           "sortable": true
         }
       },
-      "file": {
+      "project_types": {
         "edit": {
-          "label": "file",
+          "label": "project_types",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true
+          "editable": true,
+          "mainField": "title"
         },
         "list": {
-          "label": "file",
+          "label": "project_types",
           "searchable": false,
           "sortable": false
         }
@@ -110,8 +111,8 @@
       "list": [
         "id",
         "name",
-        "createdAt",
-        "file"
+        "project_types",
+        "createdAt"
       ],
       "edit": [
         [
@@ -120,13 +121,13 @@
             "size": 6
           },
           {
-            "name": "file",
+            "name": "project_types",
             "size": 6
           }
         ]
       ]
     },
-    "uid": "api::monitoring-report.monitoring-report"
+    "uid": "api::project-type-category.project-type-category"
   },
   "type": "object",
   "environment": null,
