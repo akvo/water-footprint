@@ -42,7 +42,7 @@ const HowItWorksSection = () => {
         {data.map((item, index) => (
           <div
             key={index}
-            className="bg-gray-100 p-6 rounded-md shadow-md text-center h-fit"
+            className="bg-gray-100 p-6 rounded-md shadow-md text-center"
           >
             <div className="flex justify-center items-center py-8">
               <Image
@@ -53,7 +53,7 @@ const HowItWorksSection = () => {
               />
             </div>
             <h3 className="text-lg font-bold py-4">{item.title}</h3>
-            <p className="text-gray-600 pb-4 max-w-2xs">{item.description}</p>
+            <p className="text-gray-600 pb-4">{item.description}</p>
           </div>
         ))}
       </div>

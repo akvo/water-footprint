@@ -96,6 +96,21 @@
       "locale": null
     },
     {
+      "documentId": "lh2v74unwqyamlk2jqzwhjjr",
+      "action": "api::update.update.find",
+      "locale": null
+    },
+    {
+      "documentId": "o5guklrnbqnre7s31s56p737",
+      "action": "api::update.update.findOne",
+      "locale": null
+    },
+    {
+      "documentId": "vk09py5t3vymnx9ropn6wahv",
+      "action": "plugin::email.email.send",
+      "locale": null
+    },
+    {
       "documentId": "xib9dljuqomlzh1ed3bzwha0",
       "action": "plugin::upload.content-api.find",
       "locale": null
