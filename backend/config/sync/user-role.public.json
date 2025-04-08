@@ -16,21 +16,6 @@
       "locale": null
     },
     {
-      "documentId": "slsz9dhid48cxuv34bghgv28",
-      "action": "api::country.country.find",
-      "locale": null
-    },
-    {
-      "documentId": "jhs831zqmr2qsb64002xwwfn",
-      "action": "api::country.country.findOne",
-      "locale": null
-    },
-    {
-      "documentId": "mgu30ykgvoye6dwzn566e86d",
-      "action": "api::homepage.homepage.find",
-      "locale": null
-    },
-    {
       "documentId": "etuhwf5osmvkponz93uc5yat",
       "action": "api::monitoring-report.monitoring-report.find",
       "locale": null

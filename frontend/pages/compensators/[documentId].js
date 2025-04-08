@@ -2,13 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import {
-  List,
-  ChevronLeft,
-  ChevronRight,
-  MapPinned,
-  TreePine,
-} from 'lucide-react';
+import { List, MapPinned, TreePine } from 'lucide-react';
 import { SDGWheel } from '@/components/Sdg/sdg-wheel';
 import { fetchStrapiData, env } from '@/utils';
 import { useRouter } from 'next/router';
@@ -60,8 +54,7 @@ export default function CompensatorProfile() {
         setIsLoading(false);
       }
     };
-
-    fetchData();
+    if (documentId) fetchData();
   }, [documentId]);
 
   const fetchCompensatorData = async (documentId) => {

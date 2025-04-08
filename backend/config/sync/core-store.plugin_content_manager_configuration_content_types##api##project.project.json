@@ -206,20 +206,6 @@
           "sortable": true
         }
       },
-      "type": {
-        "edit": {
-          "label": "type",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "type",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "description": {
         "edit": {
           "label": "description",
@@ -288,6 +274,35 @@
         },
         "list": {
           "label": "country",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "type": {
+        "edit": {
+          "label": "type",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "type",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "amountFunded": {
+        "edit": {
+          "label": "amountFunded",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "amountFunded",
           "searchable": true,
           "sortable": true
         }
@@ -455,6 +470,10 @@
           {
             "name": "country",
             "size": 6
+          },
+          {
+            "name": "amountFunded",
+            "size": 4
           }
         ]
       ]
