@@ -2,17 +2,12 @@ import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import {
-  List,
-  ChevronLeft,
-  ChevronRight,
-  MapPinned,
-  TreePine,
-} from 'lucide-react';
+import { List, MapPinned, TreePine } from 'lucide-react';
 import { SDGWheel } from '@/components/Sdg/sdg-wheel';
 import { fetchStrapiData, env } from '@/utils';
 import { useRouter } from 'next/router';
-import LatestUpdates from '@/components/LatestUpdates';
+import PledgeProgressBar from '@/components/PledgeProgressBar';
+import ProjectsListing from '@/components/ProjectListing';
 
 export default function CompensatorProfile() {
   const router = useRouter();
@@ -34,105 +29,26 @@ export default function CompensatorProfile() {
   );
 
   useEffect(() => {
+    if (!documentId) return;
+
     const fetchData = async () => {
       setIsLoading(true);
+
       try {
-        const compensatorResponse = await fetchStrapiData(
-          `/compensators/${documentId}`,
-          {
-            'populate[0]': 'sdgs',
-            'populate[3]': 'sdgs.icon',
-            'populate[1]': 'projectCompensations',
-            'populate[2]': 'compensationProgressImage',
-            'populate[4]': 'updates',
-            'populate[5]': 'updates.image',
-          }
+        const compensatorData = await fetchCompensatorData(documentId);
+        if (!compensatorData) return;
+
+        const enhancedCompensatorData = processCompensatorData(compensatorData);
+        setCompensator(enhancedCompensatorData);
+
+        const projectIds = getProjectIds(compensatorData);
+        setProjectsId(projectIds);
+
+        const projectsData = await fetchProjectsData(
+          projectIds,
+          compensatorData
         );
-
-        if (compensatorResponse?.data) {
-          const compensatorData = compensatorResponse.data;
-
-          const actualCapsFunded = compensatorData.projectCompensations.reduce(
-            (total, compensation) =>
-              total + parseFloat(compensation.capsFunded || 0),
-            0
-          );
-
-          const targetCaps = parseFloat(
-            compensatorData.targetPledgeCaps || 100
-          );
-
-          const actualPledgePercentage = Math.min(
-            Math.max(
-              targetCaps > 0
-                ? Math.round((actualCapsFunded / targetCaps) * 100)
-                : 0,
-              0
-            ),
-            100
-          );
-
-          const targetPledgePercentage = Math.round(
-            (parseFloat(compensatorData.targetPledgeCaps) / 100) * 100
-          );
-
-          const projectIds = compensatorData.projectCompensations.map(
-            (compensation) => compensation.documentId
-          );
-
-          let projectsData = [];
-          if (projectIds.length > 0) {
-            const projectsResponse = await fetchStrapiData('/projects', {
-              'filters[projectCompensators][documentId][$in]':
-                projectIds.join(','),
-              'populate[0]': 'projectCompensators',
-              'populate[1]': 'projectImage',
-              'pagination[pageSize]': 100,
-            });
-
-            if (projectsResponse?.data) {
-              projectsData = projectsResponse.data.map((project) => {
-                const projectCompensation = project.projectCompensators.find(
-                  (comp) =>
-                    comp.documentId && projectIds.includes(comp.documentId)
-                );
-
-                return {
-                  id: project.id,
-                  documentId: project.documentId,
-                  title: project.name,
-                  location: project.location,
-                  description: project.description,
-                  image: project.projectImage?.url,
-                  coordinates: project.coordinates
-                    .split(',')
-                    .map((coord) => parseFloat(coord.trim())),
-                  contributionPercentage: projectCompensation
-                    ? Math.round(
-                        (parseFloat(projectCompensation.capsFunded) /
-                          parseFloat(compensatorData.targetPledgeCaps)) *
-                          100
-                      )
-                    : 0,
-                  capsFunded: projectCompensation
-                    ? projectCompensation.capsFunded
-                    : 0,
-                };
-              });
-            }
-          }
-
-          const enhancedCompensatorData = {
-            ...compensatorData,
-            actualPledgePercentage,
-            actualCapsFunded,
-            targetPledgePercentage,
-          };
-
-          setCompensator(enhancedCompensatorData);
-          setProjects(projectsData);
-          setProjectsId(projectIds);
-        }
+        setProjects(projectsData);
       } catch (error) {
         console.error('Error fetching compensator data:', error);
       } finally {
@@ -141,6 +57,91 @@ export default function CompensatorProfile() {
     };
     if (documentId) fetchData();
   }, [documentId]);
+
+  const fetchCompensatorData = async (documentId) => {
+    const response = await fetchStrapiData(`/compensators/${documentId}`, {
+      'populate[0]': 'sdgs',
+      'populate[3]': 'sdgs.icon',
+      'populate[1]': 'projectCompensations',
+      'populate[2]': 'compensationProgressImage',
+    });
+
+    return response?.data;
+  };
+
+  const processCompensatorData = (compensatorData) => {
+    const actualCapsFunded = compensatorData.projectCompensations.reduce(
+      (total, compensation) => total + parseFloat(compensation.capsFunded || 0),
+      0
+    );
+
+    const targetCaps = parseFloat(compensatorData.targetPledgeCaps || 100);
+
+    const actualPledgePercentage = calculatePledgePercentage(
+      actualCapsFunded,
+      targetCaps
+    );
+    const targetPledgePercentage = Math.round(
+      (parseFloat(compensatorData.targetPledgeCaps) / 100) * 100
+    );
+
+    return {
+      ...compensatorData,
+      actualPledgePercentage,
+      actualCapsFunded,
+      targetPledgePercentage,
+    };
+  };
+
+  const calculatePledgePercentage = (actual, target) => {
+    const percentage = target > 0 ? Math.round((actual / target) * 100) : 0;
+    return Math.min(Math.max(percentage, 0), 100);
+  };
+
+  const getProjectIds = (compensatorData) => {
+    return compensatorData.projectCompensations.map(
+      (compensation) => compensation.documentId
+    );
+  };
+
+  const fetchProjectsData = async (projectIds, compensatorData) => {
+    if (projectIds.length === 0) return [];
+
+    const projectsResponse = await fetchStrapiData('/projects', {
+      'filters[projectCompensators][documentId][$in]': projectIds.join(','),
+      'populate[0]': 'projectCompensators',
+      'populate[1]': 'projectImage',
+      'pagination[pageSize]': 100,
+    });
+
+    if (!projectsResponse?.data) return [];
+
+    return projectsResponse.data.map((project) => {
+      const projectCompensation = project.projectCompensators.find(
+        (comp) => comp.documentId && projectIds.includes(comp.documentId)
+      );
+
+      return {
+        id: project.id,
+        documentId: project.documentId,
+        title: project.name,
+        location: project.location,
+        description: project.description,
+        image: project.projectImage?.url,
+        coordinates: project.coordinates
+          .split(',')
+          .map((coord) => parseFloat(coord.trim())),
+        contributionPercentage: projectCompensation
+          ? Math.round(
+              (parseFloat(projectCompensation.capsFunded) /
+                parseFloat(compensatorData.targetPledgeCaps)) *
+                100
+            )
+          : 0,
+        capsFunded: projectCompensation ? projectCompensation.capsFunded : 0,
+      };
+    });
+  };
 
   const renderContent = () => {
     if (isLoading) {
@@ -250,32 +251,10 @@ export default function CompensatorProfile() {
                   <h2 className="text-gray-800 font-bold mb-4 border-b border-blue-100 pb-2">
                     WATER COMPENSATION PLEDGE:
                   </h2>
-                  <div className="mb-4">
-                    <div className="flex justify-between mb-2">
-                      <div>
-                        <div className="text-gray-500 text-sm font-bold">
-                          ACTUAL
-                        </div>
-                        <div className="text-[#0DA2D7] font-bold">
-                          {compensator.actualPledgePercentage}%
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-gray-500 text-sm font-bold">
-                          TARGET
-                        </div>
-                        <div className="text-gray-700 font-bold">100%</div>
-                      </div>
-                    </div>
-                    <div className="h-6 bg-gray-200 rounded-md overflow-hidden">
-                      <div
-                        className="h-full bg-[#0DA2D7] rounded-md"
-                        style={{
-                          width: `${compensator.actualPledgePercentage}%`,
-                        }}
-                      ></div>
-                    </div>
-                  </div>
+                  <PledgeProgressBar
+                    actual={compensator.actualPledgePercentage}
+                    target={100}
+                  />
                 </div>
               </div>
 
@@ -313,8 +292,7 @@ export default function CompensatorProfile() {
               <div>
                 <div>
                   <h2 className="text-gray-800 font-bold mb-4 border-t border-blue-100 mt-6 pt-6">
-                    SOFTA WATER FOOTPRINT COMPENSATION & REDUCTION 5 YEAR
-                    PROGRESS:
+                    {compensator?.compensationProgressTitle}
                   </h2>
 
                   {imageUrl && (
@@ -392,122 +370,3 @@ export default function CompensatorProfile() {
 
   return renderContent();
 }
-
-const ProjectsListing = ({ projects }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const projectsPerPage = 6;
-
-  const totalPages = Math.ceil(projects.length / projectsPerPage);
-  const indexOfLastProject = currentPage * projectsPerPage;
-  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
-  const currentProjects = projects.slice(
-    indexOfFirstProject,
-    indexOfLastProject
-  );
-
-  const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const goToPreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [projects.length]);
-
-  return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {currentProjects.map((project) => (
-          <Link
-            href={`/projects/${project.documentId}`}
-            key={project.documentId}
-            className="bg-white rounded-lg overflow-hidden transition-shadow hover:shadow-lg cursor-pointer"
-            style={{ boxShadow: '-6px 6px 8px 0px #0000001A' }}
-          >
-            <div className="relative h-48 w-full">
-              <Image
-                src={
-                  project.image
-                    ? `${env('NEXT_PUBLIC_BACKEND_URL')}${project.image}`
-                    : '/placeholder.svg'
-                }
-                alt={project.title}
-                className="object-cover"
-                unoptimized
-                fill
-              />
-            </div>
-
-            <div className="p-4">
-              <h3 className="text-xl font-semibold mb-1 hover:text-[#0DA2D7] transition-colors">
-                {project.title}
-              </h3>
-              <p className="text-sm text-gray-600 mb-3">{project.location}</p>
-
-              <p className="text-gray-700 text-sm mb-4 line-clamp-3 overflow-hidden text-ellipsis">
-                {project.description}
-              </p>
-
-              <div className="border-t border-gray-200 pt-4 mt-4">
-                <div className="text-sm text-gray-700 mb-2">
-                  Amount Contributed
-                </div>
-                <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-[#0DA2D7] rounded-full"
-                    style={{
-                      width: `${project.contributionPercentage}%`,
-                    }}
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      {totalPages > 1 && (
-        <div className="flex justify-center mt-8 gap-2">
-          <button
-            className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              currentPage === 1
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-            }`}
-            onClick={goToPreviousPage}
-            disabled={currentPage === 1}
-            aria-label="Previous page"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-
-          <div className="flex items-center">
-            <span className="text-sm text-gray-700">
-              Page {currentPage} of {totalPages}
-            </span>
-          </div>
-
-          <button
-            className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              currentPage === totalPages
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                : 'bg-indigo-900 text-white hover:bg-indigo-800'
-            }`}
-            onClick={goToNextPage}
-            disabled={currentPage === totalPages}
-            aria-label="Next page"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
-      )}
-    </div>
-  );
-};
