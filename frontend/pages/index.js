@@ -1,3 +1,4 @@
+import PartnersSection from '@/components/Homepage/PartnersSection';
 import AnimatedWaterSection from '@/components/AnimatedWaterSection';
 import { fetchStrapiData } from '@/utils';
 import dynamic from 'next/dynamic';
@@ -61,7 +62,7 @@ const HowItWorksSection = () => {
   );
 };
 
-const ImpactSection = ({ projectCount }) => {
+const ImpactSection = ({ partnersCount, projectCount, compensatorsCount }) => {
   const data = [
     {
       icon: '/images/global-icon.png',
@@ -72,13 +73,13 @@ const ImpactSection = ({ projectCount }) => {
     {
       icon: '/images/water-icon.png',
       pretext: 'Liters of Water',
-      counter: 121212,
+      counter: compensatorsCount,
       title: 'Compensated',
     },
     {
       icon: '/images/handshake-icon.png',
       pretext: 'Our current count of',
-      counter: 121212,
+      counter: partnersCount,
       title: 'Partners onboarded',
     },
   ];
@@ -114,66 +115,6 @@ const ImpactSection = ({ projectCount }) => {
               </p>
               <p className="text-gray-500">{item.title}</p>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const PartnersSection = () => {
-  const partners = [
-    'WORLD WATERNET',
-    'ACACIA WATER',
-    '11TH HOUR RACING TEAM',
-    'AKVO',
-    'PARTNER 5',
-    'PARTNER 6',
-    'PARTNER 7',
-    'PARTNER 8',
-    'PARTNER 9',
-    'PARTNER 10',
-    'PARTNER 11',
-    'PARTNER 12',
-  ];
-  const [currentPage, setCurrentPage] = useState(0);
-  const partnersPerPage = 4;
-  const totalPages = Math.ceil(partners.length / partnersPerPage);
-
-  const displayedPartners = partners.slice(
-    currentPage * partnersPerPage,
-    (currentPage + 1) * partnersPerPage
-  );
-
-  return (
-    <section className="bg-white py-12 text-center">
-      <h2 className="text-4xl font-bold text-[#0da2d7] py-4">Partners</h2>
-      <p className="font-semibold mt-2 max-w-lg mx-auto">
-        Our work is made possible through the support of the following partners
-      </p>
-
-      <div className="mt-8 py-4 text-center max-w-6xl mx-auto mt-6">
-        <div className="flex justify-center gap-4 py-4">
-          {displayedPartners.map((partner, index) => (
-            <div
-              key={index}
-              className="bg-gray-100 text-gray-900 font-bold p-8 max-w-content text-center rounded-lg shadow-sm"
-            >
-              {partner}
-            </div>
-          ))}
-        </div>
-
-        {/* Pagination */}
-        <div className="mt-4 flex justify-center gap-2">
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <div
-              key={index}
-              className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
-                currentPage === index ? 'bg-[#0da2d7]' : 'bg-gray-300'
-              }`}
-              onClick={() => setCurrentPage(index)}
-            ></div>
           ))}
         </div>
       </div>
@@ -414,7 +355,7 @@ const FeaturedStoriesSection = () => {
   );
 };
 
-const ActiveProjectsSection = ({setProjectCount}) => {
+const ActiveProjectsSection = ({ setProjectCount }) => {
   const Map = useMemo(
     () =>
       dynamic(() => import('@/components/MapView'), {
@@ -439,15 +380,54 @@ const ActiveProjectsSection = ({setProjectCount}) => {
 };
 
 export default function Index() {
+  const [partnersCount, setPartnersCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
+  const [compensatorsCount, setCompensatorsCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const compensatorsResponse = await fetchStrapiData(
+          '/project-compensators',
+          {
+            'pagination[limit]': 500,
+          }
+        );
+
+        if (compensatorsResponse?.data) {
+          const totalAmount = compensatorsResponse.data.reduce(
+            (total, compensator) => {
+              const amount = parseFloat(compensator.amountFunded || 0);
+              return total + amount;
+            },
+            0
+          );
+
+          setCompensatorsCount(totalAmount);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <main className="min-h-screen bg-white">
       <HeroSection />
       <HowItWorksSection />
       <ActiveProjectsSection setProjectCount={setProjectCount} />
-      <ImpactSection projectCount={projectCount} />
-      <PartnersSection />
+      <ImpactSection
+        partnersCount={partnersCount}
+        projectCount={projectCount}
+        compensatorsCount={compensatorsCount}
+      />
+      <PartnersSection {...{ setPartnersCount }} />
       <CompensatorsSection />
       <FeaturedStoriesSection />
     </main>
