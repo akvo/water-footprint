@@ -71,7 +71,7 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
   const [showCapsDropdown, setShowCapsDropdown] = useState(false);
   const [selectedCapsRanges, setSelectedCapsRanges] = useState([]);
 
-  const pageSize = 10;
+  const pageSize = 250;
 
   const countryDropdownRef = useRef(null);
   const typeDropdownRef = useRef(null);
