@@ -5,7 +5,8 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { env, fetchStrapiData } from '@/utils';
 import { prepareProjectChartData } from '@/utils/projectChartUtils';
 import Link from 'next/link';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import LatestUpdates from '@/components/LatestUpdates';
 
 export default function ProjectPage() {
   const router = useRouter();
@@ -17,6 +18,7 @@ export default function ProjectPage() {
   const [fundingData, setFundingData] = useState([]);
   const [showReports, setShowReports] = useState(false);
   const reportsDropdownRef = useRef(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -45,6 +47,7 @@ export default function ProjectPage() {
     try {
       const response = await fetchStrapiData(`/projects`, {
         'filters[documentId][$eq]': id,
+        'filters[publishedAt][$notNull]': true,
         'populate[0]': 'projectImage',
         'populate[1]': 'country',
         'populate[2]': 'projectCompensators',
@@ -53,6 +56,8 @@ export default function ProjectPage() {
         'populate[5]': 'validatingPartner',
         'populate[6]': 'monitoringReports',
         'populate[7]': 'monitoringReports.file',
+        'populate[8]': 'updates',
+        'populate[9]': 'updates.image',
       });
 
       if (response?.data && response.data.length > 0) {
@@ -80,7 +85,9 @@ export default function ProjectPage() {
             percentageComplete,
             percentageCompensated,
           },
-          image: projectData.projectImage?.url,
+          image: projectData.projectImage?.url
+            ? projectData.projectImage.url
+            : '/placeholder.svg',
           country: projectData.country?.country_name,
           period: {
             start: projectData.startDate,
@@ -92,6 +99,7 @@ export default function ProjectPage() {
           projectCompensators: projectData.projectCompensators || [],
           validatingPartner: projectData.validatingPartner || {},
           monitoringReports: projectData.monitoringReports || {},
+          updates: projectData.updates || [],
         };
 
         setProject(formattedProject);
@@ -436,6 +444,15 @@ export default function ProjectPage() {
                   </ResponsiveContainer>
                 </div>
               </div>
+            </div>
+          )}
+          {project.updates?.length > 0 && (
+            <div className="mt-10">
+              <LatestUpdates
+                updates={project.updates}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
             </div>
           )}
         </div>

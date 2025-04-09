@@ -92,10 +92,7 @@
       "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
-        "fields": [
-          "country_name",
-          "country_code"
-        ]
+        "fields": ["country_name", "country_code"]
       },
       "conditions": [],
       "locale": null
@@ -124,24 +121,18 @@
       "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
-        "fields": [
-          "country_name",
-          "country_code"
-        ]
+        "fields": ["country_name", "country_code"]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "bmhcvh8yvh2d8d103dv03op9",
+      "documentId": "l3tykj12okfwjb4tf154ktf0",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
-        "fields": [
-          "country_name",
-          "country_code"
-        ]
+        "fields": ["country_name", "country_code"]
       },
       "conditions": [],
       "locale": null
@@ -152,10 +143,7 @@
       "actionParameters": {},
       "subject": "api::homepage.homepage",
       "properties": {
-        "fields": [
-          "title",
-          "description"
-        ]
+        "fields": ["title", "description"]
       },
       "conditions": [],
       "locale": null
@@ -184,10 +172,7 @@
       "actionParameters": {},
       "subject": "api::homepage.homepage",
       "properties": {
-        "fields": [
-          "title",
-          "description"
-        ]
+        "fields": ["title", "description"]
       },
       "conditions": [],
       "locale": null
@@ -198,10 +183,7 @@
       "actionParameters": {},
       "subject": "api::homepage.homepage",
       "properties": {
-        "fields": [
-          "title",
-          "description"
-        ]
+        "fields": ["title", "description"]
       },
       "conditions": [],
       "locale": null
@@ -212,10 +194,7 @@
       "actionParameters": {},
       "subject": "api::interactive-tours-page.interactive-tours-page",
       "properties": {
-        "fields": [
-          "title",
-          "interactiveToursDescription"
-        ]
+        "fields": ["title", "interactiveToursDescription"]
       },
       "conditions": [],
       "locale": null
@@ -244,10 +223,7 @@
       "actionParameters": {},
       "subject": "api::interactive-tours-page.interactive-tours-page",
       "properties": {
-        "fields": [
-          "title",
-          "interactiveToursDescription"
-        ]
+        "fields": ["title", "interactiveToursDescription"]
       },
       "conditions": [],
       "locale": null
@@ -258,10 +234,7 @@
       "actionParameters": {},
       "subject": "api::interactive-tours-page.interactive-tours-page",
       "properties": {
-        "fields": [
-          "title",
-          "interactiveToursDescription"
-        ]
+        "fields": ["title", "interactiveToursDescription"]
       },
       "conditions": [],
       "locale": null
@@ -272,10 +245,7 @@
       "actionParameters": {},
       "subject": "api::methodology-page.methodology-page",
       "properties": {
-        "fields": [
-          "title",
-          "description"
-        ]
+        "fields": ["title", "description"]
       },
       "conditions": [],
       "locale": null
@@ -304,10 +274,7 @@
       "actionParameters": {},
       "subject": "api::methodology-page.methodology-page",
       "properties": {
-        "fields": [
-          "title",
-          "description"
-        ]
+        "fields": ["title", "description"]
       },
       "conditions": [],
       "locale": null
@@ -318,10 +285,7 @@
       "actionParameters": {},
       "subject": "api::methodology-page.methodology-page",
       "properties": {
-        "fields": [
-          "title",
-          "description"
-        ]
+        "fields": ["title", "description"]
       },
       "conditions": [],
       "locale": null
@@ -332,10 +296,7 @@
       "actionParameters": {},
       "subject": "api::monitoring-report.monitoring-report",
       "properties": {
-        "fields": [
-          "name",
-          "file"
-        ]
+        "fields": ["name", "file"]
       },
       "conditions": [],
       "locale": null
@@ -364,10 +325,7 @@
       "actionParameters": {},
       "subject": "api::monitoring-report.monitoring-report",
       "properties": {
-        "fields": [
-          "name",
-          "file"
-        ]
+        "fields": ["name", "file"]
       },
       "conditions": [],
       "locale": null
@@ -378,10 +336,7 @@
       "actionParameters": {},
       "subject": "api::monitoring-report.monitoring-report",
       "properties": {
-        "fields": [
-          "name",
-          "file"
-        ]
+        "fields": ["name", "file"]
       },
       "conditions": [],
       "locale": null
@@ -392,12 +347,7 @@
       "actionParameters": {},
       "subject": "api::partner.partner",
       "properties": {
-        "fields": [
-          "name",
-          "description",
-          "link",
-          "platformPartner"
-        ]
+        "fields": ["name", "description", "link", "platformPartner"]
       },
       "conditions": [],
       "locale": null
@@ -426,12 +376,7 @@
       "actionParameters": {},
       "subject": "api::partner.partner",
       "properties": {
-        "fields": [
-          "name",
-          "description",
-          "link",
-          "platformPartner"
-        ]
+        "fields": ["name", "description", "link", "platformPartner"]
       },
       "conditions": [],
       "locale": null
@@ -442,12 +387,7 @@
       "actionParameters": {},
       "subject": "api::partner.partner",
       "properties": {
-        "fields": [
-          "name",
-          "description",
-          "link",
-          "platformPartner"
-        ]
+        "fields": ["name", "description", "link", "platformPartner"]
       },
       "conditions": [],
       "locale": null
@@ -458,12 +398,7 @@
       "actionParameters": {},
       "subject": "api::project-compensator.project-compensator",
       "properties": {
-        "fields": [
-          "amountFunded",
-          "compensator",
-          "project",
-          "capsFunded"
-        ]
+        "fields": ["amountFunded", "compensator", "project", "capsFunded"]
       },
       "conditions": [],
       "locale": null
@@ -492,12 +427,7 @@
       "actionParameters": {},
       "subject": "api::project-compensator.project-compensator",
       "properties": {
-        "fields": [
-          "amountFunded",
-          "compensator",
-          "project",
-          "capsFunded"
-        ]
+        "fields": ["amountFunded", "compensator", "project", "capsFunded"]
       },
       "conditions": [],
       "locale": null
@@ -508,12 +438,7 @@
       "actionParameters": {},
       "subject": "api::project-compensator.project-compensator",
       "properties": {
-        "fields": [
-          "amountFunded",
-          "compensator",
-          "project",
-          "capsFunded"
-        ]
+        "fields": ["amountFunded", "compensator", "project", "capsFunded"]
       },
       "conditions": [],
       "locale": null
@@ -524,10 +449,7 @@
       "actionParameters": {},
       "subject": "api::project-type-category.project-type-category",
       "properties": {
-        "fields": [
-          "name",
-          "project_types"
-        ]
+        "fields": ["name", "project_types"]
       },
       "conditions": [],
       "locale": null
@@ -556,10 +478,7 @@
       "actionParameters": {},
       "subject": "api::project-type-category.project-type-category",
       "properties": {
-        "fields": [
-          "name",
-          "project_types"
-        ]
+        "fields": ["name", "project_types"]
       },
       "conditions": [],
       "locale": null
@@ -570,10 +489,7 @@
       "actionParameters": {},
       "subject": "api::project-type-category.project-type-category",
       "properties": {
-        "fields": [
-          "name",
-          "project_types"
-        ]
+        "fields": ["name", "project_types"]
       },
       "conditions": [],
       "locale": null
@@ -584,10 +500,7 @@
       "actionParameters": {},
       "subject": "api::project-type.project-type",
       "properties": {
-        "fields": [
-          "title",
-          "project_type_category"
-        ]
+        "fields": ["title", "project_type_category"]
       },
       "conditions": [],
       "locale": null
@@ -616,10 +529,7 @@
       "actionParameters": {},
       "subject": "api::project-type.project-type",
       "properties": {
-        "fields": [
-          "title",
-          "project_type_category"
-        ]
+        "fields": ["title", "project_type_category"]
       },
       "conditions": [],
       "locale": null
@@ -630,10 +540,7 @@
       "actionParameters": {},
       "subject": "api::project-type.project-type",
       "properties": {
-        "fields": [
-          "title",
-          "project_type_category"
-        ]
+        "fields": ["title", "project_type_category"]
       },
       "conditions": [],
       "locale": null
@@ -758,11 +665,7 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": [
-          "name",
-          "colour",
-          "icon"
-        ]
+        "fields": ["name", "colour", "icon"]
       },
       "conditions": [],
       "locale": null
@@ -791,11 +694,7 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": [
-          "name",
-          "colour",
-          "icon"
-        ]
+        "fields": ["name", "colour", "icon"]
       },
       "conditions": [],
       "locale": null
@@ -806,11 +705,7 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": [
-          "name",
-          "colour",
-          "icon"
-        ]
+        "fields": ["name", "colour", "icon"]
       },
       "conditions": [],
       "locale": null
@@ -893,10 +788,7 @@
       "actionParameters": {},
       "subject": "api::waterhubs-page.waterhubs-page",
       "properties": {
-        "fields": [
-          "title",
-          "waterHubsDescription"
-        ]
+        "fields": ["title", "waterHubsDescription"]
       },
       "conditions": [],
       "locale": null
@@ -925,10 +817,7 @@
       "actionParameters": {},
       "subject": "api::waterhubs-page.waterhubs-page",
       "properties": {
-        "fields": [
-          "title",
-          "waterHubsDescription"
-        ]
+        "fields": ["title", "waterHubsDescription"]
       },
       "conditions": [],
       "locale": null
@@ -939,10 +828,7 @@
       "actionParameters": {},
       "subject": "api::waterhubs-page.waterhubs-page",
       "properties": {
-        "fields": [
-          "title",
-          "waterHubsDescription"
-        ]
+        "fields": ["title", "waterHubsDescription"]
       },
       "conditions": [],
       "locale": null
@@ -953,10 +839,7 @@
       "actionParameters": {},
       "subject": "api::waterstat-page.waterstat-page",
       "properties": {
-        "fields": [
-          "title",
-          "waterStatDescription"
-        ]
+        "fields": ["title", "waterStatDescription"]
       },
       "conditions": [],
       "locale": null
@@ -985,10 +868,7 @@
       "actionParameters": {},
       "subject": "api::waterstat-page.waterstat-page",
       "properties": {
-        "fields": [
-          "title",
-          "waterStatDescription"
-        ]
+        "fields": ["title", "waterStatDescription"]
       },
       "conditions": [],
       "locale": null
@@ -999,10 +879,7 @@
       "actionParameters": {},
       "subject": "api::waterstat-page.waterstat-page",
       "properties": {
-        "fields": [
-          "title",
-          "waterStatDescription"
-        ]
+        "fields": ["title", "waterStatDescription"]
       },
       "conditions": [],
       "locale": null

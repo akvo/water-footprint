@@ -1,5 +1,6 @@
 import PartnersSection from '@/components/Homepage/PartnersSection';
 import AnimatedWaterSection from '@/components/AnimatedWaterSection';
+import FeaturedStoriesSection from '@/components/FeaturedStoriesSection';
 import { fetchStrapiData } from '@/utils';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
@@ -255,99 +256,6 @@ const CompensatorsSection = () => {
               }`}
               onClick={() => scrollToPage(index)}
             ></div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const FeaturedStoriesSection = () => {
-  const stories = [
-    {
-      image: `https://picsum.photos/600/300?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-      title: 'Racing towards a water neutral world',
-      description:
-        '11th Hour Racing Team will work with Water Footprint Implementation to track water usage, reduce water consumption, and compensate for the unavoidable water footprint from the campaign.',
-    },
-    {
-      image: `https://picsum.photos/600/300?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-      title: 'Launching Water Footprint Compensation',
-      description:
-        'The Water Footprint Compensation will be launched in New York, on the 24th of March, during the UN Water Conference. This is a crucial step towards achieving fair and smart use of the world’s freshwater. Find out how to become a partner.',
-    },
-    {
-      image: `https://picsum.photos/600/300?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-      title: 'Protecting Marine Ecosystems',
-      description:
-        'Efforts are being made to protect marine life by reducing plastic waste and promoting sustainable fishing practices.',
-    },
-    {
-      image: `https://picsum.photos/600/300?${Math.random()
-        .toString(36)
-        .slice(2)}`,
-      title: 'Sustainable Water Solutions',
-      description:
-        'Innovative solutions are emerging to ensure sustainable water management and conservation in urban areas.',
-    },
-  ];
-
-  const [currentPage, setCurrentPage] = useState(0);
-  const storiesPerPage = 2;
-  const totalPages = Math.ceil(stories.length / storiesPerPage);
-
-  const displayedStories = stories.slice(
-    currentPage * storiesPerPage,
-    (currentPage + 1) * storiesPerPage
-  );
-
-  const handlePageChange = (pageIndex) => {
-    setCurrentPage(pageIndex);
-  };
-
-  return (
-    <section className="bg-white">
-      <div className="max-w-6xl mx-auto py-10">
-        <h2 className="text-4xl font-bold text-[#0da2d7] mb-6">
-          Featured Stories
-        </h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          {displayedStories.map((story, index) => (
-            <div
-              key={index}
-              className="bg-white shadow-lg overflow-hidden hover:shadow-2xl transition duration-300"
-            >
-              <Image
-                src={story.image}
-                alt={story.title}
-                width={552}
-                height={234}
-                className="w-full h-68 object-cover"
-              />
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-gray-800">
-                  {story.title}
-                </h3>
-                <p className="text-gray-600 mt-2">{story.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-end mt-6 space-x-2">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <span
-              key={index}
-              onClick={() => handlePageChange(index)}
-              className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
-                currentPage === index ? 'bg-[#0da2d7]' : 'bg-gray-300'
-              }`}
-            ></span>
           ))}
         </div>
       </div>
