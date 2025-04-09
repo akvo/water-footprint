@@ -210,20 +210,22 @@ export default function ProjectPage() {
                   ></div>
                 </div>
               </div>
-              <div className="mb-8">
-                <h2 className="text-gray-800 font-bold mb-4">SDGS :</h2>
-                <div className="flex flex-wrap gap-3">
-                  {project.sdgs.map((item) => (
-                    <div
-                      key={item.id}
-                      className="text-white px-4 py-2 rounded-md"
-                      style={{ backgroundColor: item.colour }}
-                    >
-                      GOAL {item.id}: {item.name}
-                    </div>
-                  ))}
+              {project?.sdgs?.length > 0 && (
+                <div className="mb-8">
+                  <h2 className="text-gray-800 font-bold mb-4">SDGS :</h2>
+                  <div className="flex flex-wrap gap-3">
+                    {project.sdgs.map((item) => (
+                      <div
+                        key={item.id}
+                        className="text-white px-4 py-2 rounded-md"
+                        style={{ backgroundColor: item.colour }}
+                      >
+                        GOAL {item.id}: {item.name}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Right column - Project image */}
