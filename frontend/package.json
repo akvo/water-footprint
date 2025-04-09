@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "babel-jest": "^29.7.0",
