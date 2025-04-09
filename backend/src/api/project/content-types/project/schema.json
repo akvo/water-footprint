@@ -63,7 +63,8 @@
       "type": "string"
     },
     "coordinates": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "description": {
       "type": "richtext",
