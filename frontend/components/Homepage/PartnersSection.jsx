@@ -68,7 +68,12 @@ const PartnersSection = ({ setPartnersCount }) => {
                 <div key={partner.id || index} className="flex-shrink-0 px-4">
                   {partner.link ? (
                     <a
-                      href={partner.link}
+                      href={
+                        partner.link.startsWith('http://') ||
+                        partner.link.startsWith('https://')
+                          ? partner.link
+                          : `https://${partner.link}`
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block"

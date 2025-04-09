@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { env, fetchStrapiData } from '@/utils';
+import { cn, env, fetchStrapiData } from '@/utils';
 import { prepareProjectChartData } from '@/utils/projectChartUtils';
 import Link from 'next/link';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -145,7 +145,6 @@ export default function ProjectPage() {
   const imageUrl = project.image
     ? `${env('NEXT_PUBLIC_BACKEND_URL')}${project.image}`
     : '/placeholder.svg';
-
   return (
     <div className="min-h-screen">
       <div className="px-4 py-10">
@@ -250,82 +249,95 @@ export default function ProjectPage() {
           </div>
 
           <div className="py-4 mt-4">
-            <div className="flex justify-between items-center border-t border-b py-2">
-              <div className="flex items-center gap-3">
-                <div className="bg-[#0DA2D7] rounded-md p-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-white"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <div className="font-bold text-gray-800">
-                  VALIDATING PARTNER :{' '}
-                  <a
-                    href={`${project.validatingPartner.link}`}
-                    className="text-blue-400 hover:underline capitalize"
-                    target="_blank"
-                  >
-                    {project.validatingPartner.name}
-                  </a>
-                </div>
-              </div>
-
-              <div className="relative" ref={reportsDropdownRef}>
-                {project.monitoringReports &&
-                project.monitoringReports.length > 0 ? (
-                  <>
-                    <button
-                      className="border-2 border-gray-800 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors flex items-center gap-2 cursor-pointer"
-                      onClick={() => setShowReports(!showReports)}
-                    >
-                      Download Monitoring Report
-                      <ChevronDown
-                        size={16}
-                        className={`transition-transform ${
-                          showReports ? 'rotate-180' : ''
-                        }`}
-                      />
-                    </button>
-
-                    {showReports && (
-                      <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                        <div className="py-1">
-                          {project.monitoringReports.map((report) => (
-                            <a
-                              key={report.id}
-                              href={`${env('NEXT_PUBLIC_BACKEND_URL')}${
-                                report.file?.url
-                              }`}
-                              download={report.name}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                            >
-                              {report.name || 'Monitoring Report'}
-                            </a>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <button
-                    className="border-2 border-gray-300 text-gray-400 px-4 py-2 rounded-md cursor-not-allowed"
-                    disabled
-                  >
-                    Monitoring Reports Pending
-                  </button>
+            {(project.validatingPartner ||
+              (project.monitoringReports &&
+                project.monitoringReports.length > 0)) && (
+              <div className="flex justify-between items-center border-t border-b py-2">
+                {Object.keys(project.validatingPartner)?.length > 0 && (
+                  <div className="flex items-center gap-3">
+                    <div className="bg-[#0DA2D7] rounded-md p-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 text-white"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <div className="font-bold text-gray-800">
+                      VALIDATING PARTNER :{' '}
+                      <a
+                        href={`${project.validatingPartner.link}`}
+                        className="text-blue-400 hover:underline capitalize"
+                        target="_blank"
+                      >
+                        {project.validatingPartner.name}
+                      </a>
+                    </div>
+                  </div>
                 )}
+
+                <div
+                  className={cn(
+                    'relative',
+                    Object.keys(project.validatingPartner)?.length === 0 &&
+                      'ml-auto'
+                  )}
+                  ref={reportsDropdownRef}
+                >
+                  {project.monitoringReports &&
+                  project.monitoringReports.length > 0 ? (
+                    <>
+                      <button
+                        className="border-2 border-gray-800 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors flex items-center gap-2 cursor-pointer"
+                        onClick={() => setShowReports(!showReports)}
+                      >
+                        Download Monitoring Report
+                        <ChevronDown
+                          size={16}
+                          className={`transition-transform ${
+                            showReports ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
+
+                      {showReports && (
+                        <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                          <div className="py-1">
+                            {project.monitoringReports.map((report) => (
+                              <a
+                                key={report.id}
+                                href={`${env('NEXT_PUBLIC_BACKEND_URL')}${
+                                  report.file?.url
+                                }`}
+                                download={report.name}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                              >
+                                {report.name || 'Monitoring Report'}
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <button
+                      className="border-2 border-gray-300 text-gray-400 px-4 py-2 rounded-md cursor-not-allowed"
+                      disabled
+                    >
+                      Monitoring Reports Pending
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {fundingData.length > 0 && (
