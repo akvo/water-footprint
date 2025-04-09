@@ -134,6 +134,10 @@ export default function ProjectPage() {
     );
   }
 
+  const imageUrl = project.image
+    ? `${env('NEXT_PUBLIC_BACKEND_URL')}${project.image}`
+    : '/placeholder.svg';
+
   return (
     <div className="min-h-screen">
       <div className="px-4 py-10">
@@ -226,9 +230,9 @@ export default function ProjectPage() {
             <div className="w-1/2">
               <div className="rounded-lg overflow-hidden shadow-lg">
                 <Image
-                  src={project.image || '/placeholder.svg?height=600&width=800'}
+                  src={imageUrl}
                   alt={project.title}
-                  width={800}
+                  width={600}
                   height={400}
                   className="object-cover"
                   unoptimized
