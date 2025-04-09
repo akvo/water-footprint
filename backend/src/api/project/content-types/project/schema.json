@@ -98,6 +98,9 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::project-type.project-type"
+    },
+    "amountFunded": {
+      "type": "biginteger"
     }
   }
 }

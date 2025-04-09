@@ -1,12 +1,6 @@
-import { cn } from '@/utils';
 import { useState } from 'react';
-import Image from 'next/image';
 
-export function SDGTooltip({ id, title, color, position, onClose, sdgData }) {
-  const [isVisible, setIsVisible] = useState(false);
-  const sdgItem = sdgData.find((item) => item.id === id);
-  const IconComponent = sdgItem?.icon;
-
+export function SDGTooltip({ id, title, color, position }) {
   return (
     <div
       className="fixed z-50 transition-opacity duration-200 shadow-lg rounded-md overflow-hidden"
@@ -26,39 +20,37 @@ export function SDGTooltip({ id, title, color, position, onClose, sdgData }) {
         </div>
         <div className="bg-white py-2 px-3 text-sm">{title}</div>
       </div>
-      <div
-        className="absolute w-3 h-3 rotate-45 bg-white"
-        style={{
-          bottom: '-1.5px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }}
-      />
     </div>
   );
 }
 
-export function SDGWheel({
-  activeGoals = [3, 6, 10, 14, 15],
-  onSectionClick,
-  size = 380,
-  sdgData,
-}) {
+export function SDGWheel({ size = 420, sdgData }) {
   const [hoveredSection, setHoveredSection] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState(null);
 
   const centerX = size / 2;
   const centerY = size / 2;
   const outerRadius = size / 2;
-  const innerRadius = size / 4;
+  const innerRadius = size / 3;
 
-  const sections = sdgData.map((sdg, index) => {
-    const isActive = activeGoals.includes(sdg.id);
-    const isHovered = hoveredSection === sdg.id;
+  const iconSize = 46;
+
+  const fullSDGSet = Array.from({ length: 17 }, (_, i) => i + 1);
+
+  const sections = fullSDGSet.map((id) => {
+    const sdg = sdgData.find((s) => s.id === id) || {
+      id,
+      title: `SDG ${id}`,
+      color: '#E5E5E5',
+      icon: null,
+    };
+    const isActive = sdgData.some((s) => s.id === id);
+    const isHovered = isActive && hoveredSection === sdg.id;
     const IconComponent = sdg.icon;
 
-    const totalSections = sdgData.length;
+    const totalSections = 17;
     const anglePerSection = (2 * Math.PI) / totalSections;
+    const index = id - 1;
     const startAngle = index * anglePerSection - Math.PI / 2;
     const endAngle = startAngle + anglePerSection;
 
@@ -80,23 +72,26 @@ export function SDGWheel({
     `;
 
     const iconAngle = startAngle + anglePerSection / 2;
-    const iconRadius = (outerRadius + innerRadius) / 2;
+    const iconRadius = ((outerRadius + innerRadius) / 2) * 1;
     const iconX = centerX + iconRadius * Math.cos(iconAngle);
     const iconY = centerY + iconRadius * Math.sin(iconAngle);
 
     const handleMouseEnter = (event) => {
-      setHoveredSection(sdg.id);
-      const rect = event.currentTarget.getBoundingClientRect();
-      setTooltipPosition({
-        x: rect.left + rect.width / 2,
-        y: rect.top,
-      });
+      if (isActive) {
+        setHoveredSection(sdg.id);
+        const rect = event.currentTarget.getBoundingClientRect();
+        setTooltipPosition({
+          x: rect.left + rect.width / 2,
+          y: rect.top,
+        });
+      }
     };
 
+    const sectionColor = isActive ? sdg.color : '#E5E5E5';
+    const iconColor = isActive ? 'white' : '#666666';
     return (
       <g
         key={sdg.id}
-        onClick={() => onSectionClick?.(sdg.id)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => {
           setHoveredSection(null);
@@ -109,36 +104,27 @@ export function SDGWheel({
       >
         <path
           d={path}
-          fill={isActive ? sdg.color : '#E5E5E5'}
+          fill={sectionColor}
           stroke="#FFFFFF"
           strokeWidth={1}
-          className={cn(
-            'transition-all duration-200',
+          className={`transition-all duration-200 ${
             isHovered && !isActive && 'fill-gray-300'
-          )}
+          }`}
         />
-        {IconComponent && (
+        {(isActive || IconComponent) && (
           <foreignObject
-            x={iconX - 12}
-            y={iconY - 12}
-            width={30}
-            height={30}
+            x={iconX - iconSize / 2}
+            y={iconY - iconSize / 2}
+            width={iconSize}
+            height={iconSize}
             className="pointer-events-none"
           >
             <div className="flex items-center justify-center">
               {typeof IconComponent === 'function' ? (
-                <IconComponent
-                  size={20}
-                  color={isActive ? 'white' : '#666666'}
-                />
-              ) : (
-                <Image
-                  src={IconComponent}
-                  alt="SDG Icon"
-                  layout="fill"
-                  objectFit="cover"
-                />
-              )}
+                <IconComponent size={20} color={iconColor} />
+              ) : isActive ? (
+                <div className="text-white text-xs font-bold" />
+              ) : null}
             </div>
           </foreignObject>
         )}
@@ -150,7 +136,6 @@ export function SDGWheel({
     <div className="relative" style={{ width: size, height: size }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         {sections}
-
         <circle
           cx={centerX}
           cy={centerY}
@@ -167,13 +152,15 @@ export function SDGWheel({
           href="/sdg.png"
         />
       </svg>
-
       {hoveredSection && tooltipPosition && (
         <SDGTooltip
           id={hoveredSection}
-          title={sdgData.find((sdg) => sdg.id === hoveredSection)?.title || ''}
+          title={
+            sdgData.find((sdg) => sdg.id === hoveredSection)?.title ||
+            `SDG ${hoveredSection}`
+          }
           color={
-            sdgData.find((sdg) => sdg.id === hoveredSection)?.color || '#000'
+            sdgData.find((sdg) => sdg.id === hoveredSection)?.color || '#777'
           }
           position={tooltipPosition}
           onClose={() => {

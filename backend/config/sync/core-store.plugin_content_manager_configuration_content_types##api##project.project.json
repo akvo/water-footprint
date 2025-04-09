@@ -293,6 +293,20 @@
           "sortable": true
         }
       },
+      "amountFunded": {
+        "edit": {
+          "label": "amountFunded",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "amountFunded",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -456,6 +470,10 @@
           {
             "name": "country",
             "size": 6
+          },
+          {
+            "name": "amountFunded",
+            "size": 4
           }
         ]
       ]
