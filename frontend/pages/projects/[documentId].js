@@ -3,17 +3,10 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { env, fetchStrapiData } from '@/utils';
+import { prepareProjectChartData } from '@/utils/projectChartUtils';
 import Link from 'next/link';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import LatestUpdates from '@/components/LatestUpdates';
-
-const data = [
-  { name: '11th Hour Racing Team', value: 45, color: '#2A1E5C' },
-  { name: 'Oasis', value: 20, color: '#433770' },
-  { name: 'WFP', value: 15, color: '#645C82' },
-  { name: 'USAID', value: 10, color: '#8D8698' },
-  { name: 'GIZ', value: 10, color: '#B6B0B8' },
-];
 
 export default function ProjectPage() {
   const router = useRouter();
@@ -69,10 +62,16 @@ export default function ProjectPage() {
 
       if (response?.data && response.data.length > 0) {
         const projectData = response.data[0];
-        const actualValue = parseFloat(projectData.actualCompensation) || 0;
-        const targetValue = parseFloat(projectData.targetCompensation) || 100;
+        const actualFunding = parseFloat(projectData.amountFunded) || 0;
+        const targetFunding = parseFloat(projectData.budget) || 0;
         const percentageComplete =
-          targetValue > 0 ? Math.round((actualValue / targetValue) * 100) : 0;
+          targetFunding > 0
+            ? Math.round((actualFunding / targetFunding) * 100)
+            : 0;
+        const capsFunded = parseFloat(projectData.actualCompensation) || 0;
+        const targetCaps = parseFloat(projectData.targetCompensation) || 0;
+        const percentageCompensated =
+          targetCaps > 0 ? Math.round((capsFunded / targetCaps) * 100) : 0;
 
         const formattedProject = {
           id: projectData.id,
@@ -81,9 +80,10 @@ export default function ProjectPage() {
           description: projectData.description,
           targetCompensation: projectData.targetCompensation,
           waterCompensated: {
-            actualValue: actualValue,
-            targetValue: targetValue,
-            percentComplete: percentageComplete,
+            capsFunded,
+            targetCaps,
+            percentageComplete,
+            percentageCompensated,
           },
           image: projectData.projectImage?.url
             ? projectData.projectImage.url
@@ -104,51 +104,13 @@ export default function ProjectPage() {
 
         setProject(formattedProject);
 
-        if (
-          projectData?.projectCompensators &&
-          projectData.projectCompensators.length > 0
-        ) {
-          const totalFunded = projectData.projectCompensators.reduce(
-            (sum, comp) => sum + (parseFloat(comp?.capsFunded) || 0),
-            0
-          );
-
-          const targetAmount = parseFloat(projectData.targetCompensation) || 0;
-
-          const remainingAmount = Math.max(0, targetAmount - totalFunded);
-
-          const chartData = projectData.projectCompensators.map((comp) => {
-            return {
-              name: comp?.compensator?.name || 'Unknown',
-              amount: parseFloat(comp?.amountFunded) || 0,
-              caps: parseFloat(comp?.capsFunded) || 0,
-              documentId: comp?.compensator?.documentId,
-              id: comp?.id,
-              value: parseFloat(comp?.amountFunded) || 0,
-              compensator: comp.compensator,
-              contributionId: comp.documentId,
-            };
-          });
-
-          if (remainingAmount > 0) {
-            chartData.push({
-              name: 'Unfunded',
-              amount: remainingAmount,
-              caps: remainingAmount,
-              documentId: null,
-              id: 'unfunded',
-              value: remainingAmount,
-              isUnfunded: true,
-            });
-          }
-
+        const chartData = prepareProjectChartData(projectData);
+        if (chartData.length > 0) {
           const colors = generateColors(chartData.length);
-
           const chartDataWithColors = chartData.map((item, index) => ({
             ...item,
             color: item.isUnfunded ? '#E5E5E5' : colors[index],
           }));
-
           setFundingData(chartDataWithColors);
         }
       } else {
@@ -180,6 +142,10 @@ export default function ProjectPage() {
     );
   }
 
+  const imageUrl = project.image
+    ? `${env('NEXT_PUBLIC_BACKEND_URL')}${project.image}`
+    : '/placeholder.svg';
+
   return (
     <div className="min-h-screen">
       <div className="px-4 py-10">
@@ -199,7 +165,7 @@ export default function ProjectPage() {
                 </p>
               </div>
               <div>
-                {project.waterCompensated.percentComplete > 0 && (
+                {project.waterCompensated.percentageComplete > 0 && (
                   <>
                     <h2 className="text-gray-800 font-bold mb-4 border-b border-blue-100 pb-2 uppercase">
                       Project Funding
@@ -210,7 +176,7 @@ export default function ProjectPage() {
                           ACTUAL
                         </div>
                         <div className="text-[#0DA2D7] font-bold">
-                          {project.waterCompensated.percentComplete}%
+                          {project.waterCompensated.percentageComplete}%
                         </div>
                       </div>
                       <div className="text-right">
@@ -224,7 +190,7 @@ export default function ProjectPage() {
                       <div
                         className="h-full bg-[#0DA2D7] rounded-md"
                         style={{
-                          width: `${project.waterCompensated.percentComplete}%`,
+                          width: `${project.waterCompensated.percentageComplete}%`,
                         }}
                       ></div>
                     </div>
@@ -232,27 +198,22 @@ export default function ProjectPage() {
                 )}
                 <div className="flex justify-between text-sm text-gray-700 my-2">
                   <div>
-                    <span className="font-medium uppercase">Total CAPS:</span>{' '}
-                    {project.waterCompensated.targetValue.toLocaleString()}
+                    <span className="font-medium">Compensated CAPs:</span>{' '}
+                    {project.waterCompensated.capsFunded.toLocaleString()}
                   </div>
                   <div>
-                    <span className="font-medium uppercase">
-                      Available CAPS:
-                    </span>{' '}
+                    <span className="font-medium">Available CAPS:</span>{' '}
                     {(
-                      project.waterCompensated.targetValue -
-                      project.waterCompensated.actualValue
+                      project.waterCompensated.targetCaps -
+                      project.waterCompensated.capsFunded
                     ).toLocaleString()}
                   </div>
                 </div>
-                <div className="h-6 bg-gray-100 overflow-hidden rounded-md">
+                <div className="h-6 bg-gray-200 overflow-hidden rounded-md mb-6">
                   <div
                     className="h-full bg-[#0DA2D7] rounded-md"
                     style={{
-                      width: `${
-                        100 - project.waterCompensated.percentComplete
-                      }%`,
-                      float: 'right',
+                      width: `${project.waterCompensated.percentageCompensated}%`,
                     }}
                   ></div>
                 </div>
@@ -277,9 +238,9 @@ export default function ProjectPage() {
             <div className="w-1/2">
               <div className="rounded-lg overflow-hidden shadow-lg">
                 <Image
-                  src={`${env('NEXT_PUBLIC_BACKEND_URL')}${project.image}`}
+                  src={imageUrl}
                   alt={project.title}
-                  width={800}
+                  width={600}
                   height={400}
                   className="object-cover"
                   unoptimized
@@ -407,6 +368,7 @@ export default function ProjectPage() {
                       </div>
                       <div className="text-[#0DA2D7] text-lg ml-2">
                         {fundingData
+                          .filter((item) => item.isUnfunded !== true)
                           .reduce((total, item) => total + item.amount, 0)
                           .toLocaleString()}{' '}
                         USD
@@ -472,7 +434,7 @@ export default function ProjectPage() {
                           return [
                             `$${value.toLocaleString()} USD (${
                               item.caps
-                            } CAPS)`,
+                            } CAPs)`,
                             item.name,
                           ];
                         }}

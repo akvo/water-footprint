@@ -16,16 +16,6 @@
       "locale": null
     },
     {
-      "documentId": "sbndrnt08geokpudhxjkkr71",
-      "action": "api::country.country.find",
-      "locale": null
-    },
-    {
-      "documentId": "n4zgah0449bkdoja6zivdct4",
-      "action": "api::country.country.findOne",
-      "locale": null
-    },
-    {
       "documentId": "etuhwf5osmvkponz93uc5yat",
       "action": "api::monitoring-report.monitoring-report.find",
       "locale": null
@@ -53,26 +43,6 @@
     {
       "documentId": "qnqyatmf1ijrv1qsgdt27740",
       "action": "api::project-compensator.project-compensator.findOne",
-      "locale": null
-    },
-    {
-      "documentId": "qlnwc719jhvzc7ylib9mqbdm",
-      "action": "api::project-type-category.project-type-category.find",
-      "locale": null
-    },
-    {
-      "documentId": "dvbmwjpfn1d1tuzdu6aucn4l",
-      "action": "api::project-type-category.project-type-category.findOne",
-      "locale": null
-    },
-    {
-      "documentId": "z65cj56ylt33sxj1d9cxr2fj",
-      "action": "api::project-type.project-type.find",
-      "locale": null
-    },
-    {
-      "documentId": "mkyy655vbxgo9a526xn31diz",
-      "action": "api::project-type.project-type.findOne",
       "locale": null
     },
     {
