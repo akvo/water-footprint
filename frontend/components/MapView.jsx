@@ -1,9 +1,16 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, {
+  useState,
+  useMemo,
+  useEffect,
+  useRef,
+  useCallback,
+} from 'react';
 import {
   MapContainer,
   Marker,
   TileLayer,
   useMap,
+  useMapEvents,
   ZoomControl,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -11,9 +18,23 @@ import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import Image from 'next/image';
 import { fetchStrapiData, env } from '@/utils';
-import { SlidersHorizontal, Search, ChevronDown, X } from 'lucide-react';
 import { useAppContext } from '@/context/AppContext';
 import Link from 'next/link';
+import { SlidersHorizontal, Search, ChevronDown, X } from 'lucide-react';
+
+const MapBoundsFilter = ({ onBoundsChange }) => {
+  const map = useMapEvents({
+    moveend: () => {
+      const bounds = map.getBounds();
+      onBoundsChange(bounds);
+    },
+    zoomend: () => {
+      const bounds = map.getBounds();
+      onBoundsChange(bounds);
+    },
+  });
+  return null;
+};
 
 const MapFlyTo = ({ coordinates }) => {
   const map = useMap();
@@ -31,7 +52,9 @@ const MapFlyTo = ({ coordinates }) => {
 
 export default function ProjectMap({ projectIds = [], setProjectCount }) {
   const [projects, setProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -47,6 +70,10 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
   const [countrySearchTerm, setCountrySearchTerm] = useState('');
   const [showCapsDropdown, setShowCapsDropdown] = useState(false);
   const [selectedCapsRanges, setSelectedCapsRanges] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const pageSize = 250;
 
   const countryDropdownRef = useRef(null);
   const typeDropdownRef = useRef(null);
@@ -63,8 +90,6 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
       max: 999999999999,
     },
   ];
-
-  const pageSize = 10;
 
   const handleSearch = (e) => {
     const value = e.target.value;
@@ -203,6 +228,7 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
         }));
 
         setProjects(formattedProjects);
+        setFilteredProjects(formattedProjects);
 
         if (response.meta?.pagination) {
           setTotalPages(response.meta.pagination.pageCount || 1);
@@ -217,20 +243,22 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
   };
 
   const createCustomMarker = useMemo(() => {
-    return (size) => {
+    return (size, projectCount) => {
       if (typeof window !== 'undefined') {
         const L = require('leaflet');
         const sizeMap = {
-          small: 10,
+          small: 20,
           medium: 20,
           large: 30,
         };
+        const baseSize = sizeMap[size] || 15;
+        const markerSize = baseSize + (projectCount > 1 ? projectCount * 2 : 0);
         return L.divIcon({
           className: 'custom-marker',
           html: `<div style="
               background-color: #26BDE2; 
-              width: ${sizeMap[size] || 15}px; 
-              height: ${sizeMap[size] || 15}px; 
+              width: ${markerSize}px; 
+              height: ${markerSize}px; 
               border-radius: 50%; 
               opacity: 0.8;
               display: flex;
@@ -238,14 +266,25 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
               justify-content: center;
               color: white;
               font-weight: bold;
-            "></div>`,
-          iconSize: [sizeMap[size] || 15, sizeMap[size] || 15],
-          iconAnchor: [(sizeMap[size] || 15) / 2, (sizeMap[size] || 15) / 2],
+            ">${projectCount > 1 ? projectCount : ''}</div>`,
+          iconSize: [markerSize, markerSize],
+          iconAnchor: [markerSize / 2, markerSize / 2],
         });
       }
       return null;
     };
   }, []);
+
+  const groupedProjects = useMemo(() => {
+    return projects.reduce((acc, project) => {
+      const key = project.coordinates.join(',');
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(project);
+      return acc;
+    }, {});
+  }, [projects]);
 
   const toggleSelected = (value, setter, currentValues) => {
     setIsFilterChanged(true);
@@ -256,6 +295,47 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
     }
     setPage(1);
   };
+
+  const filterProjectsByBounds = useCallback((bounds, projectsList) => {
+    if (!bounds) return projectsList;
+
+    return projectsList.filter((project) => {
+      const [lat, lng] = project.coordinates;
+      return bounds.contains([lat, lng]);
+    });
+  }, []);
+
+  const handleMapBoundsChange = useCallback(
+    (bounds) => {
+      if (selectedLocation) return;
+
+      const boundedProjects = filterProjectsByBounds(bounds, projects);
+      setFilteredProjects(boundedProjects);
+    },
+    [projects, selectedLocation, filterProjectsByBounds]
+  );
+
+  const handleMarkerClick = (locationProjects) => {
+    setSelectedLocation(locationProjects);
+    setSelectedProject(locationProjects[0]);
+  };
+
+  const displayProjects = useMemo(() => {
+    if (selectedLocation) {
+      return selectedLocation;
+    }
+    return filteredProjects.length > 0 ? filteredProjects : projects;
+  }, [selectedLocation, filteredProjects, projects]);
+
+  const paginatedProjects = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return displayProjects.slice(startIndex, endIndex);
+  }, [displayProjects, currentPage]);
+
+  const totalListPages = useMemo(() => {
+    return Math.ceil(displayProjects.length / itemsPerPage);
+  }, [displayProjects]);
 
   return (
     <div className="w-full">
@@ -563,7 +643,8 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
           )}
         </div>
       )}
-      <div className="relative  h-[600px] overflow-hidden z-1">
+
+      <div className="relative h-[600px] overflow-hidden z-1">
         <div className="absolute top-0 left-0 w-[360px] h-full bg-white z-[9999] overflow-y-auto shadow-md opacity-[0.8]">
           <div className="p-1">
             {isLoading ? (
@@ -572,17 +653,21 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
               </div>
             ) : error ? (
               <div className="text-red-500 p-2">{error}</div>
-            ) : projects.length === 0 ? (
+            ) : displayProjects.length === 0 ? (
               <div className="text-gray-500 p-2 font-bold">
                 No projects found
               </div>
             ) : (
               <>
-                {projects.map((project) => (
+                {paginatedProjects.map((project) => (
                   <Link
                     key={project.id}
                     href={`/projects/${project.documentId}`}
-                    className="block mb-4 hover:bg-gray-200 p-1 rounded"
+                    className={`block mb-4 p-1 rounded ${
+                      selectedLocation && selectedLocation.includes(project)
+                        ? 'bg-blue-100'
+                        : 'hover:bg-gray-200'
+                    }`}
                   >
                     <div className="flex cursor-pointer">
                       <div className="w-[120px] h-[80px] relative mr-4 flex-shrink-0">
@@ -610,32 +695,103 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
                   </Link>
                 ))}
 
-                {totalPages > 1 && (
-                  <div className="flex justify-between items-center mt-4">
+                {selectedLocation && (
+                  <div className="mt-2 text-center">
                     <button
-                      onClick={() => setPage(Math.max(1, page - 1))}
-                      disabled={page === 1}
-                      className={`px-3 py-1 rounded ${
-                        page === 1
-                          ? 'bg-gray-200 text-gray-500'
-                          : 'bg-blue-500 text-white'
-                      }`}
+                      onClick={() => {
+                        setSelectedLocation(null);
+                        setSelectedProject(null);
+                        setCurrentPage(1);
+                      }}
+                      className="text-sm text-blue-600 hover:underline"
                     >
-                      Previous
+                      Clear Location Filter
                     </button>
-                    <span>
-                      Page {page} of {totalPages}
-                    </span>
+                  </div>
+                )}
+
+                {totalListPages > 1 && !selectedLocation && (
+                  <div className="flex justify-center items-center space-x-2 mt-4 p-2 bg-gray-50 rounded-lg shadow-sm">
                     <button
-                      onClick={() => setPage(Math.min(totalPages, page + 1))}
-                      disabled={page === totalPages}
-                      className={`px-3 py-1 rounded ${
-                        page === totalPages
-                          ? 'bg-gray-200 text-gray-500'
-                          : 'bg-blue-500 text-white'
-                      }`}
+                      onClick={() =>
+                        setCurrentPage(Math.max(1, currentPage - 1))
+                      }
+                      disabled={currentPage === 1}
+                      className={`
+        px-4 py-2 rounded-md transition-all duration-300 
+        ${
+          currentPage === 1
+            ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+            : 'bg-blue-500 text-white hover:bg-blue-600 hover:shadow-md'
+        }
+        flex items-center gap-2
+      `}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      Prev
+                    </button>
+
+                    <div className="flex items-center space-x-2">
+                      {[...Array(totalListPages)].map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentPage(index + 1)}
+                          className={`
+            w-10 h-10 rounded-full transition-all duration-300 
+            ${
+              currentPage === index + 1
+                ? 'bg-blue-500 text-white shadow-md'
+                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+            }
+            flex items-center justify-center
+          `}
+                        >
+                          {index + 1}
+                        </button>
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={() =>
+                        setCurrentPage(
+                          Math.min(totalListPages, currentPage + 1)
+                        )
+                      }
+                      disabled={currentPage === totalListPages}
+                      className={`
+        px-4 py-2 rounded-md transition-all duration-300 
+        ${
+          currentPage === totalListPages
+            ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+            : 'bg-blue-500 text-white hover:bg-blue-600 hover:shadow-md'
+        }
+        flex items-center gap-2
+      `}
                     >
                       Next
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                     </button>
                   </div>
                 )}
@@ -656,22 +812,46 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               opacity={0.7}
             />
+
             <ZoomControl position="topright" />
 
-            <MapFlyTo coordinates={selectedProject?.coordinates} />
+            <MapBoundsFilter onBoundsChange={handleMapBoundsChange} />
 
-            {projects.map((project) => (
-              <Marker
-                key={project.id}
-                position={project.coordinates}
-                icon={createCustomMarker(project.size)}
-                eventHandlers={{
-                  click: () => {
-                    setSelectedProject(project);
-                  },
-                }}
-              />
-            ))}
+            <MapFlyTo
+              coordinates={selectedProject?.coordinates}
+              onFlyTo={(coords) => {
+                const locationProjects = Object.values(groupedProjects).find(
+                  (projects) =>
+                    projects[0].coordinates[0] === coords[0] &&
+                    projects[0].coordinates[1] === coords[1]
+                );
+
+                if (locationProjects) {
+                  setSelectedLocation(locationProjects);
+                  setCurrentPage(1);
+                }
+              }}
+            />
+
+            {Object.entries(groupedProjects).map(([key, locationProjects]) => {
+              const [lat, lng] = locationProjects[0].coordinates;
+              return (
+                <Marker
+                  key={key}
+                  position={[lat, lng]}
+                  icon={createCustomMarker(
+                    locationProjects[0].size,
+                    locationProjects.length
+                  )}
+                  eventHandlers={{
+                    click: () => {
+                      handleMarkerClick(locationProjects);
+                      setCurrentPage(1);
+                    },
+                  }}
+                />
+              );
+            })}
           </MapContainer>
         </div>
       </div>
