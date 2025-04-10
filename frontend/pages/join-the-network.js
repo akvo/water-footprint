@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Send, Loader2 } from 'lucide-react';
-import { fetchStrapiData } from '@/utils';
+import { env } from '@/utils';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -66,30 +66,39 @@ const ContactPage = () => {
     setSubmitError(null);
 
     try {
-      const response = await fetchStrapiData('/email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        }),
-      });
+      const response = await fetch(
+        `${env('NEXT_PUBLIC_BACKEND_URL')}/api/email`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            data: {
+              name: formData.name,
+              email: formData.email,
+              subject: formData.subject,
+              message: formData.message,
+            },
+          }),
+        }
+      );
 
-      if (response) {
-        setSubmitSuccess(true);
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: '',
-        });
-      } else {
+      if (!response.ok) {
+        const errorData = await response.text();
+        console.error('Error response:', errorData);
         throw new Error('Failed to send email');
       }
+
+      await response.json();
+
+      setSubmitSuccess(true);
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+      });
     } catch (error) {
       console.error('Error submitting form:', error);
       setSubmitError(

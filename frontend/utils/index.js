@@ -5,29 +5,12 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-export const fetchStrapiData = async (endpoint, options = {}) => {
-  // Check if options is a plain object of params or an object with params
-  const params =
-    typeof options === 'object' && !options.params
-      ? options
-      : options.params || {};
-
+export const fetchStrapiData = async (endpoint, params = {}) => {
   const queryString = new URLSearchParams(params).toString();
-  const url = `${env('NEXT_PUBLIC_BACKEND_URL')}/api${endpoint}${
-    queryString ? `?${queryString}` : ''
-  }`;
+  const url = `${env('NEXT_PUBLIC_BACKEND_URL')}/api${endpoint}?${queryString}`;
 
   try {
-    const fetchOptions = {
-      method: options.method || 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(options.headers || {}),
-      },
-      body: options.body ? JSON.stringify(options.body) : undefined,
-    };
-
-    const response = await fetch(url, fetchOptions);
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error('Failed to fetch data');
