@@ -367,12 +367,7 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "name",
-        "validatingPartner",
-        "monitoringReports"
-      ],
+      "list": ["id", "name", "validatingPartner", "monitoringReports"],
       "edit": [
         [
           {

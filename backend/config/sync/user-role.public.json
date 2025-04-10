@@ -16,6 +16,11 @@
       "locale": null
     },
     {
+      "documentId": "cbqu0hwuqqz18wiocu9tgoqj",
+      "action": "api::email.email.send",
+      "locale": null
+    },
+    {
       "documentId": "etuhwf5osmvkponz93uc5yat",
       "action": "api::monitoring-report.monitoring-report.find",
       "locale": null
