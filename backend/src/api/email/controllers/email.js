@@ -3,9 +3,7 @@ module.exports = {
     try {
       const { name, email, subject, message } = ctx.request.body;
 
-      const fromEmail = strapi.config.get(
-        'plugin.email.config.settings.defaultFrom'
-      );
+      const fromEmail = strapi.config.get('plugin::email.settings.defaultFrom');
 
       await strapi.plugins['email'].services.email.send({
         to: fromEmail,
@@ -17,7 +15,6 @@ module.exports = {
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Subject:</strong> ${subject}</p>
             <p><strong>Message:</strong></p>
-            <p>${message.replace(/\n/g, '<br>')}</p>
           `,
       });
 
