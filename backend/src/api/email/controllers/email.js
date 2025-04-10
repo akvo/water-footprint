@@ -3,9 +3,13 @@ module.exports = {
     try {
       const { name, email, subject, message } = ctx.request.body;
 
+      const fromEmail = strapi.config.get(
+        'plugin.email.config.settings.defaultFrom'
+      );
+
       await strapi.plugins['email'].services.email.send({
-        to: process.env.SMTP_FROM,
-        from: process.env.SMTP_FROM,
+        to: fromEmail,
+        from: fromEmail,
         subject: `New Contact Form Submission: ${subject}`,
         html: `
             <h1>New Contact Form Submission</h1>
@@ -19,6 +23,7 @@ module.exports = {
 
       ctx.send({ message: 'Submission received successfully' });
     } catch (err) {
+      console.error('Email send error:', err);
       ctx.badRequest('Email service error', { error: err });
     }
   },
