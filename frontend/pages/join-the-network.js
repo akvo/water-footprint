@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Send, Loader2 } from 'lucide-react';
-import axios from 'axios';
+import { fetchStrapiData } from '@/utils';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -66,20 +66,30 @@ const ContactPage = () => {
     setSubmitError(null);
 
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/email`, {
-        name: formData.name,
-        email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
+      const response = await fetchStrapiData('/email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
       });
 
-      setSubmitSuccess(true);
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
+      if (response) {
+        setSubmitSuccess(true);
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
+      } else {
+        throw new Error('Failed to send email');
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
       setSubmitError(
@@ -98,8 +108,8 @@ const ContactPage = () => {
             Contact Us
           </h1>
           <p className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
-            We&apos;d love to hear from you. Please fill out the form below or
-            use one of our contact methods.
+            To join the network, or to contact us about anything else, please
+            use the form below
           </p>
         </div>
 
