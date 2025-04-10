@@ -74,12 +74,10 @@ const ContactPage = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            data: {
-              name: formData.name,
-              email: formData.email,
-              subject: formData.subject,
-              message: formData.message,
-            },
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
           }),
         }
       );
