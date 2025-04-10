@@ -134,6 +134,20 @@
           "sortable": false
         }
       },
+      "compensationProgressTitle": {
+        "edit": {
+          "label": "compensationProgressTitle",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "compensationProgressTitle",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -242,6 +256,10 @@
         [
           {
             "name": "compensationProgressImage",
+            "size": 6
+          },
+          {
+            "name": "compensationProgressTitle",
             "size": 6
           }
         ]

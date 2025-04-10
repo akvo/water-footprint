@@ -1,21 +1,26 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import "@/styles/globals.css";
-import { Nunito } from 'next/font/google';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import { AppProvider } from '@/context/AppContext';
+import '@/styles/globals.css';
 
-const nunito = Nunito({ subsets: ['latin'] });
+const DefaultLayout = ({ children }) => (
+  <>
+    <Header />
+    {children}
+    <Footer />
+  </>
+);
+
+const NoLayout = ({ children }) => <>{children}</>;
 
 export default function App({ Component, pageProps }) {
+  const Layout = Component.layout || DefaultLayout;
+
   return (
-    <>
-      <style jsx global>{`
-          body {
-            font-family: ${nunito.style.fontFamily};
-          }
-      `}</style>
-      <Header />
-      <Component {...pageProps} />
-      <Footer />
-    </>
+    <AppProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AppProvider>
   );
 }

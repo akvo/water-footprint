@@ -6,7 +6,7 @@
   "locale": null,
   "permissions": [
     {
-      "documentId": "y4s2pyauysma6k3ymyi388es",
+      "documentId": "t0grqcy5c5t3ex5jztsvohm5",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::compensator.compensator",
@@ -19,7 +19,8 @@
           "description",
           "updates",
           "compensationProgressDescription",
-          "compensationProgressImage"
+          "compensationProgressImage",
+          "compensationProgressTitle"
         ]
       },
       "conditions": [],
@@ -44,7 +45,7 @@
       "locale": null
     },
     {
-      "documentId": "y4y3g481t5bohefl5c7t7hkj",
+      "documentId": "juoglgp1idits0lg96ipyx89",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::compensator.compensator",
@@ -57,14 +58,15 @@
           "description",
           "updates",
           "compensationProgressDescription",
-          "compensationProgressImage"
+          "compensationProgressImage",
+          "compensationProgressTitle"
         ]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "jcagc47lsptc1hpsv9bafxfs",
+      "documentId": "frzl2jqxcpobd3tvdadpss3q",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::compensator.compensator",
@@ -77,8 +79,60 @@
           "description",
           "updates",
           "compensationProgressDescription",
-          "compensationProgressImage"
+          "compensationProgressImage",
+          "compensationProgressTitle"
         ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "hjmjjk0kafoo5e2z8azbmt6z",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::country.country",
+      "properties": {
+        "fields": ["country_name", "country_code"]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "kdosbitpq6ocpii3kl8sacsp",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::country.country",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "scnvogq9tg4ff70nu21ukc0s",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::country.country",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "s9rg4b4ep773a4a7dhx9tt0z",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::country.country",
+      "properties": {
+        "fields": ["country_name", "country_code"]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "l3tykj12okfwjb4tf154ktf0",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::country.country",
+      "properties": {
+        "fields": ["country_name", "country_code"]
       },
       "conditions": [],
       "locale": null
@@ -89,10 +143,7 @@
       "actionParameters": {},
       "subject": "api::homepage.homepage",
       "properties": {
-        "fields": [
-          "title",
-          "description"
-        ]
+        "fields": ["title", "description"]
       },
       "conditions": [],
       "locale": null
@@ -121,10 +172,7 @@
       "actionParameters": {},
       "subject": "api::homepage.homepage",
       "properties": {
-        "fields": [
-          "title",
-          "description"
-        ]
+        "fields": ["title", "description"]
       },
       "conditions": [],
       "locale": null
@@ -135,10 +183,7 @@
       "actionParameters": {},
       "subject": "api::homepage.homepage",
       "properties": {
-        "fields": [
-          "title",
-          "description"
-        ]
+        "fields": ["title", "description"]
       },
       "conditions": [],
       "locale": null
@@ -149,10 +194,7 @@
       "actionParameters": {},
       "subject": "api::interactive-tours-page.interactive-tours-page",
       "properties": {
-        "fields": [
-          "title",
-          "interactiveToursDescription"
-        ]
+        "fields": ["title", "interactiveToursDescription"]
       },
       "conditions": [],
       "locale": null
@@ -181,10 +223,7 @@
       "actionParameters": {},
       "subject": "api::interactive-tours-page.interactive-tours-page",
       "properties": {
-        "fields": [
-          "title",
-          "interactiveToursDescription"
-        ]
+        "fields": ["title", "interactiveToursDescription"]
       },
       "conditions": [],
       "locale": null
@@ -195,10 +234,7 @@
       "actionParameters": {},
       "subject": "api::interactive-tours-page.interactive-tours-page",
       "properties": {
-        "fields": [
-          "title",
-          "interactiveToursDescription"
-        ]
+        "fields": ["title", "interactiveToursDescription"]
       },
       "conditions": [],
       "locale": null
@@ -209,10 +245,7 @@
       "actionParameters": {},
       "subject": "api::methodology-page.methodology-page",
       "properties": {
-        "fields": [
-          "title",
-          "description"
-        ]
+        "fields": ["title", "description"]
       },
       "conditions": [],
       "locale": null
@@ -241,10 +274,7 @@
       "actionParameters": {},
       "subject": "api::methodology-page.methodology-page",
       "properties": {
-        "fields": [
-          "title",
-          "description"
-        ]
+        "fields": ["title", "description"]
       },
       "conditions": [],
       "locale": null
@@ -255,24 +285,18 @@
       "actionParameters": {},
       "subject": "api::methodology-page.methodology-page",
       "properties": {
-        "fields": [
-          "title",
-          "description"
-        ]
+        "fields": ["title", "description"]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "qv88nt80muaj88qxkj3oi3rs",
+      "documentId": "ba8j6e1y32mt9b1al28vci69",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::monitoring-report.monitoring-report",
       "properties": {
-        "fields": [
-          "name",
-          "link"
-        ]
+        "fields": ["name", "file"]
       },
       "conditions": [],
       "locale": null
@@ -296,29 +320,23 @@
       "locale": null
     },
     {
-      "documentId": "jdigvt4wy9fhkz8h80dfoc0d",
+      "documentId": "msbh3stmy71pwyedl60v2xeu",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::monitoring-report.monitoring-report",
       "properties": {
-        "fields": [
-          "name",
-          "link"
-        ]
+        "fields": ["name", "file"]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "gv9sfemlstw7zhexo2enbrrg",
+      "documentId": "m07jieapbyq230m8k65fhyb0",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::monitoring-report.monitoring-report",
       "properties": {
-        "fields": [
-          "name",
-          "link"
-        ]
+        "fields": ["name", "file"]
       },
       "conditions": [],
       "locale": null
@@ -329,12 +347,7 @@
       "actionParameters": {},
       "subject": "api::partner.partner",
       "properties": {
-        "fields": [
-          "name",
-          "description",
-          "link",
-          "platformPartner"
-        ]
+        "fields": ["name", "description", "link", "platformPartner"]
       },
       "conditions": [],
       "locale": null
@@ -363,12 +376,7 @@
       "actionParameters": {},
       "subject": "api::partner.partner",
       "properties": {
-        "fields": [
-          "name",
-          "description",
-          "link",
-          "platformPartner"
-        ]
+        "fields": ["name", "description", "link", "platformPartner"]
       },
       "conditions": [],
       "locale": null
@@ -379,12 +387,7 @@
       "actionParameters": {},
       "subject": "api::partner.partner",
       "properties": {
-        "fields": [
-          "name",
-          "description",
-          "link",
-          "platformPartner"
-        ]
+        "fields": ["name", "description", "link", "platformPartner"]
       },
       "conditions": [],
       "locale": null
@@ -395,12 +398,7 @@
       "actionParameters": {},
       "subject": "api::project-compensator.project-compensator",
       "properties": {
-        "fields": [
-          "amountFunded",
-          "compensator",
-          "project",
-          "capsFunded"
-        ]
+        "fields": ["amountFunded", "compensator", "project", "capsFunded"]
       },
       "conditions": [],
       "locale": null
@@ -429,12 +427,7 @@
       "actionParameters": {},
       "subject": "api::project-compensator.project-compensator",
       "properties": {
-        "fields": [
-          "amountFunded",
-          "compensator",
-          "project",
-          "capsFunded"
-        ]
+        "fields": ["amountFunded", "compensator", "project", "capsFunded"]
       },
       "conditions": [],
       "locale": null
@@ -445,18 +438,115 @@
       "actionParameters": {},
       "subject": "api::project-compensator.project-compensator",
       "properties": {
-        "fields": [
-          "amountFunded",
-          "compensator",
-          "project",
-          "capsFunded"
-        ]
+        "fields": ["amountFunded", "compensator", "project", "capsFunded"]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "ryafk7192plfkd90uq15uku6",
+      "documentId": "aecwjfw6gnkx1bx9it0y9ce2",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::project-type-category.project-type-category",
+      "properties": {
+        "fields": ["name", "project_types"]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "aege9s2r3xbi5xdgc8hexf4g",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::project-type-category.project-type-category",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "thoomn0yegnlm6k2qgrba62k",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::project-type-category.project-type-category",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "id4puri1y1lofkmp355yuc0v",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::project-type-category.project-type-category",
+      "properties": {
+        "fields": ["name", "project_types"]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "x5oqv1cnzsmap6us167ofxe8",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::project-type-category.project-type-category",
+      "properties": {
+        "fields": ["name", "project_types"]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "fc2aepnqhks9q4hxzmrmkd6h",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::project-type.project-type",
+      "properties": {
+        "fields": ["title", "project_type_category"]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "nnryi9n806h2tr1kk1e4jrow",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::project-type.project-type",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "af9n96is9sigk175obwxrtky",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::project-type.project-type",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "zvkcbtl1qxz72iugjn1b9n2q",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::project-type.project-type",
+      "properties": {
+        "fields": ["title", "project_type_category"]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "vz1liboeyjan0v13ii7fzrsr",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::project-type.project-type",
+      "properties": {
+        "fields": ["title", "project_type_category"]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "ijs765l20isr0cz8ecgrta7y",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -475,12 +565,13 @@
           "projectCompensators",
           "location",
           "coordinates",
-          "country",
-          "type",
           "description",
           "projectImage",
           "catchmentBasin",
-          "updates"
+          "updates",
+          "country",
+          "type",
+          "amountFunded"
         ]
       },
       "conditions": [],
@@ -505,7 +596,7 @@
       "locale": null
     },
     {
-      "documentId": "q9u4d5su5fkvrvd3o5lfg3s7",
+      "documentId": "d5pim1k8xuwbskxiju53lkzs",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -524,19 +615,20 @@
           "projectCompensators",
           "location",
           "coordinates",
-          "country",
-          "type",
           "description",
           "projectImage",
           "catchmentBasin",
-          "updates"
+          "updates",
+          "country",
+          "type",
+          "amountFunded"
         ]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "iylhtjlx9y0vo5ne3sxxv2b1",
+      "documentId": "bepnni5pnsbpwatjlh04iqh0",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -555,12 +647,13 @@
           "projectCompensators",
           "location",
           "coordinates",
-          "country",
-          "type",
           "description",
           "projectImage",
           "catchmentBasin",
-          "updates"
+          "updates",
+          "country",
+          "type",
+          "amountFunded"
         ]
       },
       "conditions": [],
@@ -572,11 +665,7 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": [
-          "name",
-          "colour",
-          "icon"
-        ]
+        "fields": ["name", "colour", "icon"]
       },
       "conditions": [],
       "locale": null
@@ -605,11 +694,7 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": [
-          "name",
-          "colour",
-          "icon"
-        ]
+        "fields": ["name", "colour", "icon"]
       },
       "conditions": [],
       "locale": null
@@ -620,11 +705,7 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": [
-          "name",
-          "colour",
-          "icon"
-        ]
+        "fields": ["name", "colour", "icon"]
       },
       "conditions": [],
       "locale": null
@@ -707,10 +788,7 @@
       "actionParameters": {},
       "subject": "api::waterhubs-page.waterhubs-page",
       "properties": {
-        "fields": [
-          "title",
-          "waterHubsDescription"
-        ]
+        "fields": ["title", "waterHubsDescription"]
       },
       "conditions": [],
       "locale": null
@@ -739,10 +817,7 @@
       "actionParameters": {},
       "subject": "api::waterhubs-page.waterhubs-page",
       "properties": {
-        "fields": [
-          "title",
-          "waterHubsDescription"
-        ]
+        "fields": ["title", "waterHubsDescription"]
       },
       "conditions": [],
       "locale": null
@@ -753,10 +828,7 @@
       "actionParameters": {},
       "subject": "api::waterhubs-page.waterhubs-page",
       "properties": {
-        "fields": [
-          "title",
-          "waterHubsDescription"
-        ]
+        "fields": ["title", "waterHubsDescription"]
       },
       "conditions": [],
       "locale": null
@@ -767,10 +839,7 @@
       "actionParameters": {},
       "subject": "api::waterstat-page.waterstat-page",
       "properties": {
-        "fields": [
-          "title",
-          "waterStatDescription"
-        ]
+        "fields": ["title", "waterStatDescription"]
       },
       "conditions": [],
       "locale": null
@@ -799,10 +868,7 @@
       "actionParameters": {},
       "subject": "api::waterstat-page.waterstat-page",
       "properties": {
-        "fields": [
-          "title",
-          "waterStatDescription"
-        ]
+        "fields": ["title", "waterStatDescription"]
       },
       "conditions": [],
       "locale": null
@@ -813,10 +879,7 @@
       "actionParameters": {},
       "subject": "api::waterstat-page.waterstat-page",
       "properties": {
-        "fields": [
-          "title",
-          "waterStatDescription"
-        ]
+        "fields": ["title", "waterStatDescription"]
       },
       "conditions": [],
       "locale": null

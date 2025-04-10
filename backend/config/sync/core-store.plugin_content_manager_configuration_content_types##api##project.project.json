@@ -206,34 +206,6 @@
           "sortable": true
         }
       },
-      "country": {
-        "edit": {
-          "label": "country",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "country",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "type": {
-        "edit": {
-          "label": "type",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "type",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "description": {
         "edit": {
           "label": "description",
@@ -289,6 +261,50 @@
           "label": "updates",
           "searchable": false,
           "sortable": false
+        }
+      },
+      "country": {
+        "edit": {
+          "label": "country",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "country_name"
+        },
+        "list": {
+          "label": "country",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "type": {
+        "edit": {
+          "label": "type",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "type",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "amountFunded": {
+        "edit": {
+          "label": "amountFunded",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "amountFunded",
+          "searchable": true,
+          "sortable": true
         }
       },
       "createdAt": {
@@ -351,12 +367,7 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "name",
-        "validatingPartner",
-        "monitoringReports"
-      ],
+      "list": ["id", "name", "validatingPartner", "monitoringReports"],
       "edit": [
         [
           {
@@ -454,6 +465,10 @@
           {
             "name": "country",
             "size": 6
+          },
+          {
+            "name": "amountFunded",
+            "size": 4
           }
         ]
       ]
