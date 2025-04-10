@@ -6,7 +6,11 @@ export function cn(...inputs) {
 }
 
 export const fetchStrapiData = async (endpoint, options = {}) => {
-  const { method = 'GET', params = {}, body, headers = {} } = options;
+  // Check if options is a plain object of params or an object with params
+  const params =
+    typeof options === 'object' && !options.params
+      ? options
+      : options.params || {};
 
   const queryString = new URLSearchParams(params).toString();
   const url = `${env('NEXT_PUBLIC_BACKEND_URL')}/api${endpoint}${
@@ -15,12 +19,12 @@ export const fetchStrapiData = async (endpoint, options = {}) => {
 
   try {
     const fetchOptions = {
-      method,
+      method: options.method || 'GET',
       headers: {
         'Content-Type': 'application/json',
-        ...headers,
+        ...(options.headers || {}),
       },
-      body: body ? JSON.stringify(body) : undefined,
+      body: options.body ? JSON.stringify(options.body) : undefined,
     };
 
     const response = await fetch(url, fetchOptions);
