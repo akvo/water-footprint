@@ -70,6 +70,8 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
   const [countrySearchTerm, setCountrySearchTerm] = useState('');
   const [showCapsDropdown, setShowCapsDropdown] = useState(false);
   const [selectedCapsRanges, setSelectedCapsRanges] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const pageSize = 250;
 
@@ -323,6 +325,16 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
     }
     return filteredProjects.length > 0 ? filteredProjects : projects;
   }, [selectedLocation, filteredProjects, projects]);
+
+  const paginatedProjects = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return displayProjects.slice(startIndex, endIndex);
+  }, [displayProjects, currentPage]);
+
+  const totalListPages = useMemo(() => {
+    return Math.ceil(displayProjects.length / itemsPerPage);
+  }, [displayProjects]);
 
   return (
     <div className="w-full">
@@ -646,7 +658,7 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
               </div>
             ) : (
               <>
-                {displayProjects.map((project) => (
+                {paginatedProjects.map((project) => (
                   <Link
                     key={project.id}
                     href={`/projects/${project.documentId}`}
@@ -688,6 +700,7 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
                       onClick={() => {
                         setSelectedLocation(null);
                         setSelectedProject(null);
+                        setCurrentPage(1);
                       }}
                       className="text-sm text-blue-600 hover:underline"
                     >
@@ -696,32 +709,88 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
                   </div>
                 )}
 
-                {totalPages > 1 && !selectedLocation && (
-                  <div className="flex justify-between items-center mt-4">
+                {totalListPages > 1 && !selectedLocation && (
+                  <div className="flex justify-center items-center space-x-2 mt-4 p-2 bg-gray-50 rounded-lg shadow-sm">
                     <button
-                      onClick={() => setPage(Math.max(1, page - 1))}
-                      disabled={page === 1}
-                      className={`px-3 py-1 rounded ${
-                        page === 1
-                          ? 'bg-gray-200 text-gray-500'
-                          : 'bg-blue-500 text-white'
-                      }`}
+                      onClick={() =>
+                        setCurrentPage(Math.max(1, currentPage - 1))
+                      }
+                      disabled={currentPage === 1}
+                      className={`
+        px-4 py-2 rounded-md transition-all duration-300 
+        ${
+          currentPage === 1
+            ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+            : 'bg-blue-500 text-white hover:bg-blue-600 hover:shadow-md'
+        }
+        flex items-center gap-2
+      `}
                     >
-                      Previous
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      Prev
                     </button>
-                    <span>
-                      Page {page} of {totalPages}
-                    </span>
+
+                    <div className="flex items-center space-x-2">
+                      {[...Array(totalListPages)].map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentPage(index + 1)}
+                          className={`
+            w-10 h-10 rounded-full transition-all duration-300 
+            ${
+              currentPage === index + 1
+                ? 'bg-blue-500 text-white shadow-md'
+                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+            }
+            flex items-center justify-center
+          `}
+                        >
+                          {index + 1}
+                        </button>
+                      ))}
+                    </div>
+
                     <button
-                      onClick={() => setPage(Math.min(totalPages, page + 1))}
-                      disabled={page === totalPages}
-                      className={`px-3 py-1 rounded ${
-                        page === totalPages
-                          ? 'bg-gray-200 text-gray-500'
-                          : 'bg-blue-500 text-white'
-                      }`}
+                      onClick={() =>
+                        setCurrentPage(
+                          Math.min(totalListPages, currentPage + 1)
+                        )
+                      }
+                      disabled={currentPage === totalListPages}
+                      className={`
+        px-4 py-2 rounded-md transition-all duration-300 
+        ${
+          currentPage === totalListPages
+            ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+            : 'bg-blue-500 text-white hover:bg-blue-600 hover:shadow-md'
+        }
+        flex items-center gap-2
+      `}
                     >
                       Next
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                     </button>
                   </div>
                 )}
@@ -758,6 +827,7 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
 
                 if (locationProjects) {
                   setSelectedLocation(locationProjects);
+                  setCurrentPage(1);
                 }
               }}
             />
@@ -773,7 +843,10 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
                     locationProjects.length
                   )}
                   eventHandlers={{
-                    click: () => handleMarkerClick(locationProjects),
+                    click: () => {
+                      handleMarkerClick(locationProjects);
+                      setCurrentPage(1);
+                    },
                   }}
                 />
               );
