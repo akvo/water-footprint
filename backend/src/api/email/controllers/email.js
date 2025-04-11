@@ -7,7 +7,6 @@ module.exports = {
 
       await strapi.plugins['email'].services.email.send({
         to: fromEmail,
-        from: fromEmail,
         subject: `New Contact Form Submission: ${subject}`,
         html: `
             <h1>New Contact Form Submission</h1>
