@@ -23,6 +23,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    volumes:
+      - "strapi-data:/opt/app/public/uploads"
 
   frontend:
     build: ../frontend
@@ -65,3 +67,4 @@ services:
 volumes:
   pg-data:
   traefik-certificates:
+  strapi-data:
