@@ -70,7 +70,7 @@ export default function Footer() {
                 <Link href="/interactive-tools">Interactive tools</Link>
               </li>
               <li>
-                <a href="/">WaterStat</a>
+                <Link href="/water-stat">WaterStat</Link>
               </li>
             </ul>
           </div>
