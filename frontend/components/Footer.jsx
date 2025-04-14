@@ -54,7 +54,7 @@ export default function Footer() {
                 <Link href="/join-the-network">Join the network</Link>
               </li>
               <li>
-                <a href="/">WaterHubs</a>
+                <Link href="/water-hubs">WaterHubs</Link>
               </li>
             </ul>
           </div>
