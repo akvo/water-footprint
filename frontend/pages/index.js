@@ -77,15 +77,26 @@ const ImpactSection = ({ partnersCount, projectCount, compensatorsCount }) => {
       counter: compensatorsCount ? null : 'Loading...',
       details: compensatorsCount
         ? [
-            `${compensatorsCount.funded.toLocaleString('en')} CAPs* Funded`,
-            `${compensatorsCount.available.toLocaleString(
-              'en'
-            )} CAPs* Available`,
-            '*1 CAP is 1000m³ of water',
+            <p key="funded" className="text-[#2d1a45] mb-1">
+              <span className="text-2xl font-bold">
+                {compensatorsCount.funded.toLocaleString('en')}
+              </span>{' '}
+              <span className="text-gray-500 font-normal">CAPs* Funded</span>
+            </p>,
+            <p key="available" className="text-[#2d1a45] mb-1">
+              <span className="text-2xl font-bold">
+                {compensatorsCount.available.toLocaleString('en')}
+              </span>{' '}
+              <span className="text-gray-500 font-normal">CAPs* Available</span>
+            </p>,
+            <p key="note" className="text-[9px] text-gray-500 font-normal mt-2">
+              *1 CAP is 1000m³ of water
+            </p>,
           ]
         : [],
       title: '',
     },
+
     {
       icon: '/images/handshake-icon.png',
       pretext: 'Our current count of',
@@ -129,36 +140,7 @@ const ImpactSection = ({ partnersCount, projectCount, compensatorsCount }) => {
               ) : (
                 <div className="">
                   {item.details &&
-                    item.details.map((detail, detailIndex) => {
-                      const isFootnote =
-                        detailIndex === item.details.length - 1;
-
-                      const match = detail.match(/^([0-9,]+)(.*)$/);
-
-                      return (
-                        <p
-                          key={detailIndex}
-                          className={`${
-                            isFootnote
-                              ? 'text-[9px] text-gray-500 font-normal mt-2'
-                              : 'text-[#2d1a45] flex flex-col mb-1'
-                          }`}
-                        >
-                          {match ? (
-                            <>
-                              <span className="font-bold text-2xl">
-                                {match[1]}
-                              </span>
-                              <span className="font-normal text-gray-500">
-                                {match[2]}
-                              </span>
-                            </>
-                          ) : (
-                            detail
-                          )}
-                        </p>
-                      );
-                    })}
+                    item.details.map((detail, detailIndex) => detail)}
                 </div>
               )}
 
