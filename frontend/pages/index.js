@@ -73,9 +73,18 @@ const ImpactSection = ({ partnersCount, projectCount, compensatorsCount }) => {
     },
     {
       icon: '/images/water-icon.png',
-      pretext: 'Liters of Water',
-      counter: compensatorsCount,
-      title: 'Compensated',
+      pretext: '',
+      counter: compensatorsCount ? null : 'Loading...',
+      details: compensatorsCount
+        ? [
+            `${compensatorsCount.funded.toLocaleString('en')} CAPs* Funded`,
+            `${compensatorsCount.available.toLocaleString(
+              'en'
+            )} CAPs* Available`,
+            '*1 CAP is 1000m³ of water',
+          ]
+        : [],
+      title: '',
     },
     {
       icon: '/images/handshake-icon.png',
@@ -110,11 +119,50 @@ const ImpactSection = ({ partnersCount, projectCount, compensatorsCount }) => {
                   />
                 </div>
               </div>
+
               <p className="text-gray-500 mt-2">{item.pretext}</p>
-              <p className="text-3xl font-bold text-[#2d1a45] py-3">
-                {item.counter.toLocaleString('en')}
-              </p>
-              <p className="text-gray-500">{item.title}</p>
+
+              {item.counter ? (
+                <p className="text-3xl font-bold text-[#2d1a45] py-3">
+                  {item.counter.toLocaleString('en')}
+                </p>
+              ) : (
+                <div className="">
+                  {item.details &&
+                    item.details.map((detail, detailIndex) => {
+                      const isFootnote =
+                        detailIndex === item.details.length - 1;
+
+                      const match = detail.match(/^([0-9,]+)(.*)$/);
+
+                      return (
+                        <p
+                          key={detailIndex}
+                          className={`${
+                            isFootnote
+                              ? 'text-[9px] text-gray-500 font-normal mt-2'
+                              : 'text-[#2d1a45] flex flex-col mb-1'
+                          }`}
+                        >
+                          {match ? (
+                            <>
+                              <span className="font-bold text-2xl">
+                                {match[1]}
+                              </span>
+                              <span className="font-normal text-gray-500">
+                                {match[2]}
+                              </span>
+                            </>
+                          ) : (
+                            detail
+                          )}
+                        </p>
+                      );
+                    })}
+                </div>
+              )}
+
+              {item.title && <p className="text-gray-500">{item.title}</p>}
             </div>
           ))}
         </div>
@@ -297,23 +345,29 @@ export default function Index() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const compensatorsResponse = await fetchStrapiData(
-          '/project-compensators',
-          {
-            'pagination[limit]': 500,
-          }
-        );
+        const projectsResponse = await fetchStrapiData('/projects', {
+          'pagination[limit]': 500,
+        });
 
-        if (compensatorsResponse?.data) {
-          const totalAmount = compensatorsResponse.data.reduce(
-            (total, compensator) => {
-              const amount = parseFloat(compensator.amountFunded || 0);
-              return total + amount;
-            },
-            0
-          );
+        if (projectsResponse?.data) {
+          const { actualCompensation, targetCompensation } =
+            projectsResponse.data.reduce(
+              (acc, project) => {
+                const actual = parseFloat(project.actualCompensation || 0);
+                const target = parseFloat(project.targetCompensation || 0);
 
-          setCompensatorsCount(totalAmount);
+                return {
+                  actualCompensation: acc.actualCompensation + actual,
+                  targetCompensation: acc.targetCompensation + target,
+                };
+              },
+              { actualCompensation: 0, targetCompensation: 0 }
+            );
+
+          setCompensatorsCount({
+            funded: Math.round(actualCompensation),
+            available: Math.round(targetCompensation - actualCompensation),
+          });
         }
       } catch (error) {
         console.error('Error fetching data:', error);
