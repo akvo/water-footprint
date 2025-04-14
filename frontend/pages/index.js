@@ -77,13 +77,13 @@ const ImpactSection = ({ partnersCount, projectCount, compensatorsCount }) => {
       counter: compensatorsCount ? null : 'Loading...',
       details: compensatorsCount
         ? [
-            <p key="funded" className="text-[#2d1a45] mb-1">
+            <p key="funded" className="text-[#2d1a45] mb-1 flex flex-col">
               <span className="text-2xl font-bold">
                 {compensatorsCount.funded.toLocaleString('en')}
               </span>{' '}
               <span className="text-gray-500 font-normal">CAPs* Funded</span>
             </p>,
-            <p key="available" className="text-[#2d1a45] mb-1">
+            <p key="available" className="text-[#2d1a45] mb-1 flex flex-col">
               <span className="text-2xl font-bold">
                 {compensatorsCount.available.toLocaleString('en')}
               </span>{' '}
