@@ -14,7 +14,7 @@
     "title": {
       "type": "string"
     },
-    "InteractiveToolsDescription": {
+    "interactiveToolsDescription": {
       "type": "richtext"
     }
   }
