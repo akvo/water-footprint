@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "interactive_tools_pages",
+  "info": {
+    "singularName": "interactive-tools-page",
+    "pluralName": "interactive-tools-pages",
+    "displayName": "Interactive Tools Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "interactiveToolsDescription": {
+      "type": "blocks"
+    }
+  }
+}
