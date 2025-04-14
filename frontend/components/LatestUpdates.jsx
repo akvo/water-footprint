@@ -9,6 +9,7 @@ const LatestUpdates = ({
   currentPage,
   setCurrentPage,
   itemsPerPage = 3,
+  sectionTitle = 'Latest Updates',
 }) => {
   const totalPages = Math.ceil(updates.length / itemsPerPage);
 
@@ -19,7 +20,7 @@ const LatestUpdates = ({
 
   return (
     <>
-      <h2 className="text-[#0DA2D7] text-3xl font-bold mb-4">Latest Updates</h2>
+      <h2 className="text-[#0DA2D7] text-3xl font-bold mb-4">{sectionTitle}</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {displayedUpdates.map((update) => (

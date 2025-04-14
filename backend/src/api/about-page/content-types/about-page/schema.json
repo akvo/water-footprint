@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "methodology_pages",
+  "collectionName": "about_pages",
   "info": {
-    "singularName": "methodology-page",
-    "pluralName": "methodology-pages",
-    "displayName": "Methodology Pages",
+    "singularName": "about-page",
+    "pluralName": "about-pages",
+    "displayName": "About Pages",
     "description": ""
   },
   "options": {
