@@ -67,7 +67,7 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
-                <a href="/">Interactive tools</a>
+                <Link href="/interactive-tools">Interactive tools</Link>
               </li>
               <li>
                 <a href="/">WaterStat</a>
