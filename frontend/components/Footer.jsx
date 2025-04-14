@@ -1,7 +1,34 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { fetchStrapiData } from '@/utils';
 
 export default function Footer() {
+  const [aboutPages, setAboutPages] = useState([]);
+
+  useEffect(() => {
+    const fetchAboutPages = async () => {
+      try {
+        const response = await fetchStrapiData('/about-pages', {
+          'pagination[pageSize]': 100,
+          'sort[0]': 'title:asc',
+        });
+
+        if (response?.data) {
+          const filteredPages = response.data.filter(
+            (page) => page.slug !== 'water-footprint'
+          );
+
+          setAboutPages(filteredPages);
+        }
+      } catch (error) {
+        console.error('Error fetching about pages:', error);
+      }
+    };
+
+    fetchAboutPages();
+  }, []);
+
   return (
     <footer>
       <div className="bg-[#edebe6] py-10">
@@ -38,26 +65,13 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
-                <a href="/">What is a water footprint?</a>
+                <Link href="/water-footprint">What is a water footprint?</Link>
               </li>
-              <li>
-                <a href="/">What is a Water Footprint Assessment?</a>
-              </li>
-              <li>
-                <a href="/">Business water footprint</a>
-              </li>
-              <li>
-                <a href="/">Water stewardship</a>
-              </li>
-              <li>
-                <a href="/">Product water footprint</a>
-              </li>
-              <li>
-                <a href="/">Personal water footprint</a>
-              </li>
-              <li>
-                <a href="/">National water footprint</a>
-              </li>
+              {aboutPages.map((page) => (
+                <li key={page.id}>
+                  <Link href={`/about/${page.slug}`}>{page.title}</Link>
+                </li>
+              ))}
             </ul>
           </div>
 
