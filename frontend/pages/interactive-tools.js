@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { convertRichTextToHTML, fetchStrapiData } from '@/utils';
+import { fetchStrapiData } from '@/utils';
 import Link from 'next/link';
 
 const InteractiveTools = () => {
@@ -16,9 +16,7 @@ const InteractiveTools = () => {
         if (response?.data) {
           setTool({
             title: response?.data?.title,
-            description: convertRichTextToHTML(
-              response.data.interactiveToolsDescription
-            ),
+            description: response.data.interactiveToolsDescription,
           });
         }
       } catch (err) {

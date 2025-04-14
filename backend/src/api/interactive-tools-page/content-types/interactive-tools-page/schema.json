@@ -14,8 +14,8 @@
     "title": {
       "type": "string"
     },
-    "interactiveToolsDescription": {
-      "type": "blocks"
+    "InteractiveToolsDescription": {
+      "type": "richtext"
     }
   }
 }
