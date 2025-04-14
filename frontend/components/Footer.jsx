@@ -21,7 +21,7 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
-                <a href="/">Partners</a>
+                <Link href="/partners">Partners</Link>
               </li>
               <li>
                 <Link href="/join-the-network">Join the network</Link>
