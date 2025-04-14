@@ -1,12 +1,17 @@
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import qs from 'qs';
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
 export const fetchStrapiData = async (endpoint, params = {}) => {
-  const queryString = new URLSearchParams(params).toString();
+  const queryString = qs.stringify(params, {
+    encodeValuesOnly: true,
+    arrayFormat: 'brackets',
+  });
+
   const url = `${env('NEXT_PUBLIC_BACKEND_URL')}/api${endpoint}?${queryString}`;
 
   try {

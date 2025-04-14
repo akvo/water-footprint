@@ -109,7 +109,7 @@ export default function CompensatorProfile() {
     if (projectIds.length === 0) return [];
 
     const projectsResponse = await fetchStrapiData('/projects', {
-      'filters[projectCompensators][documentId][$in]': projectIds.join(','),
+      'filters[projectCompensators][documentId][$in]': projectIds,
       'populate[0]': 'projectCompensators',
       'populate[1]': 'projectImage',
       'pagination[pageSize]': 100,

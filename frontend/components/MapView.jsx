@@ -175,7 +175,7 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
 
       if (projectIds && projectIds.length > 0) {
         queryParams['filters[projectCompensators][documentId][$in]'] =
-          projectIds.join(',');
+          projectIds;
       }
 
       if (selectedCountries.length > 0) {
