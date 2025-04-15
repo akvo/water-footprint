@@ -131,9 +131,12 @@ const AnimatedWaterSection = () => {
             >
               Join Network
             </Link>
-            <button className="border border-white px-6 py-3 rounded-lg text-white font-semibold">
+            <Link
+              href="/water-footprint"
+              className="border border-white px-6 py-3 rounded-lg text-white font-semibold"
+            >
               Learn More
-            </button>
+            </Link>
           </div>
         </div>
 
