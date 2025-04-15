@@ -41,10 +41,10 @@ function isBrowser() {
  * variable from the server (process.env).
  */
 export function env(key) {
-  // if (isBrowser()) {
-  //   // eslint-disable-next-line no-underscore-dangle
-  //   return window.__ENV[key];
-  // }
+  if (isBrowser()) {
+    // eslint-disable-next-line no-underscore-dangle
+    return window.__ENV[key];
+  }
 
-  return 'https://wfi.akvotest.org/cms';
+  return process.env[key];
 }
