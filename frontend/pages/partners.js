@@ -121,7 +121,18 @@ const PartnersPage = () => {
             {partners.map((partner) => (
               <div
                 key={partner.id}
-                className="bg-white border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
+                onClick={() => {
+                  if (partner.link && partner.link !== '#') {
+                    window.open(
+                      partner.link.startsWith('http')
+                        ? partner.link
+                        : `https://${partner.link}`,
+                      '_blank',
+                      'noopener,noreferrer'
+                    );
+                  }
+                }}
+                className="bg-white border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
               >
                 <div className="p-6 flex flex-col items-center text-center">
                   <h3 className="text-lg font-bold text-[#0DA2D7] mb-2">
@@ -131,18 +142,9 @@ const PartnersPage = () => {
                     {partner.description}
                   </p>
                   {partner.link && partner.link !== '#' && (
-                    <a
-                      href={
-                        partner.link.startsWith('http')
-                          ? partner.link
-                          : `https://${partner.link}`
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#0DA2D7] hover:underline"
-                    >
+                    <div className="text-[#0DA2D7] hover:underline">
                       Visit Website
-                    </a>
+                    </div>
                   )}
                 </div>
               </div>
