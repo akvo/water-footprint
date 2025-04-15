@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { fetchStrapiData } from '@/utils';
 import Link from 'next/link';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 
 const AboutPage = () => {
   const router = useRouter();
@@ -78,10 +79,7 @@ const AboutPage = () => {
             {pageContent.title}
           </h1>
 
-          <div
-            className="text-gray-800 leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: pageContent.content }}
-          />
+          <MarkdownRenderer content={pageContent.content} />
         </article>
       </div>
     </>
