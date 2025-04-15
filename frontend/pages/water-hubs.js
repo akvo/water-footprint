@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchStrapiData } from '@/utils';
 import Link from 'next/link';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 
 const WaterHubsPage = () => {
   const [page, setPage] = useState(null);
@@ -74,10 +75,7 @@ const WaterHubsPage = () => {
             {page.title}
           </h1>
 
-          <div
-            className="text-gray-800 leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: page.description }}
-          />
+          <MarkdownRenderer content={page.description} />
         </article>
       </div>
     </>

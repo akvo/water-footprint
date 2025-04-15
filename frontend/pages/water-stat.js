@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { convertRichTextToHTML, fetchStrapiData } from '@/utils';
+import { fetchStrapiData } from '@/utils';
 import Link from 'next/link';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 
 const WaterStat = () => {
   const [tool, setTool] = useState(null);
@@ -74,10 +75,7 @@ const WaterStat = () => {
             {tool.title}
           </h1>
 
-          <div
-            className="text-gray-800 leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: tool.description }}
-          />
+          <MarkdownRenderer content={tool.description} />
         </article>
       </div>
     </>

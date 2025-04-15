@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { fetchStrapiData, env } from '@/utils';
 import Link from 'next/link';
 import TruncatedText from '@/components/TruncatedText';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 
 const UpdateDetailPage = () => {
   const router = useRouter();
@@ -152,11 +153,7 @@ const UpdateDetailPage = () => {
               />
             </div>
           )}
-
-          <div
-            className="text-gray-800 leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: update.description }}
-          />
+          <MarkdownRenderer content={update.description} />
         </article>
       </div>
     </>

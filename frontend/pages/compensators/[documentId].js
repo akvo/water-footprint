@@ -147,30 +147,8 @@ export default function CompensatorProfile() {
   const renderContent = () => {
     if (isLoading) {
       return (
-        <div className="min-h-screen flex items-center justify-center bg-[#0DA2D71A]">
-          <div className="text-center">
-            <div className="animate-pulse">
-              <svg
-                className="mx-auto h-16 w-16 text-[#0DA2D7] opacity-75"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </div>
-            <p className="mt-4 text-xl text-gray-600 font-semibold">
-              Loading Compensator Profile
-            </p>
-            <p className="text-sm text-gray-500 mt-2">
-              Gathering water compensation details...
-            </p>
-          </div>
+        <div className="flex justify-center items-center min-h-screen">
+          <div className="w-12 h-12 border-4 border-[#0DA2D7] border-t-transparent rounded-full animate-spin"></div>
         </div>
       );
     }
