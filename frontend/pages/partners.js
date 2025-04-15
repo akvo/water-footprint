@@ -32,7 +32,7 @@ const PartnersPage = () => {
           id: partner.id,
           name: partner.name,
           description: partner.description,
-          link: partner.externalLink || '#',
+          link: partner.link || '#',
         }));
 
         setPartners(
