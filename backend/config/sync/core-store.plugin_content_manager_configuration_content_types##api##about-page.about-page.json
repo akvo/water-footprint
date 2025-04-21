@@ -1,5 +1,5 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::methodology-page.methodology-page",
+  "key": "plugin_content_manager_configuration_content_types::api::about-page.about-page",
   "value": {
     "settings": {
       "bulkable": true,
@@ -45,6 +45,20 @@
           "label": "description",
           "searchable": false,
           "sortable": false
+        }
+      },
+      "slug": {
+        "edit": {
+          "label": "slug",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "slug",
+          "searchable": true,
+          "sortable": true
         }
       },
       "createdAt": {
@@ -110,8 +124,8 @@
       "list": [
         "id",
         "title",
-        "createdAt",
-        "updatedAt"
+        "slug",
+        "createdAt"
       ],
       "edit": [
         [
@@ -125,10 +139,16 @@
             "name": "description",
             "size": 12
           }
+        ],
+        [
+          {
+            "name": "slug",
+            "size": 6
+          }
         ]
       ]
     },
-    "uid": "api::methodology-page.methodology-page"
+    "uid": "api::about-page.about-page"
   },
   "type": "object",
   "environment": null,

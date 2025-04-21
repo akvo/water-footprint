@@ -194,7 +194,7 @@
       },
       "coordinates": {
         "edit": {
-          "label": "coordinates",
+          "label": "coordinates - Lat, Long (decimal degrees)",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -307,6 +307,21 @@
           "sortable": true
         }
       },
+      "basin": {
+        "edit": {
+          "label": "basin",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "basin",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -367,7 +382,6 @@
       }
     },
     "layouts": {
-      "list": ["id", "name", "validatingPartner", "monitoringReports"],
       "edit": [
         [
           {
@@ -470,7 +484,19 @@
             "name": "amountFunded",
             "size": 4
           }
+        ],
+        [
+          {
+            "name": "basin",
+            "size": 6
+          }
         ]
+      ],
+      "list": [
+        "id",
+        "name",
+        "validatingPartner",
+        "monitoringReports"
       ]
     },
     "uid": "api::project.project"

@@ -6,6 +6,26 @@
   "locale": null,
   "permissions": [
     {
+      "documentId": "c26c5ji4ofp059reyo4yctfc",
+      "action": "api::about-page.about-page.find",
+      "locale": null
+    },
+    {
+      "documentId": "us1pfn38t7yizficrzqu0lfz",
+      "action": "api::about-page.about-page.findOne",
+      "locale": null
+    },
+    {
+      "documentId": "qxiymy4whxy6v5pkdud7alr6",
+      "action": "api::basin.basin.find",
+      "locale": null
+    },
+    {
+      "documentId": "t0akyo2e9u5m1po2qwf2wur1",
+      "action": "api::basin.basin.findOne",
+      "locale": null
+    },
+    {
       "documentId": "s9pf7v8sqc91wfuhg5lwf9ok",
       "action": "api::compensator.compensator.find",
       "locale": null
@@ -16,8 +36,28 @@
       "locale": null
     },
     {
-      "documentId": "cbqu0hwuqqz18wiocu9tgoqj",
+      "documentId": "aubtars64cw96sfyfvjvqr6w",
+      "action": "api::country.country.find",
+      "locale": null
+    },
+    {
+      "documentId": "kl0nl09mpibtyeplupwihoib",
+      "action": "api::country.country.findOne",
+      "locale": null
+    },
+    {
+      "documentId": "e4pofvnktjv22hfz7d6rvm70",
       "action": "api::email.email.send",
+      "locale": null
+    },
+    {
+      "documentId": "mgu30ykgvoye6dwzn566e86d",
+      "action": "api::homepage.homepage.find",
+      "locale": null
+    },
+    {
+      "documentId": "c6v44l5nmqynv3djnq7xcgt2",
+      "action": "api::interactive-tools-page.interactive-tools-page.find",
       "locale": null
     },
     {
@@ -51,6 +91,26 @@
       "locale": null
     },
     {
+      "documentId": "wxvb4zj61tg7bgjhguzh1dl0",
+      "action": "api::project-type-category.project-type-category.find",
+      "locale": null
+    },
+    {
+      "documentId": "az8rqp11zq5oubwz3rdxjkyk",
+      "action": "api::project-type-category.project-type-category.findOne",
+      "locale": null
+    },
+    {
+      "documentId": "aglcmgzhozxarlxwkis236eh",
+      "action": "api::project-type.project-type.find",
+      "locale": null
+    },
+    {
+      "documentId": "qttnwqelbbwdkaemgtiixqhx",
+      "action": "api::project-type.project-type.findOne",
+      "locale": null
+    },
+    {
       "documentId": "g1y12kkehgp0xdk5fq20m10u",
       "action": "api::project.project.find",
       "locale": null
@@ -78,6 +138,16 @@
     {
       "documentId": "o5guklrnbqnre7s31s56p737",
       "action": "api::update.update.findOne",
+      "locale": null
+    },
+    {
+      "documentId": "f90fb8e9agyhj0k2jty4ixp2",
+      "action": "api::waterhubs-page.waterhubs-page.find",
+      "locale": null
+    },
+    {
+      "documentId": "yi69bc947q4g63wz4pin015w",
+      "action": "api::waterstat-page.waterstat-page.find",
       "locale": null
     },
     {
