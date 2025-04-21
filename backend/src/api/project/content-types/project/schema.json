@@ -102,6 +102,11 @@
     },
     "amountFunded": {
       "type": "biginteger"
+    },
+    "basin": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::basin.basin"
     }
   }
 }

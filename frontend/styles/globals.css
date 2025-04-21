@@ -99,3 +99,18 @@ body {
 .animate-fadeIn {
   animation: fadeIn 0.2s ease-out;
 }
+
+@keyframes expandBox {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(2);
+    width: 100vw;
+    left: 0;
+    top: 0;
+    height: auto;
+    z-index: 50;
+  }
+}

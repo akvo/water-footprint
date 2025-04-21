@@ -2,17 +2,25 @@ module.exports = {
   async send(ctx) {
     try {
       const { name, email, subject, message } = ctx.request.body.data;
-      const administrators = await strapi.db.query('admin::user').findMany({
+
+      const editors = await strapi.db.query('admin::user').findMany({
         where: {
           isActive: true,
           blocked: false,
+          roles: {
+            code: 'editor',
+          },
         },
       });
 
-      const adminEmails = administrators.map((admin) => admin.email);
+      const editorEmails = editors.map((editor) => editor.email);
+
+      if (editorEmails.length === 0) {
+        console.warn('No editors found to receive the contact form submission');
+      }
 
       await Promise.all(
-        adminEmails.map(async (recipient) => {
+        editorEmails.map(async (recipient) => {
           await strapi.plugins.email.service('email').send({
             to: recipient,
             subject: `New Contact Form Submission: ${subject}`,
