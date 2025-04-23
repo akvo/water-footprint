@@ -1,18 +1,17 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { fetchStrapiData } from '@/utils';
 import { Search, X } from 'lucide-react';
 
 const PartnersPage = () => {
   const [partners, setPartners] = useState([]);
-  const [filteredPartners, setFilteredPartners] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [selectedPartner, setSelectedPartner] = useState(null);
   const pageSize = 12;
-  const [expandedId, setExpandedId] = useState(null);
 
   const fetchPartners = async (currentPage, reset = false) => {
     try {
@@ -29,17 +28,14 @@ const PartnersPage = () => {
       });
 
       if (response?.data) {
-        const formattedPartners = response.data.map((partner) => ({
-          id: partner.id,
-          name: partner.name,
-          description: partner.description,
-          link: partner.link || '#',
+        const formatted = response.data.map((p) => ({
+          id: p.id,
+          name: p.name,
+          description: p.description,
+          link: p.link || '#',
         }));
 
-        setPartners(
-          reset ? formattedPartners : [...partners, ...formattedPartners]
-        );
-
+        setPartners(reset ? formatted : [...partners, ...formatted]);
         setHasMore(
           response.meta?.pagination?.page < response.meta?.pagination?.pageCount
         );
@@ -54,22 +50,21 @@ const PartnersPage = () => {
 
   useEffect(() => {
     fetchPartners(1, true);
+    setPage(1);
   }, [searchTerm]);
 
   const handleLoadMore = () => {
-    setPage((prevPage) => prevPage + 1);
-    fetchPartners(page + 1);
+    const next = page + 1;
+    setPage(next);
+    fetchPartners(next);
   };
 
   const handleSearch = (e) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    setPage(1);
+    setSearchTerm(e.target.value);
   };
 
   const clearSearch = () => {
     setSearchTerm('');
-    setPage(1);
   };
 
   if (error) {
@@ -96,20 +91,23 @@ const PartnersPage = () => {
 
       <div className="max-w-6xl mx-auto py-12">
         <div className="mb-8 relative">
-          <div className="relative">
-            <div className="relative flex-1">
-              <Search
-                className="absolute left-3 top-3 text-gray-500"
-                size={18}
-              />
-              <input
-                type="text"
-                placeholder="Search partners by name or description"
-                className="w-full px-10 py-2 bg-white border border-gray-200 rounded"
-                value={searchTerm}
-                onChange={handleSearch}
-              />
-            </div>
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-3 text-gray-500" size={18} />
+            <input
+              type="text"
+              placeholder="Search partners by name or description"
+              className="w-full px-10 py-2 bg-white border border-gray-200 rounded"
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+            {searchTerm && (
+              <button
+                onClick={clearSearch}
+                className="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
+              >
+                <X size={18} />
+              </button>
+            )}
           </div>
         </div>
 
@@ -118,15 +116,45 @@ const PartnersPage = () => {
             No partners found
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {partners.map((partner) => (
-              <ExpandableCard
+              <div
                 key={partner.id}
-                partner={partner}
-                isExpanded={expandedId === partner.id}
-                onExpand={setExpandedId}
-                onCollapse={() => setExpandedId(null)}
-              />
+                className="bg-white border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 flex flex-col justify-between"
+              >
+                <div>
+                  <h3 className="text-lg font-bold text-[#0DA2D7] mb-2">
+                    {partner.name}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                    {partner.description}
+                  </p>
+                </div>
+                <div className="mt-auto flex justify-between items-center">
+                  {partner.description && partner.description.length > 120 && (
+                    <button
+                      onClick={() => setSelectedPartner(partner)}
+                      className="text-[#0DA2D7] hover:underline text-sm cursor-pointer"
+                    >
+                      Read More
+                    </button>
+                  )}
+                  {partner.link && partner.link !== '#' && (
+                    <a
+                      href={
+                        partner.link.startsWith('http')
+                          ? partner.link
+                          : `https://${partner.link}`
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#0DA2D7] hover:underline text-sm"
+                    >
+                      Visit Website
+                    </a>
+                  )}
+                </div>
+              </div>
             ))}
           </div>
         )}
@@ -141,91 +169,38 @@ const PartnersPage = () => {
           <div className="flex justify-center mt-8">
             <button
               onClick={handleLoadMore}
-              className="px-6 py-2 bg-[#0DA2D7] text-white rounded-md hover:bg-[#0DA2D7]/90 transition-colors"
+              className="px-6 py-2 bg-[#0DA2D7] text-white rounded-md hover:bg-[#0DA2D7]/90"
             >
               Load More
             </button>
           </div>
         )}
       </div>
-    </div>
-  );
-};
 
-const ExpandableCard = ({ partner, isExpanded, onExpand, onCollapse }) => {
-  const cardRef = useRef(null);
-
-  return (
-    <div
-      ref={cardRef}
-      className={`relative transition-all duration-500 ease-in-out text-center ${
-        isExpanded ? 'z-50' : ''
-      }`}
-    >
-      <div
-        className={`bg-white border border-gray-100 rounded-lg shadow-md p-8 min-h-[200px] flex flex-col transition-all duration-500 ease-in-out cursor-pointer overflow-hidden ${
-          isExpanded ? 'absolute w-full left-0 top-0' : ''
-        }`}
-        onClick={() => {
-          if (!isExpanded) onExpand(partner.id);
-        }}
-        style={{
-          position: isExpanded ? 'absolute' : 'relative',
-        }}
-      >
-        <h3 className="text-2xl font-bold text-[#0DA2D7] mb-3">
-          {partner.name}
-        </h3>
-
-        <p
-          className={`text-gray-700 text-base transition-all duration-500 ease-in-out ${
-            isExpanded ? '' : 'line-clamp-3'
-          }`}
-        >
-          {partner.description}
-        </p>
-
-        {partner.description?.length > 120 && !isExpanded && (
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onExpand(partner.id);
-            }}
-            className="mt-1 text-[#0DA2D7] hover:underline text-sm cursor-pointer"
-          >
-            Read More
-          </button>
-        )}
-
-        {partner.link && partner.link !== '#' && (
-          <a
-            onClick={(e) => e.stopPropagation()}
-            href={
-              partner.link.startsWith('http')
-                ? partner.link
-                : `https://${partner.link}`
-            }
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block mt-4 text-[#0DA2D7] underline"
-          >
-            Visit Website
-          </a>
-        )}
-        {isExpanded && (
-          <>
+      {selectedPartner && (
+        <div className="fixed inset-0 bg-black/20 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative">
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onCollapse();
-              }}
-              className="absolute top-4 right-4 text-gray-600 hover:text-black cursor-pointer"
+              onClick={() => setSelectedPartner(null)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 cursor-pointer"
             >
-              ✕
+              <X size={20} />
             </button>
-          </>
-        )}
-      </div>
+            <h3 className="text-xl font-bold text-[#0DA2D7] mb-4">
+              {selectedPartner.name}
+            </h3>
+            <p className="text-gray-700 mb-6 whitespace-pre-line">
+              {selectedPartner.description}
+            </p>
+            <button
+              onClick={() => setSelectedPartner(null)}
+              className="px-4 py-2 bg-[#0DA2D7] text-white rounded-md hover:bg-[#0DA2D7]/90 cursor-pointer"
+            >
+              Show Less
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
