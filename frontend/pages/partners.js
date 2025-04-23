@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { fetchStrapiData } from '@/utils';
 import { Search, X } from 'lucide-react';
@@ -12,6 +12,7 @@ const PartnersPage = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const pageSize = 12;
+  const [expandedId, setExpandedId] = useState(null);
 
   const fetchPartners = async (currentPage, reset = false) => {
     try {
@@ -117,37 +118,15 @@ const PartnersPage = () => {
             No partners found
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 relative">
             {partners.map((partner) => (
-              <div
+              <ExpandableCard
                 key={partner.id}
-                onClick={() => {
-                  if (partner.link && partner.link !== '#') {
-                    window.open(
-                      partner.link.startsWith('http')
-                        ? partner.link
-                        : `https://${partner.link}`,
-                      '_blank',
-                      'noopener,noreferrer'
-                    );
-                  }
-                }}
-                className="bg-white border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
-              >
-                <div className="p-6 flex flex-col items-center text-center">
-                  <h3 className="text-lg font-bold text-[#0DA2D7] mb-2">
-                    {partner.name}
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                    {partner.description}
-                  </p>
-                  {partner.link && partner.link !== '#' && (
-                    <div className="text-[#0DA2D7] hover:underline">
-                      Visit Website
-                    </div>
-                  )}
-                </div>
-              </div>
+                partner={partner}
+                isExpanded={expandedId === partner.id}
+                onExpand={setExpandedId}
+                onCollapse={() => setExpandedId(null)}
+              />
             ))}
           </div>
         )}
@@ -167,6 +146,84 @@ const PartnersPage = () => {
               Load More
             </button>
           </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const ExpandableCard = ({ partner, isExpanded, onExpand, onCollapse }) => {
+  const cardRef = useRef(null);
+
+  return (
+    <div
+      ref={cardRef}
+      className={`relative transition-all duration-500 ease-in-out text-center ${
+        isExpanded ? 'z-50' : ''
+      }`}
+    >
+      <div
+        className={`bg-white border border-gray-100 rounded-lg shadow-md p-8 min-h-[200px] flex flex-col transition-all duration-500 ease-in-out cursor-pointer overflow-hidden ${
+          isExpanded ? 'absolute w-full left-0 top-0' : ''
+        }`}
+        onClick={() => {
+          if (!isExpanded) onExpand(partner.id);
+        }}
+        style={{
+          position: isExpanded ? 'absolute' : 'relative',
+        }}
+      >
+        <h3 className="text-2xl font-bold text-[#0DA2D7] mb-3">
+          {partner.name}
+        </h3>
+
+        <p
+          className={`text-gray-700 text-base transition-all duration-500 ease-in-out ${
+            isExpanded ? '' : 'line-clamp-3'
+          }`}
+        >
+          {partner.description}
+        </p>
+
+        {partner.description?.length > 120 && !isExpanded && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onExpand(partner.id);
+            }}
+            className="mt-1 text-[#0DA2D7] hover:underline text-sm cursor-pointer"
+          >
+            Read More
+          </button>
+        )}
+
+        {partner.link && partner.link !== '#' && (
+          <a
+            onClick={(e) => e.stopPropagation()}
+            href={
+              partner.link.startsWith('http')
+                ? partner.link
+                : `https://${partner.link}`
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mt-4 text-[#0DA2D7] underline"
+          >
+            Visit Website
+          </a>
+        )}
+        {isExpanded && (
+          <>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onCollapse();
+              }}
+              className="absolute top-4 right-4 text-gray-600 hover:text-black cursor-pointer"
+            >
+              ✕
+            </button>
+          </>
         )}
       </div>
     </div>

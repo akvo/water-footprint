@@ -7,6 +7,7 @@ import { prepareProjectChartData } from '@/utils/projectChartUtils';
 import Link from 'next/link';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import LatestUpdates from '@/components/LatestUpdates';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 
 export default function ProjectPage() {
   const router = useRouter();
@@ -58,6 +59,7 @@ export default function ProjectPage() {
         'populate[7]': 'monitoringReports.file',
         'populate[8]': 'updates',
         'populate[9]': 'updates.image',
+        'populate[10]': 'basin',
       });
 
       if (response?.data && response.data.length > 0) {
@@ -100,6 +102,7 @@ export default function ProjectPage() {
           validatingPartner: projectData.validatingPartner || {},
           monitoringReports: projectData.monitoringReports || {},
           updates: projectData.updates || [],
+          basin: projectData.basin?.name || '',
         };
 
         setProject(formattedProject);
@@ -154,15 +157,21 @@ export default function ProjectPage() {
               <h1 className="text-4xl font-bold text-[#0DA2D7]">
                 {project.title}
               </h1>
-
               <div>
                 <h2 className="text-gray-800 font-bold mb-4">
                   PROJECT DESCRIPTION
                 </h2>
                 <p className="text-gray-700 text-[16px] leading-[26px]">
-                  {project.description}
+                  <MarkdownRenderer content={project.description} />
                 </p>
               </div>
+              {project.basin && (
+                <div>
+                  <div className="font-bold text-gray-800 flex">
+                    Basin : <p className="font-normal pl-2">{project.basin}</p>
+                  </div>
+                </div>
+              )}
               <div>
                 {project.waterCompensated.percentageComplete > 0 && (
                   <>
@@ -360,7 +369,7 @@ export default function ProjectPage() {
                       </div>
                       <div className="text-[#27173E] text-lg ml-2">
                         {project.targetCompensation?.toLocaleString() || 'N/A'}{' '}
-                        USD
+                        EUR
                       </div>
                     </div>
 
@@ -383,7 +392,7 @@ export default function ProjectPage() {
                           .filter((item) => item.isUnfunded !== true)
                           .reduce((total, item) => total + item.amount, 0)
                           .toLocaleString()}{' '}
-                        USD
+                        EUR
                       </div>
                     </div>
                   </div>
@@ -444,7 +453,7 @@ export default function ProjectPage() {
                         formatter={(value, name, props) => {
                           const item = props.payload;
                           return [
-                            `$${value.toLocaleString()} USD (${
+                            `$${value.toLocaleString()} EUR (${
                               item.caps
                             } CAPs)`,
                             item.name,
