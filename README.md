@@ -74,43 +74,18 @@ Contact form submissions and system notifications can be directed to specific us
 
 1. To modify which roles receive contact form submissions:
 
-   - Edit the contact form controller at `backend/src/api/contact/controllers/contact.js`
+   - Edit the email form controller at `backend/src/api/email/controllers/email.js`
    - Update the query condition to target specific roles:
 
    ```javascript
-   // Send to editors only (default)
-   const recipients = await strapi.db.query('admin::user').findMany({
-     where: {
-       isActive: true,
-       blocked: false,
-       roles: {
-         code: 'editor',
-       },
-     },
-   });
+   // ——— Role lookup ———
+   // Available admin roles (display name → code):
+   //  • Super Admin → 'strapi-super-admin'
+   //  • Editor      → 'strapi-editor'
+   //  • Author      → 'strapi-author'
 
-   // Send to super admins only
-   const recipients = await strapi.db.query('admin::user').findMany({
-     where: {
-       isActive: true,
-       blocked: false,
-       roles: {
-         code: 'super-admin',
-       },
-     },
-   });
-
-   // Send to both editors and authors
-   const recipients = await strapi.db.query('admin::user').findMany({
-     where: {
-       isActive: true,
-       blocked: false,
-       roles: {
-         code: {
-           $in: ['editor', 'author'],
-         },
-       },
-     },
+   const targetRole = await strapi.db.query('admin::role').findOne({
+     where: { code: { $eq: 'strapi-editor' } }, // ← change 'strapi-editor' to whichever role-code you need
    });
    ```
 

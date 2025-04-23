@@ -3,14 +3,23 @@ module.exports = {
     try {
       const { name, email, subject, message } = ctx.request.body.data;
 
+      // ——— Role lookup ———
+      // Available admin roles (display name → code):
+      //  • Super Admin → 'strapi-super-admin'
+      //  • Editor      → 'strapi-editor'
+      //  • Author      → 'strapi-author'
+
+      const editorRole = await strapi.db.query('admin::role').findOne({
+        where: { code: { $eq: 'strapi-editor' } },
+      });
+
       const editors = await strapi.db.query('admin::user').findMany({
         where: {
-          isActive: true,
-          blocked: false,
           roles: {
-            code: 'editor',
+            id: { $eq: editorRole.id },
           },
         },
+        populate: ['roles'],
       });
 
       const editorEmails = editors.map((editor) => editor.email);

@@ -81,9 +81,6 @@
         "audios"
       ]
     },
-    "catchmentBasin": {
-      "type": "string"
-    },
     "updates": {
       "type": "relation",
       "relation": "oneToMany",
