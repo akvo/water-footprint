@@ -210,7 +210,7 @@ export default function ProjectPage() {
                     {project.waterCompensated.capsFunded.toLocaleString()}
                   </div>
                   <div>
-                    <span className="font-medium">Available CAPS:</span>{' '}
+                    <span className="font-medium">Available CAPs:</span>{' '}
                     {(
                       project.waterCompensated.targetCaps -
                       project.waterCompensated.capsFunded
