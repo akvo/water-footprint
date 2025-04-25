@@ -17,6 +17,7 @@ const PartnersPage = () => {
     try {
       setIsLoading(true);
       const response = await fetchStrapiData('/partners', {
+        'filters[platformPartner][$eq]': true,
         'pagination[page]': currentPage,
         'pagination[pageSize]': pageSize,
         ...(searchTerm

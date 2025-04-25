@@ -6,6 +6,642 @@
   "locale": null,
   "permissions": [
     {
+      "documentId": "uhieigcxd4nonokhjjmdx6gq",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::about-page.about-page",
+      "properties": {
+        "fields": [
+          "title",
+          "description",
+          "slug"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "z4adejk7qk22glak7xya8n0j",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::about-page.about-page",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "hd4vutae28avlrone1aw11q2",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::about-page.about-page",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "bp01wway6nmgj6pb0i3whwta",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::about-page.about-page",
+      "properties": {
+        "fields": [
+          "title",
+          "description",
+          "slug"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "i5gtf6mcy4t6p1hoallxitjz",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::about-page.about-page",
+      "properties": {
+        "fields": [
+          "title",
+          "description",
+          "slug"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "qy6xd33dqdnvcvhdv3te5okb",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::basin.basin",
+      "properties": {
+        "fields": [
+          "name"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "d5ag73o28g4gva09kuccjga4",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::basin.basin",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "fus54k0oolae9jjodkfo4r2r",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::basin.basin",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "cojgrcz4znnegnmen1aav4ff",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::basin.basin",
+      "properties": {
+        "fields": [
+          "name"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "qx08teusjscvxgr4otq0re6q",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::basin.basin",
+      "properties": {
+        "fields": [
+          "name"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "hxj7eh5o4v6roz3qm7bw0m94",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::compensator.compensator",
+      "properties": {
+        "fields": [
+          "name",
+          "targetPledgeCaps",
+          "sdgs",
+          "projectCompensations",
+          "description",
+          "updates",
+          "compensationProgressDescription",
+          "compensationProgressImage",
+          "compensationProgressTitle"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "ofk95465gpxmbtx8jzeh2qmy",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::compensator.compensator",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "thu8a34bd0vovz66zzxy331v",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::compensator.compensator",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "w87h4mz36t1tgamnk3k8td0i",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::compensator.compensator",
+      "properties": {
+        "fields": [
+          "name",
+          "targetPledgeCaps",
+          "sdgs",
+          "projectCompensations",
+          "description",
+          "updates",
+          "compensationProgressDescription",
+          "compensationProgressImage",
+          "compensationProgressTitle"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "s4hv2ud507pnisa5icukh8ju",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::compensator.compensator",
+      "properties": {
+        "fields": [
+          "name",
+          "targetPledgeCaps",
+          "sdgs",
+          "projectCompensations",
+          "description",
+          "updates",
+          "compensationProgressDescription",
+          "compensationProgressImage",
+          "compensationProgressTitle"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "cuktwhs8s628ax3pt04k8dui",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::country.country",
+      "properties": {
+        "fields": [
+          "country_name",
+          "country_code"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "mey3cwo2qhgsqpwchsei3ygr",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::monitoring-report.monitoring-report",
+      "properties": {
+        "fields": [
+          "name",
+          "file"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "fnq40nit8yormpvjrzjiuhb5",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::monitoring-report.monitoring-report",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "eakpj622dftp9414ft1j78n9",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::monitoring-report.monitoring-report",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "n10f8cskwqvdu8m2tphw1y91",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::monitoring-report.monitoring-report",
+      "properties": {
+        "fields": [
+          "name",
+          "file"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "upzjdyi82aw1jsmora4d5q8c",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::monitoring-report.monitoring-report",
+      "properties": {
+        "fields": [
+          "name",
+          "file"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "ws2jd13cc9kyc2yxwai81d3j",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::partner.partner",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "link",
+          "platformPartner"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "h8xrjw80o1c266xrblcl9h8h",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::partner.partner",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "fh0yp6pu105angdzi0huaqhp",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::partner.partner",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "k73ywcahxepcnw9ux25yf3h6",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::partner.partner",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "link",
+          "platformPartner"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "ypg8m1vt51y5pq80d2jr8vu7",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::partner.partner",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "link",
+          "platformPartner"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "abshp2057yms8zdxwdbnjw05",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::project-compensator.project-compensator",
+      "properties": {
+        "fields": [
+          "amountFunded",
+          "compensator",
+          "project",
+          "capsFunded"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "az7vm8earuw2b3r6ywqwnbzo",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::project-compensator.project-compensator",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "pdnlscu1gkywu24mb2jsb3oh",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::project-compensator.project-compensator",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "dip594lqwdm6mqp1rjp79uco",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::project-compensator.project-compensator",
+      "properties": {
+        "fields": [
+          "amountFunded",
+          "compensator",
+          "project",
+          "capsFunded"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "d0h2k3xqhw0uil662c2y735v",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::project-compensator.project-compensator",
+      "properties": {
+        "fields": [
+          "amountFunded",
+          "compensator",
+          "project",
+          "capsFunded"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "e2nup81vko106hcsot1cuekk",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::project-type-category.project-type-category",
+      "properties": {
+        "fields": [
+          "name",
+          "project_types"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "wgiypesyoab7siw07lp875hd",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::project-type.project-type",
+      "properties": {
+        "fields": [
+          "title",
+          "project_type_category"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "lplizy2up7cqhq1nvx5o4zp0",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::project.project",
+      "properties": {
+        "fields": [
+          "name",
+          "validatingPartner",
+          "monitoringReports",
+          "implementingPartners",
+          "sdgs",
+          "targetCompensation",
+          "actualCompensation",
+          "startDate",
+          "endDate",
+          "budget",
+          "projectCompensators",
+          "location",
+          "coordinates",
+          "description",
+          "projectImage",
+          "updates",
+          "country",
+          "type",
+          "amountFunded",
+          "basin"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "r2zeds1g15vs1kgg3l6qi5by",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::project.project",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "bz6ikagy5bgp3wh4o7thdvrs",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::project.project",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "nu2bojhwwxc2274nyhyw2fa1",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::project.project",
+      "properties": {
+        "fields": [
+          "name",
+          "validatingPartner",
+          "monitoringReports",
+          "implementingPartners",
+          "sdgs",
+          "targetCompensation",
+          "actualCompensation",
+          "startDate",
+          "endDate",
+          "budget",
+          "projectCompensators",
+          "location",
+          "coordinates",
+          "description",
+          "projectImage",
+          "updates",
+          "country",
+          "type",
+          "amountFunded",
+          "basin"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "lhmmai2z1dqv32r406jn9p7g",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::project.project",
+      "properties": {
+        "fields": [
+          "name",
+          "validatingPartner",
+          "monitoringReports",
+          "implementingPartners",
+          "sdgs",
+          "targetCompensation",
+          "actualCompensation",
+          "startDate",
+          "endDate",
+          "budget",
+          "projectCompensators",
+          "location",
+          "coordinates",
+          "description",
+          "projectImage",
+          "updates",
+          "country",
+          "type",
+          "amountFunded",
+          "basin"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "zvqgg9klng8pisn3ceb8zvvr",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::sdg.sdg",
+      "properties": {
+        "fields": [
+          "name",
+          "colour",
+          "icon"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "e2jb24vwwwvbjqgsbskdetjj",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::update.update",
+      "properties": {
+        "fields": [
+          "title",
+          "image",
+          "content",
+          "featured",
+          "compensator",
+          "project"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "xh4prvmdkcmcbj2f5y2hn1b4",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::update.update",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "e7plgivjd8v2c0vfcv6zhcmr",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::update.update",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "aa76fb1hsi5w733xki0sex2l",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::update.update",
+      "properties": {
+        "fields": [
+          "title",
+          "image",
+          "content",
+          "featured",
+          "compensator",
+          "project"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "y0q4otz7ywu8rs6haov1re10",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::update.update",
+      "properties": {
+        "fields": [
+          "title",
+          "image",
+          "content",
+          "featured",
+          "compensator",
+          "project"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
       "documentId": "q6qnwkbq1k8rh4kjh69tpt37",
       "action": "plugin::upload.assets.copy-link",
       "actionParameters": {},
