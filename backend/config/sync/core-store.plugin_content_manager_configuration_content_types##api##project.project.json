@@ -234,20 +234,6 @@
           "sortable": false
         }
       },
-      "catchmentBasin": {
-        "edit": {
-          "label": "catchmentBasin",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "catchmentBasin",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "updates": {
         "edit": {
           "label": "updates",
@@ -382,6 +368,12 @@
       }
     },
     "layouts": {
+      "list": [
+        "id",
+        "name",
+        "validatingPartner",
+        "monitoringReports"
+      ],
       "edit": [
         [
           {
@@ -467,10 +459,6 @@
         ],
         [
           {
-            "name": "catchmentBasin",
-            "size": 6
-          },
-          {
             "name": "updates",
             "size": 6
           }
@@ -491,12 +479,6 @@
             "size": 6
           }
         ]
-      ],
-      "list": [
-        "id",
-        "name",
-        "validatingPartner",
-        "monitoringReports"
       ]
     },
     "uid": "api::project.project"

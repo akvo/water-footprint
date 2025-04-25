@@ -699,7 +699,7 @@
       "locale": null
     },
     {
-      "documentId": "amgrs9ni2klzjj006bbqzv7e",
+      "documentId": "wv2fhg38hkootfgvfximio5c",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -720,7 +720,6 @@
           "coordinates",
           "description",
           "projectImage",
-          "catchmentBasin",
           "updates",
           "country",
           "type",
@@ -750,7 +749,7 @@
       "locale": null
     },
     {
-      "documentId": "jqvt2hr5gytqpvij1lvlckm7",
+      "documentId": "fdcgqrn6miexlsrtamx5g9hk",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -771,7 +770,6 @@
           "coordinates",
           "description",
           "projectImage",
-          "catchmentBasin",
           "updates",
           "country",
           "type",
@@ -783,7 +781,7 @@
       "locale": null
     },
     {
-      "documentId": "jbqjc50v8rsb2p0izaw1dn8b",
+      "documentId": "phlejmnnzfl0ljujs0lfj0kr",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -804,7 +802,6 @@
           "coordinates",
           "description",
           "projectImage",
-          "catchmentBasin",
           "updates",
           "country",
           "type",
