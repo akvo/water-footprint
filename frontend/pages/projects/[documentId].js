@@ -80,7 +80,7 @@ export default function ProjectPage() {
           documentId: projectData.documentId,
           title: projectData.name,
           description: projectData.description,
-          targetCompensation: projectData.targetCompensation,
+          targetCompensation: projectData.targetCaps,
           waterCompensated: {
             capsFunded,
             targetCaps,
@@ -368,8 +368,7 @@ export default function ProjectPage() {
                         PROJECT BUDGET :
                       </div>
                       <div className="text-[#27173E] text-lg ml-2">
-                        {project.targetCompensation?.toLocaleString() || 'N/A'}{' '}
-                        EUR
+                        {project.budget?.toLocaleString() || 'N/A'} EUR
                       </div>
                     </div>
 
@@ -453,7 +452,7 @@ export default function ProjectPage() {
                         formatter={(value, name, props) => {
                           const item = props.payload;
                           return [
-                            `$${value.toLocaleString()} EUR (${
+                            `€${value.toLocaleString()} EUR (${
                               item.caps
                             } CAPs)`,
                             item.name,
