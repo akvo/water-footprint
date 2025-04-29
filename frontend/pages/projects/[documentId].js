@@ -103,6 +103,7 @@ export default function ProjectPage() {
           monitoringReports: projectData.monitoringReports || {},
           updates: projectData.updates || [],
           basin: projectData.basin?.name || '',
+          additionalBenefits: projectData.additionalBenefits || '',
         };
 
         setProject(formattedProject);
@@ -348,6 +349,15 @@ export default function ProjectPage() {
               </div>
             )}
           </div>
+
+          {project.additionalBenefits && (
+            <div className="mt-10">
+              <h2 className="text-[#0DA2D7] text-3xl font-bold mb-4">
+                Additional Benefits
+              </h2>
+              <MarkdownRenderer content={project.additionalBenefits} />
+            </div>
+          )}
 
           {fundingData.length > 0 && (
             <div className="mt-10">
