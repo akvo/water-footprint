@@ -221,6 +221,126 @@
       "locale": null
     },
     {
+      "documentId": "iy2c88um9o02s451x9qsi3vp",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::homepage.homepage",
+      "properties": {
+        "fields": [
+          "title",
+          "description"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "itd985xu0g6mf88622dwp65l",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::homepage.homepage",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "b775ngc363zoywwjgrfigzjv",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::homepage.homepage",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "yrhqoqg45sxmkn401gq2digp",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::homepage.homepage",
+      "properties": {
+        "fields": [
+          "title",
+          "description"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "xawk00an92d9dmyrvn3w3bah",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::homepage.homepage",
+      "properties": {
+        "fields": [
+          "title",
+          "description"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "xr0l1n9fjv6zibu3vcglb8i2",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::interactive-tools-page.interactive-tools-page",
+      "properties": {
+        "fields": [
+          "title",
+          "interactiveToolsDescription"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "lh0ei05lwbbtxh0vbhklmhh6",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::interactive-tools-page.interactive-tools-page",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "rj9ggih5dt4x1gtg4jwlvsq5",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::interactive-tools-page.interactive-tools-page",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "idjwj4a2sn0dypqmt2df5axo",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::interactive-tools-page.interactive-tools-page",
+      "properties": {
+        "fields": [
+          "title",
+          "interactiveToolsDescription"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "uznijnm462b20sy7f017lje9",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::interactive-tools-page.interactive-tools-page",
+      "properties": {
+        "fields": [
+          "title",
+          "interactiveToolsDescription"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
       "documentId": "mey3cwo2qhgsqpwchsei3ygr",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
@@ -636,6 +756,126 @@
           "featured",
           "compensator",
           "project"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "u9umhaw2tpuu3n5wkmkhiihb",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::waterhubs-page.waterhubs-page",
+      "properties": {
+        "fields": [
+          "title",
+          "waterHubsDescription"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "dyhfz2pnjv3xbw860futxvbx",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::waterhubs-page.waterhubs-page",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "ykbpdfejgd2ql072a6yh0q6m",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::waterhubs-page.waterhubs-page",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "i51rr3joofv61rwk69yonqou",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::waterhubs-page.waterhubs-page",
+      "properties": {
+        "fields": [
+          "title",
+          "waterHubsDescription"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "rzim7oexta1j2kmgp56wixzp",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::waterhubs-page.waterhubs-page",
+      "properties": {
+        "fields": [
+          "title",
+          "waterHubsDescription"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "tn8gzl8uj9s2vioh86ousmht",
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::waterstat-page.waterstat-page",
+      "properties": {
+        "fields": [
+          "title",
+          "waterStatDescription"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "bcrwi3drki9wjjk5axbs16tt",
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::waterstat-page.waterstat-page",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "n425d0fhbuh01rh2phxly7oo",
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::waterstat-page.waterstat-page",
+      "properties": {},
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "njzbb1jjh1cfgmsqcyvrt0il",
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::waterstat-page.waterstat-page",
+      "properties": {
+        "fields": [
+          "title",
+          "waterStatDescription"
+        ]
+      },
+      "conditions": [],
+      "locale": null
+    },
+    {
+      "documentId": "vir6xmggwzjeuguua9yhzwq8",
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::waterstat-page.waterstat-page",
+      "properties": {
+        "fields": [
+          "title",
+          "waterStatDescription"
         ]
       },
       "conditions": [],
