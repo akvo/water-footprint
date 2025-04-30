@@ -22,6 +22,12 @@ import { useAppContext } from '@/context/AppContext';
 import Link from 'next/link';
 import { SlidersHorizontal, Search, ChevronDown, X } from 'lucide-react';
 
+//adjusted for projects list
+const worldBounds = [
+  [-85, -360], // Southwest corner (latitude, longitude)
+  [85, 270], // Northeast corner (latitude, longitude)
+];
+
 const MapBoundsFilter = ({ onBoundsChange }) => {
   const map = useMapEvents({
     moveend: () => {
@@ -805,6 +811,9 @@ export default function ProjectMap({ projectIds = [], setProjectCount }) {
             center={[20, 0]}
             zoom={2}
             zoomControl={false}
+            minZoom={2}
+            maxBounds={worldBounds}
+            maxBoundsViscosity={1.0}
             style={{ height: '100%', width: '100%' }}
           >
             <TileLayer
