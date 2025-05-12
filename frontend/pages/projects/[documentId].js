@@ -162,8 +162,17 @@ export default function ProjectPage() {
                 <h2 className="text-gray-800 font-bold mb-4">
                   PROJECT DESCRIPTION
                 </h2>
-                <p className="text-gray-700 text-[16px] leading-[26px]">
+                <div className="text-gray-700 text-[16px] leading-[26px]">
                   <MarkdownRenderer content={project.description} />
+                </div>
+                <p className="text-gray-700 text-[16px] leading-[26px]">
+                  Interested?{' '}
+                  <Link
+                    className="text-blue-600 visited:text-purple-600 hover:underline"
+                    href={`/join-the-network?project-title=${project.title}`}
+                  >
+                    Request more information here.
+                  </Link>
                 </p>
               </div>
               {project.basin && (

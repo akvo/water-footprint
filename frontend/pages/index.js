@@ -306,7 +306,7 @@ const ActiveProjectsSection = ({ setProjectCount }) => {
   return (
     <div className="bg-white py-12">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-[#0da2d7] py-4">
+        <h2 className="text-4xl font-bold text-[#0da2d7] py-4" id="projects">
           Active Projects
         </h2>
         <div className="flex pt-4 border-t border-gray-400 mt-6">

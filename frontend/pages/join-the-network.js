@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Send, Loader2 } from 'lucide-react';
 import { env } from '@/utils';
+import { useRouter } from 'next/router';
 
 const ContactPage = () => {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -13,6 +16,33 @@ const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(null);
+  const projectTitleFromQuery = router.query['project-title'];
+
+  useEffect(() => {
+    // Only run when the router is ready and we have a project name from the query
+    if (router.isReady && projectTitleFromQuery) {
+      let derivedProjectTitle = Array.isArray(projectTitleFromQuery)
+        ? projectTitleFromQuery[0] || ''
+        : projectTitleFromQuery;
+
+      // Ensure we actually got a project name string
+      if (derivedProjectTitle) {
+        const newPotentialSubject = `Expression of interest in ${derivedProjectTitle}`;
+
+        setFormData((prevFormData) => {
+          // Only pre-fill the subject if the user hasn't typed anything into it yet
+          if (prevFormData.subject === '') {
+            return {
+              ...prevFormData,
+              subject: newPotentialSubject,
+            };
+          }
+          // Otherwise, return the previous form data as is
+          return prevFormData;
+        });
+      }
+    }
+  }, [router.isReady, projectTitleFromQuery]);
 
   const validateForm = () => {
     const errors = {};
