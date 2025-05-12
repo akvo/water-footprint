@@ -86,6 +86,9 @@ export default function Footer() {
               <li>
                 <Link href="/water-stat">WaterStat</Link>
               </li>
+              <li>
+                <Link href="/#projects">Projects</Link>
+              </li>
             </ul>
           </div>
         </div>
