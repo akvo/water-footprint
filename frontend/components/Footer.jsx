@@ -48,6 +48,9 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
+                <Link href="/#projects">Projects</Link>
+              </li>
+              <li>
                 <Link href="/partners">Partners</Link>
               </li>
               <li>
@@ -85,9 +88,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/water-stat">WaterStat</Link>
-              </li>
-              <li>
-                <Link href="/#projects">Projects</Link>
               </li>
             </ul>
           </div>
