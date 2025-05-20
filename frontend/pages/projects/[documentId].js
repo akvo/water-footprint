@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { toWords } from 'number-to-words';
 import { cn, env, fetchStrapiData } from '@/utils';
 import { prepareProjectChartData } from '@/utils/projectChartUtils';
 import Link from 'next/link';
@@ -375,8 +376,13 @@ export default function ProjectPage() {
               </h2>
 
               <p className="text-gray-700 mb-6">
-                This project is funded by a total of six organisations committed
-                to compensating their residual footprints.
+                {`This project is funded by ${toWords(
+                  project.projectCompensators.length
+                )} organisation${
+                  project.projectCompensators.length > 1 ? 's' : ''
+                } committed to compensating their residual footprint${
+                  project.projectCompensators.length > 1 ? 's' : ''
+                }.`}
               </p>
 
               <div className="flex gap-8 items-end">
