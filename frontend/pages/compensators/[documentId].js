@@ -132,13 +132,14 @@ export default function CompensatorProfile() {
         coordinates: project.coordinates
           .split(',')
           .map((coord) => parseFloat(coord.trim())),
-        contributionPercentage: projectCompensation
-          ? Math.round(
-              (parseFloat(projectCompensation.capsFunded) /
-                parseFloat(compensatorData.targetPledgeCaps)) *
-                100
-            )
-          : 0,
+        contributionPercentage:
+          projectCompensation?.amountFunded && project?.budget
+            ? Math.round(
+                (parseFloat(projectCompensation.amountFunded) /
+                  parseFloat(project.budget)) *
+                  100
+              )
+            : null, //If the budget or amount funded is zero or not set then we won't show a percentage as it's not meaningful
         capsFunded: projectCompensation ? projectCompensation.capsFunded : 0,
       };
     });
