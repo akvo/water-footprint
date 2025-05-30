@@ -699,7 +699,7 @@
       "locale": null
     },
     {
-      "documentId": "wv2fhg38hkootfgvfximio5c",
+      "documentId": "ok9g6bwql1v6g53gpushj959",
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -724,7 +724,8 @@
           "country",
           "type",
           "amountFunded",
-          "basin"
+          "basin",
+          "additionalBenefits"
         ]
       },
       "conditions": [],
@@ -749,7 +750,7 @@
       "locale": null
     },
     {
-      "documentId": "fdcgqrn6miexlsrtamx5g9hk",
+      "documentId": "yfy4i3p37nvmavlb6ya3waqy",
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -774,14 +775,15 @@
           "country",
           "type",
           "amountFunded",
-          "basin"
+          "basin",
+          "additionalBenefits"
         ]
       },
       "conditions": [],
       "locale": null
     },
     {
-      "documentId": "phlejmnnzfl0ljujs0lfj0kr",
+      "documentId": "eksgjbnglbnx3cr1s6v1zhy5",
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
       "subject": "api::project.project",
@@ -806,7 +808,8 @@
           "country",
           "type",
           "amountFunded",
-          "basin"
+          "basin",
+          "additionalBenefits"
         ]
       },
       "conditions": [],

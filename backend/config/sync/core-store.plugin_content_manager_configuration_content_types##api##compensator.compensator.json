@@ -68,7 +68,7 @@
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
+          "editable": false,
           "mainField": "id"
         },
         "list": {
@@ -208,12 +208,6 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "name",
-        "sdgs",
-        "targetPledgeCaps"
-      ],
       "edit": [
         [
           {
@@ -263,6 +257,12 @@
             "size": 6
           }
         ]
+      ],
+      "list": [
+        "id",
+        "name",
+        "sdgs",
+        "targetPledgeCaps"
       ]
     },
     "uid": "api::compensator.compensator"

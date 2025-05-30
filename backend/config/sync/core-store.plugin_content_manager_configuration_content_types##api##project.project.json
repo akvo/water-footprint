@@ -169,7 +169,7 @@
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
+          "editable": false,
           "mainField": "id"
         },
         "list": {
@@ -306,6 +306,20 @@
           "label": "basin",
           "searchable": true,
           "sortable": true
+        }
+      },
+      "additionalBenefits": {
+        "edit": {
+          "label": "additionalBenefits",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "additionalBenefits",
+          "searchable": false,
+          "sortable": false
         }
       },
       "createdAt": {
@@ -477,6 +491,12 @@
           {
             "name": "basin",
             "size": 6
+          }
+        ],
+        [
+          {
+            "name": "additionalBenefits",
+            "size": 12
           }
         ]
       ]
