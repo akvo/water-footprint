@@ -65,7 +65,7 @@ const ProjectsListing = ({ projects }) => {
               <p className="text-gray-700 text-sm mb-4 line-clamp-3 overflow-hidden text-ellipsis">
                 {project.description}
               </p>
-              {project.contributionPercentage && (
+              {!!project.contributionPercentage && (
                 <div className="border-t border-gray-200 pt-4 mt-4">
                   <div className="text-sm text-gray-700 mb-2">
                     Proportion of budget contributed:
