@@ -17,7 +17,8 @@
       "unique": true
     },
     "description": {
-      "type": "text"
+      "type": "text",
+      "required": true
     },
     "link": {
       "type": "string"

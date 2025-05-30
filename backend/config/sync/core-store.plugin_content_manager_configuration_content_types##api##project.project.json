@@ -109,7 +109,7 @@
       },
       "actualCompensation": {
         "edit": {
-          "label": "actualCompensation",
+          "label": "CAPs Funded",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -281,7 +281,7 @@
       },
       "amountFunded": {
         "edit": {
-          "label": "amountFunded",
+          "label": "Amount Funded",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -382,12 +382,6 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "name",
-        "validatingPartner",
-        "monitoringReports"
-      ],
       "edit": [
         [
           {
@@ -499,6 +493,12 @@
             "size": 12
           }
         ]
+      ],
+      "list": [
+        "id",
+        "name",
+        "validatingPartner",
+        "monitoringReports"
       ]
     },
     "uid": "api::project.project"

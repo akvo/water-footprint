@@ -51,7 +51,8 @@
       "type": "date"
     },
     "budget": {
-      "type": "biginteger"
+      "type": "biginteger",
+      "required": true
     },
     "projectCompensators": {
       "type": "relation",
@@ -98,7 +99,8 @@
       "target": "api::project-type.project-type"
     },
     "amountFunded": {
-      "type": "biginteger"
+      "type": "biginteger",
+      "required": true
     },
     "basin": {
       "type": "relation",
