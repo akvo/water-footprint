@@ -65,20 +65,21 @@ const ProjectsListing = ({ projects }) => {
               <p className="text-gray-700 text-sm mb-4 line-clamp-3 overflow-hidden text-ellipsis">
                 {project.description}
               </p>
-
-              <div className="border-t border-gray-200 pt-4 mt-4">
-                <div className="text-sm text-gray-700 mb-2">
-                  Amount Contributed
+              {project.contributionPercentage && (
+                <div className="border-t border-gray-200 pt-4 mt-4">
+                  <div className="text-sm text-gray-700 mb-2">
+                    Proportion of budget contributed:
+                  </div>
+                  <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-[#0DA2D7] rounded-full"
+                      style={{
+                        width: `${project.contributionPercentage}%`,
+                      }}
+                    ></div>
+                  </div>
                 </div>
-                <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-[#0DA2D7] rounded-full"
-                    style={{
-                      width: `${project.contributionPercentage}%`,
-                    }}
-                  ></div>
-                </div>
-              </div>
+              )}
             </div>
           </Link>
         ))}

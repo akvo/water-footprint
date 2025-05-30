@@ -109,7 +109,7 @@
       },
       "actualCompensation": {
         "edit": {
-          "label": "actualCompensation",
+          "label": "CAPs Funded",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -169,7 +169,7 @@
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
+          "editable": false,
           "mainField": "id"
         },
         "list": {
@@ -281,7 +281,7 @@
       },
       "amountFunded": {
         "edit": {
-          "label": "amountFunded",
+          "label": "Amount Funded",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -306,6 +306,20 @@
           "label": "basin",
           "searchable": true,
           "sortable": true
+        }
+      },
+      "additionalBenefits": {
+        "edit": {
+          "label": "additionalBenefits",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "additionalBenefits",
+          "searchable": false,
+          "sortable": false
         }
       },
       "createdAt": {
@@ -368,12 +382,6 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "name",
-        "validatingPartner",
-        "monitoringReports"
-      ],
       "edit": [
         [
           {
@@ -478,7 +486,19 @@
             "name": "basin",
             "size": 6
           }
+        ],
+        [
+          {
+            "name": "additionalBenefits",
+            "size": 12
+          }
         ]
+      ],
+      "list": [
+        "id",
+        "name",
+        "validatingPartner",
+        "monitoringReports"
       ]
     },
     "uid": "api::project.project"
