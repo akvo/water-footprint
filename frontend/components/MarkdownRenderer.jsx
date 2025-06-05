@@ -21,7 +21,9 @@ export const MarkdownRenderer = ({ content, components = {} }) => {
     h3: ({ node, ...props }) => (
       <h3 {...props} className="text-lg font-semibold mt-2 mb-1" />
     ),
-    p: ({ node, ...props }) => <p {...props} className="mb-4" />,
+    p: ({ node, ...props }) => (
+      <p {...props} className="mb-4 whitespace-pre-wrap" />
+    ),
     ul: ({ node, ...props }) => (
       <ul {...props} className="list-disc pl-5 mb-4" />
     ),
